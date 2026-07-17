@@ -1,0 +1,20 @@
+{
+  "Peaking": 6,
+  "Peaking 2": 11,
+  "Tilt EQ": 8,
+  "Touch-Wah": 17,
+  "All-Pass": 14,
+  "Auto-Wah": 16,
+  "Band-Pass": 2,
+  "Envelope Filter": 15,
+  "Feedback Comb": 13,
+  "Feedforward Comb": 12,
+  "High-Pass": 3,
+  "High-Shelf": 5,
+  "High-Shelf 2": 10,
+  "Low-Pass": 1,
+  "Low-Shelf": 4,
+  "Low-Shelf 2": 9,
+  "Notch": 7,
+  "Null": 0
+}

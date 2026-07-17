@@ -1,0 +1,355 @@
+{
+ "_readme": "Display-value -> body wire-word laws for parameters whose display value is NOT a simple scale (map scale==1). word = round_half_up(normalized * 65534). Tapers: linear = (v-min)/(max-min); log = log10(v/min)/log10(max/min); int-raw = the word IS the raw integer value. 'confidence' reflects how firmly each range is established; treat 'unknown'/'documented' as needing your own verification and 'device-verified' as confirmed against hardware anchors (FW 32.02). Use with axefx_sysex_map.json for the param ids and set opcodes.",
+ "laws": [
+  {
+   "family": "Amp",
+   "param": "level",
+   "min": -80,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Oracle captures: -15dB->42597, -11->45218, -20->39320 exact; cache effect10 pid21 [-80,20]; 0dB@0.799997 anchor"
+  },
+  {
+   "family": "Comp",
+   "param": "threshold",
+   "min": -60,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "Firmware parameter table effect7 pid0 kind 0x161 [-60,20]; dB kinds linear (MEGATAP Threshold device-proven)"
+  },
+  {
+   "family": "Comp",
+   "param": "ratio",
+   "min": 1,
+   "max": 20,
+   "units": ":1",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "DEVICE: 4:1 -> word 30326 (log predicts 30327, 1 LSB); cache effect7 pid1 [1,20]; displays INFINITE at max"
+  },
+  {
+   "family": "Comp",
+   "param": "level",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "Cache effect7 pid4 kind 0x132 [-20,20]; (dB+20)/40 device-proven on GLOBAL PEQ gains"
+  },
+  {
+   "family": "Comp",
+   "param": "emphasis frequency",
+   "min": 100,
+   "max": 10000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect7 pid33 kind 0x242 [100,10000]; logfreq family device-proven (COMP pid8 sweep)"
+  },
+  {
+   "family": "Gate",
+   "param": "threshold",
+   "min": -100,
+   "max": 0,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "DEVICE: -45dB -> word 36044 == (dB+100)/100 exact; cache effect35 pid0 [-100,0]"
+  },
+  {
+   "family": "Reverb",
+   "param": "time",
+   "min": 0.1,
+   "max": 100,
+   "units": "s",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "DEVICE: 3.0s->word 1902, 10.0s->6494 == linear (v-0.1)/99.9 EXACT (log hypothesis refuted); range cache effect12 pid1 [0.1,100]"
+  },
+  {
+   "family": "Reverb",
+   "param": "early level",
+   "min": -40,
+   "max": 10,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "Cache effect12 pid7 kind 0x162 [-40,10]; conflicts store [-80,20] \u2014 firmware cache preferred"
+  },
+  {
+   "family": "Reverb",
+   "param": "pitch high cut",
+   "min": 200,
+   "max": 20000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect12 pid64 kind 0x242 [200,20000]"
+  },
+  {
+   "family": "Reverb",
+   "param": "voice 1 shift",
+   "min": -24,
+   "max": 24,
+   "units": "semitones",
+   "taper": "int-raw",
+   "confidence": "documented",
+   "source": "Cache effect12 pid52 kind 0x10 step1 [-24,24]; live raw semitones verified +/-12; negative body-word storage unverified (builder refuses negatives)"
+  },
+  {
+   "family": "Chorus",
+   "param": "rate",
+   "min": 0.1,
+   "max": 10,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "DEVICE: 1.5Hz -> word 38537 (log law predicts 38540, 3 LSB); cache effect16 pid2 [0.1,10]; Tempo!=NONE overrides"
+  },
+  {
+   "family": "Flanger",
+   "param": "rate",
+   "min": 0.05,
+   "max": 10,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect17 pid1 kind 0x243 [0.05,10]"
+  },
+  {
+   "family": "Drive",
+   "param": "bit reduce",
+   "min": 0,
+   "max": 24,
+   "units": "bits",
+   "taper": "int-raw",
+   "confidence": "documented",
+   "source": "Cache effect25 pid16 kind 0x10 [0,24]; integer raw device-verified s14 wide-sweep"
+  },
+  {
+   "family": "Drive",
+   "param": "mid frequency",
+   "min": 200,
+   "max": 2000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect25 pid14 kind 0x241 [200,2000] 1-decade; conflicts store 20-20000 \u2014 firmware cache preferred"
+  },
+  {
+   "family": "Megatap",
+   "param": "number of taps",
+   "min": 1,
+   "max": 128,
+   "units": "taps",
+   "taper": "int-raw",
+   "confidence": "documented",
+   "source": "Cache effect33 pid3 kind 0x10 [1,128]; device note; raw 1/16/32 exact"
+  },
+  {
+   "family": "Megatap",
+   "param": "threshold",
+   "min": -100,
+   "max": 0,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Map device-proven -20->0.8, -40->0.6, -60->0.4; OFF sentinel at -100"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 1",
+   "min": 20,
+   "max": 2000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect9 pid0 kind 0x242; band ranges DIFFER per band"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 2",
+   "min": 100,
+   "max": 10000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect9 pid1; Freq3 1000Hz->GET 0.5 device anchor fits [100,10000] log exact"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 3",
+   "min": 100,
+   "max": 10000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "_s25_findings: display 1000 Hz -> GET 0.5 exact"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 4",
+   "min": 100,
+   "max": 10000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect9 pid3"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 5",
+   "min": 200,
+   "max": 20000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Stored 0.60205 -> 3200 Hz exact on [200,20000] log"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 1",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "Cache effect9 pids10-14 kind 0x132 [-20,20] (Cygnus+); (dB+20)/40 device-proven on GLOBAL PEQ"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 2",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "Cache effect9 pids10-14"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 3",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "Cache effect9 pids10-14"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 4",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "Cache effect9 pids10-14"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 5",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "Cache effect9 pids10-14"
+  },
+  {
+   "family": "PEQ",
+   "param": "q1",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Log 0.1-10, Q 0.707 -> 0.42471 exact"
+  },
+  {
+   "family": "PEQ",
+   "param": "q2",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect9 pids5-9 kind 0x43"
+  },
+  {
+   "family": "PEQ",
+   "param": "q3",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect9 pids5-9 kind 0x43"
+  },
+  {
+   "family": "PEQ",
+   "param": "q4",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect9 pids5-9 kind 0x43"
+  },
+  {
+   "family": "PEQ",
+   "param": "q5",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "Cache effect9 pids5-9 kind 0x43"
+  },
+  {
+   "family": "Gate",
+   "param": "hold time",
+   "min": 1,
+   "max": 1000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "DEVICE: two exact anchors 50ms->0.56632, 100ms->0.66666 == log10(ms/1)/3; pid 2 identity proven by SET 0.05s -> display '50.00 ms'"
+  },
+  {
+   "family": "Gate",
+   "param": "release time",
+   "min": 1,
+   "max": 1000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "One device anchor 100ms->0.66666 fits log [1,1000]; same kind family as Hold"
+  },
+  {
+   "family": "Gate",
+   "param": "attack time",
+   "min": 1,
+   "max": 100,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "One device anchor 10ms->0.50000 fits log [1,100]"
+  },
+  {
+   "family": "Amp",
+   "param": "input trim",
+   "min": 0.1,
+   "max": 10,
+   "units": "X (displays 0-10 'Overdrive' on dual-gain amps)",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "DEVICE: IIC++ pid47 SET 9.5 -> norm 0.98886 == log10(9.5/0.1)/2 EXACT; label 'Overdrive' aliases here (display_label_index)"
+  }
+ ]
+}

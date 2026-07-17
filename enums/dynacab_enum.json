@@ -1,0 +1,558 @@
+{
+ "cabinets": {
+  "1x8 5F1 TWEED": 0,
+  "1x8 PRINCETONE": 1,
+  "1x10 BF PRINCETONE": 2,
+  "1x10 METRO BLUES": 3,
+  "1x10 SF PRINCETONE": 4,
+  "1x12 AC20": 5,
+  "1x12 BLACK MAGIK": 6,
+  "1x12 CAR AMBLER": 7,
+  "1x12 DELUXE TWEED": 8,
+  "1x12 DELUXE VERB": 9,
+  "1x12 DIV13 CJ11": 10,
+  "1x12 G12T-100": 11,
+  "1x12 HOT KITTY": 12,
+  "1x12 JR BLUES": 13,
+  "1x12 NUCLEAR TONE": 14,
+  "1x12 SCHOLZ": 15,
+  "1x12 TWEED 20112": 16,
+  "1x12 VIBRATO LUX": 17,
+  "1x15 HEART KEY": 18,
+  "1x15 PORTABASS": 19,
+  "1x15 VIBROVERB": 20,
+  "2x10 HEART KEY": 21,
+  "2x10 SUPER 6G4": 22,
+  "2x12 5153 STEALTH": 23,
+  "2x12 65 BASSGUY": 24,
+  "2x12 CHIEFMAN": 25,
+  "2x12 CLASS-A 30W": 26,
+  "2x12 DOUBLE VERB": 27,
+  "2x12 LEAD 80": 28,
+  "2x12 TEXAS STAR": 29,
+  "4x10 BASSGUY RI": 30,
+  "4x12 1960TV": 31,
+  "4x12 5153": 32,
+  "4x12 5153 STEALTH": 33,
+  "4x12 CITRUS": 34,
+  "4x12 FRIEDMAN GB": 35,
+  "4x12 FRIEDMAN V30": 36,
+  "4x12 LERXST": 37,
+  "4x12 RECTO SLANT": 38,
+  "4x12 RECTO STRAIGHT": 39,
+  "4x12 RUMBLE EV12L": 40,
+  "4x12 RUMBLE EV12S": 41,
+  "4x12 SOLO 100": 42,
+  "4x12 USA MC90": 43,
+  "8x10 SV BASS": 44
+ },
+ "mics": {
+  "Condenser": 0,
+  "Ribbon": 1,
+  "Dynamic 1": 2,
+  "Dynamic 2": 3
+ },
+ "real_names": {
+  "1x8 5F1 TWEED": {
+   "real": "Fender Tweed Champ (5F1) 1x8 combo",
+   "speakers": null,
+   "aliases": [
+    "Fender Champ 1x8",
+    "tweed champ"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x8 PRINCETONE": {
+   "real": "Fender Tweed Princeton (5F2-A) 1x8 combo",
+   "speakers": "Jupiter 8\"",
+   "aliases": [
+    "Fender Tweed Princeton 1x8",
+    "tweed princeton"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x10 BF PRINCETONE": {
+   "real": "Blackface Fender Princeton Reverb (AA964) 1x10 combo",
+   "speakers": null,
+   "aliases": [
+    "Fender Princeton Reverb 1x10",
+    "blackface princeton"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x10 METRO BLUES": {
+   "real": "Mesa/Boogie Subway Blues 1x10 combo",
+   "speakers": "Eminence Black Shadow 10\"",
+   "aliases": [
+    "Mesa Subway Blues 1x10",
+    "subway blues"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x10 SF PRINCETONE": {
+   "real": "Silverface Fender Princeton (AA964, no reverb) 1x10 combo",
+   "speakers": null,
+   "aliases": [
+    "Fender Princeton 1x10",
+    "silverface princeton"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 AC20": {
+   "real": "Morgan AC20 Deluxe 1x12 combo",
+   "speakers": "Celestion G12 Alnico Blue",
+   "aliases": [
+    "Morgan AC20 1x12",
+    "morgan ac20"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 BLACK MAGIK": {
+   "real": "Supro 1695T Black Magick 1x12 combo",
+   "speakers": "Jensen P12Q",
+   "aliases": [
+    "Supro Black Magick 1x12",
+    "supro 1x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 CAR AMBLER": {
+   "real": "Carr Rambler 1x12 combo",
+   "speakers": "12\" (probably Eminence Elsinore)",
+   "aliases": [
+    "Carr Rambler 1x12",
+    "carr rambler"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 DELUXE TWEED": {
+   "real": "Fender Tweed Deluxe (5E3) 1x12 combo",
+   "speakers": "Celestion Alnico Blue 12\"",
+   "aliases": [
+    "Fender Tweed Deluxe 1x12",
+    "tweed deluxe"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 DELUXE VERB": {
+   "real": "Fender Deluxe Reverb (AB763) 1x12 combo",
+   "speakers": "Jensen C12K",
+   "aliases": [
+    "Fender Deluxe Reverb 1x12",
+    "deluxe reverb 1x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 DIV13 CJ11": {
+   "real": "Divided by 13 CJ11 1x12 combo",
+   "speakers": "Celestion G12M Greenback",
+   "aliases": [
+    "Divided by 13 CJ11 1x12",
+    "divided by 13 1x12",
+    "greenback 1x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 G12T-100": {
+   "real": "Custom 1x12 cabinet with Celestion G12T-100",
+   "speakers": "Celestion G12T-100",
+   "aliases": [
+    "Celestion G12T-100 1x12",
+    "g12t100 1x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 HOT KITTY": {
+   "real": "Bad Cat Hot Cat 30 1x12 combo",
+   "speakers": "custom Celestion V30",
+   "aliases": [
+    "Bad Cat Hot Cat 1x12",
+    "bad cat 1x12",
+    "V30 1x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 JR BLUES": {
+   "real": "Fender Blues Junior 1x12 combo",
+   "speakers": "12\" (Eminence or Jensen)",
+   "aliases": [
+    "Fender Blues Junior 1x12",
+    "blues junior"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 NUCLEAR TONE": {
+   "real": "Swart Atomic Space Tone 1x12 combo",
+   "speakers": "Mojotone BV-25M",
+   "aliases": [
+    "Swart Atomic Space Tone 1x12",
+    "swart 1x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 SCHOLZ": {
+   "real": "MojoTone West Coast 1x12 cabinet (Tom Scholz / Rockman association)",
+   "speakers": "Scholz SugarCone (Classic) 12\"",
+   "aliases": [
+    "MojoTone West Coast 1x12",
+    "scholz sugarcone",
+    "rockman cab"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 TWEED 20112": {
+   "real": "Victoria 20112 Deluxe Tweed 1x12 combo",
+   "speakers": "Eminence 12\"",
+   "aliases": [
+    "Victoria 20112 1x12",
+    "victoria tweed 1x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x12 VIBRATO LUX": {
+   "real": "Brownface Fender Vibrolux (6G11) 1x12 combo",
+   "speakers": null,
+   "aliases": [
+    "Fender Vibrolux 1x12",
+    "vibrolux"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x15 HEART KEY": {
+   "real": "Hartke 1x15 bass combo",
+   "speakers": "Hartke HyDrive 15\"",
+   "aliases": [
+    "Hartke 1x15 bass",
+    "hartke 1x15"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x15 PORTABASS": {
+   "real": "Ampeg Portaflex 1x15 bass cabinet",
+   "speakers": "Eminence 15\"",
+   "aliases": [
+    "Ampeg Portaflex 1x15",
+    "portaflex 1x15"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "1x15 VIBROVERB": {
+   "real": "Fender Vibroverb (AA763) 1x15 combo",
+   "speakers": "JBL D130 15\"",
+   "aliases": [
+    "Fender Vibroverb 1x15",
+    "vibroverb jbl"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "2x10 HEART KEY": {
+   "real": "Hartke 2x10 bass combo",
+   "speakers": "Hartke HyDrive 10\" (paper/aluminum cone)",
+   "aliases": [
+    "Hartke 2x10 bass",
+    "hartke 2x10"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "2x10 SUPER 6G4": {
+   "real": "Brownface Fender Super (6G4) 2x10 combo",
+   "speakers": null,
+   "aliases": [
+    "Fender Super 2x10",
+    "brownface super"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "2x12 5153 STEALTH": {
+   "real": "EVH 5150 III Stealth 2x12 cabinet",
+   "speakers": "Celestion G12H (EVH / 30W Anniversary)",
+   "aliases": [
+    "EVH 5150 Stealth 2x12",
+    "evh 2x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "2x12 65 BASSGUY": {
+   "real": "Blackface Fender Bassman (AB165) 2x12 cabinet",
+   "speakers": "original Fender 12\"",
+   "aliases": [
+    "Fender Bassman 2x12",
+    "blackface bassman 2x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "2x12 CHIEFMAN": {
+   "real": "Matchless Chieftain 2x12 combo",
+   "speakers": "custom Celestion G12H75",
+   "aliases": [
+    "Matchless Chieftain 2x12",
+    "matchless 2x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "2x12 CLASS-A 30W": {
+   "real": "1963 Vox AC30 2x12 combo",
+   "speakers": "Vox Alnico Silver Bell 12\"",
+   "aliases": [
+    "Vox AC30 2x12",
+    "ac30 cab",
+    "silver bell 2x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "2x12 DOUBLE VERB": {
+   "real": "Blackface Fender Twin Reverb 2x12 combo",
+   "speakers": "original Fender 12\"",
+   "aliases": [
+    "Fender Twin Reverb 2x12",
+    "twin reverb cab"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "2x12 LEAD 80": {
+   "real": "2x12 cabinet with Celestion Classic Lead 80s (possibly Bogner Shiva)",
+   "speakers": "Celestion Classic Lead 80",
+   "aliases": [
+    "Classic Lead 80 2x12",
+    "bogner shiva 2x12"
+   ],
+   "confidence": "inferred",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json ('possibly Bogner Shiva')"
+  },
+  "2x12 TEXAS STAR": {
+   "real": "Mesa/Boogie Lone Star 2x12 combo/cabinet",
+   "speakers": "Celestion MC90 / Black Shadow (probable)",
+   "aliases": [
+    "Mesa Lone Star 2x12",
+    "lone star 2x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x10 BASSGUY RI": {
+   "real": "Fender '59 Bassman LTD reissue 4x10 combo",
+   "speakers": "Jensen P10",
+   "aliases": [
+    "Fender Bassman 4x10",
+    "bassman reissue 4x10"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 1960TV": {
+   "real": "Marshall 1960TV 4x12 cabinet (tall vertical, angled)",
+   "speakers": "Celestion G12M Greenback",
+   "aliases": [
+    "Marshall 1960TV Greenback 4x12",
+    "marshall 4x12",
+    "greenback 4x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 5153": {
+   "real": "EVH 5150 III 4x12 cabinet",
+   "speakers": "Celestion 12\" (EVH)",
+   "aliases": [
+    "EVH 5150 4x12",
+    "evh 4x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 5153 STEALTH": {
+   "real": "EVH 5150 III Stealth 4x12 cabinet",
+   "speakers": "Celestion G12 EVH 20W",
+   "aliases": [
+    "EVH 5150 Stealth 4x12",
+    "evh stealth 4x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 CITRUS": {
+   "real": "Orange 4x12 cabinet",
+   "speakers": "Celestion V30",
+   "aliases": [
+    "Orange PPC412",
+    "orange 4x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 FRIEDMAN GB": {
+   "real": "Friedman 4x12 checkered cabinet (Greenback half)",
+   "speakers": "Celestion G12M Greenback",
+   "aliases": [
+    "Friedman Greenback 4x12",
+    "friedman gb 4x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 FRIEDMAN V30": {
+   "real": "Friedman 4x12 checkered cabinet (V30 half)",
+   "speakers": "Celestion V30",
+   "aliases": [
+    "Friedman V30 4x12",
+    "friedman 4x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 LERXST": {
+   "real": "Lerxst 4x12 cabinet (Alex Lifeson signature)",
+   "speakers": "Celestion (probably Greenback)",
+   "aliases": [
+    "Lerxst Omega 4x12",
+    "alex lifeson 4x12"
+   ],
+   "confidence": "inferred",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json ('probably greenbacks')"
+  },
+  "4x12 RECTO SLANT": {
+   "real": "Mesa/Boogie Rectifier 4x12 slant cabinet",
+   "speakers": "Celestion V30",
+   "aliases": [
+    "Mesa Recto 4x12 V30",
+    "mesa recto slant",
+    "recto cab",
+    "V30 4x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json (cab); V30 = standard Recto 4x12 loadout (not named in wiki line)"
+  },
+  "4x12 RECTO STRAIGHT": {
+   "real": "Mesa/Boogie Rectifier 4x12 straight cabinet",
+   "speakers": "Celestion V30",
+   "aliases": [
+    "Mesa Recto 4x12 straight",
+    "mesa recto straight"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json (cab); V30 = standard Recto 4x12 loadout (not named in wiki line)"
+  },
+  "4x12 RUMBLE EV12L": {
+   "real": "Dumble Overdrive Special 4x12 cabinet (EV12L)",
+   "speakers": "Electro-Voice EVM-12L",
+   "aliases": [
+    "Dumble 4x12 EV12L",
+    "dumble ev12l"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 RUMBLE EV12S": {
+   "real": "Dumble Overdrive Special 4x12 cabinet (EV12S)",
+   "speakers": "Electro-Voice EVM-12S",
+   "aliases": [
+    "Dumble 4x12 EV12S",
+    "dumble ev12s"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 SOLO 100": {
+   "real": "Soldano SLO-100 4x12 cabinet",
+   "speakers": null,
+   "aliases": [
+    "Soldano SLO 4x12",
+    "soldano 4x12",
+    "slo cab"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "4x12 USA MC90": {
+   "real": "1980s Mesa/Boogie 4x12 cabinet (metal grille, 'Cliff's Boogie' cab)",
+   "speakers": "Celestion MC90 / Black Shadow",
+   "aliases": [
+    "Mesa MC90 4x12",
+    "mesa boogie 4x12"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  },
+  "8x10 SV BASS": {
+   "real": "Ampeg SVT-810 bass cabinet",
+   "speakers": "8x10\" (SVT stock)",
+   "aliases": [
+    "Ampeg SVT 8x10",
+    "svt fridge"
+   ],
+   "confidence": "sourced",
+   "source": "The Fractal wiki Cab_models_list.txt (DynaCabs) via cab_device_relationships.json"
+  }
+ },
+ "mic_real_names": {
+  "Condenser": {
+   "real": "Soyuz 023 (large-diaphragm condenser)",
+   "speakers": null,
+   "aliases": [
+    "Soyuz 023",
+    "soyuz"
+   ],
+   "confidence": "sourced",
+   "source": "Claude/skills/tech/knowledge/ p.7-8 (FAS Cab block guide mic name-checks)"
+  },
+  "Ribbon": {
+   "real": "Royer R-121 (ribbon)",
+   "speakers": null,
+   "aliases": [
+    "Royer 121",
+    "royer",
+    "r121"
+   ],
+   "confidence": "sourced",
+   "source": "Claude/skills/tech/knowledge/ p.7-8 (FAS Cab block guide mic name-checks)"
+  },
+  "Dynamic 1": {
+   "real": "Shure SM57 (dynamic)",
+   "speakers": null,
+   "aliases": [
+    "SM57",
+    "shure sm57"
+   ],
+   "confidence": "sourced",
+   "source": "Claude/skills/tech/knowledge/ p.7-8 (FAS Cab block guide mic name-checks)"
+  },
+  "Dynamic 2": {
+   "real": "Shure SM7B (dynamic)",
+   "speakers": null,
+   "aliases": [
+    "SM7B",
+    "shure sm7b"
+   ],
+   "confidence": "sourced",
+   "source": "Claude/skills/tech/knowledge/ p.7-8 (FAS Cab block guide mic name-checks)"
+  }
+ }
+}

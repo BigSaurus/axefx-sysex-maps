@@ -1,0 +1,34 @@
+Axe-Fx III SysEx & Parameter Maps
+Copyright (c) 2026 Big Saurus
+
+This work (the JSON maps and accompanying documentation in this repository) is
+licensed under the Creative Commons Attribution 4.0 International License
+(CC BY 4.0).
+
+You are free to:
+  - Share  — copy and redistribute the material in any medium or format
+  - Adapt  — remix, transform, and build upon the material for any purpose,
+             even commercially
+
+Under the following terms:
+  - Attribution — You must give appropriate credit to "Big Saurus", provide a
+    link to this repository, and indicate if changes were made. You may do so
+    in any reasonable manner, but not in any way that suggests the licensor
+    endorses you or your use.
+
+The full license text is available at:
+  https://creativecommons.org/licenses/by/4.0/legalcode
+
+--------------------------------------------------------------------------------
+
+NOTICE
+
+This is an independent, community reverse-engineering reference. It is NOT
+affiliated with, authorized by, or endorsed by Fractal Audio Systems.
+"Axe-Fx", "Fractal Audio", and related names are trademarks of Fractal Audio
+Systems and are used here only for identification and interoperability.
+
+The data was captured on firmware 32.02 and is provided "as is", without
+warranty of any kind. Parameter IDs, model IDs, and value scales can change
+between firmware versions. Sending SysEx to hardware can alter presets and
+persistent settings; see SAFETY.md. Use at your own risk.
