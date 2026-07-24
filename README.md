@@ -1,8 +1,12 @@
 # Axe-Fx III SysEx & Parameter Maps
 
 An open reference for the **Fractal Audio Axe-Fx III** MIDI SysEx protocol, reverse-engineered
-and device-verified on **firmware 32.02**. These are the maps you need to read and set parameters,
-identify amp/cab/drive models, and build a signal chain over SysEx — without starting from zero.
+and device-verified on **firmware 32.02**. These maps let you address **any block and any
+parameter on the device by name** — every effect block, every parameter within it, plus device
+and global settings — reading and writing each one with its real display value, and identifying
+amp/cab/drive models along the way. Nothing here is limited to a handful of block types: the
+master map spans the whole device, so you can build and edit a complete signal chain over SysEx
+without starting from zero.
 
 This is **reference data only**: JSON maps plus protocol notes. There is no editor, controller,
 or automation here. Use it to build your own tools.
@@ -17,6 +21,11 @@ This is an **actively developed** reverse-engineering effort — new parameters 
 renamed, and corrected between releases (including at least one **breaking** param-ID fix so far).
 **[CHANGELOG.md](CHANGELOG.md) is the source of truth for what is actually released.** Read it
 before building against the maps, and read it again when you pull an update.
+
+These maps are **maintained and kept current with Fractal's firmware releases.** As Fractal ships
+new firmware, new and changed parameters get folded into the maps and noted in the changelog. The
+current baseline is **FW 32.02**; when you pull an update, check [CHANGELOG.md](CHANGELOG.md) for
+what moved and which firmware it was verified against.
 
 ## Current coverage (this release)
 
@@ -89,9 +98,28 @@ parameter. Many entries are addressable (ID, label, type, page, enum) before the
 out; those are flagged, and derived encodings live in `param_word_laws.json`. Don't write a
 continuous value against an entry whose scale you haven't confirmed.
 
+## Contributing
+
+Corrections, additions, and newly derived value encodings for the Axe-Fx III are always
+welcome — open an issue or PR.
+
+### Help map the other Fractal devices
+
+If you can capture SysEx from another Fractal unit, please pitch in. This reference covers the
+Axe-Fx III, but the wider Fractal line — the **FM9**, **FM3**, **Axe-Fx II**, and **AX8** —
+deserves the same open treatment, and contributions to map them are warmly invited.
+
+There's a head start built in. From the reverse-engineering done here, the Fractal devices
+appear to **share a common base SysEx mapping**: the smaller units look less like a different
+protocol and more like a **subset** of the same block-and-parameter space, implementing a
+portion of what the Axe-Fx III exposes rather than re-inventing the scheme. This is an observed
+finding from our exploration, not a guarantee — but if it holds, mapping an FM3 or FM9 is
+largely a matter of **validating this Axe-Fx III map against that unit and trimming it to the
+subset the device implements**, rather than starting from zero. That lowers the effort
+dramatically. If you take one on, the master map is your baseline; note what matches, what's
+absent, and anything that genuinely differs, and send it back as a PR.
+
 ## License
 
 Data and docs are released under **CC BY 4.0** — free to use, adapt, and build on, with attribution
 to **Big Saurus**. See [LICENSE](LICENSE).
-
-Corrections and additions from other firmware versions are welcome — open an issue or PR.
