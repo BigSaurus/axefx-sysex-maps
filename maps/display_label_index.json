@@ -31036,6 +31036,11 @@
      "param_id": 69,
      "name": "Tempo",
      "note": "Alias 'Diffusion Tempo' -> 'Tempo' (pid 69): descriptive name used in session logs/BACKLOG; the on-screen label is bare 'Tempo' on the diffusion pair page."
+    },
+    "lfophase": {
+     "param_id": 70,
+     "name": "Phase",
+     "note": "Editor label 'LFO Phase' (shown under the Diffusor type) maps to the block's generic 'Phase' parameter (pid 70). Device-verified on FW 32.02."
     }
    },
    "common_controls": [

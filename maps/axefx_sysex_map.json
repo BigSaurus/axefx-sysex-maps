@@ -1388,7 +1388,7 @@
   "CAB": {
    "block_id": 62,
    "block_id_hex": "0x3E",
-   "param_count": 65,
+   "param_count": 66,
    "complete": true,
    "params": [
     {
@@ -2837,6 +2837,14 @@
      "page": 0,
      "note": "DEVICE-VERIFIED: DynaCab mic selector, SET = 01 09 float(index); 4-entry enum harvested live. Dynamic 1 = SM57-class close mic.",
      "scale": null
+    },
+    {
+     "name": "Length",
+     "param_id": 72,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
     }
    ],
    "dynacab": {
@@ -3275,7 +3283,7 @@
   "CHORUS": {
    "block_id": 78,
    "block_id_hex": "0x4E",
-   "param_count": 25,
+   "param_count": 26,
    "complete": true,
    "params": [
     {
@@ -3563,6 +3571,18 @@
      "scale": 100.0,
      "page": 0,
      "note": "Device-verified: Right Depth % (Tri-Chorus t15)"
+    },
+    {
+     "name": "Bypass",
+     "param_id": 28,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -3601,7 +3621,7 @@
   "COMP": {
    "block_id": 46,
    "block_id_hex": "0x2E",
-   "param_count": 20,
+   "param_count": 29,
    "complete": true,
    "params": [
     {
@@ -3807,6 +3827,107 @@
      "type": "slider",
      "scale": 1.0,
      "page": 1
+    },
+    {
+     "name": "Auto Makeup",
+     "param_id": 6,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Type",
+     "param_id": 12,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Modern VCA Compressor": 0,
+      "Econo-Dyno-Comp": 1,
+      "Dynami-Comp Modern": 2,
+      "Dynamics Processor": 3,
+      "Optical Compressor": 4,
+      "Vari-Mu Tube Compressor": 5,
+      "Analog Compressor": 6,
+      "Dynami-Comp Classic": 7,
+      "JFET Studio Compressor": 8,
+      "VCA FF Sustainer": 9,
+      "VCA Bus Compressor": 10,
+      "VCA FB Sustainer": 11,
+      "Compander": 12,
+      "Classic VCA Compressor": 13,
+      "Analog Sustainer": 14,
+      "JFET Pedal Compressor": 15,
+      "Rockguy Compressor": 16,
+      "Dynami-Comp Soft": 17,
+      "Citrus Juicer": 18
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Compression",
+     "param_id": 13,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Auto Att/Rel",
+     "param_id": 16,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Dynamics",
+     "param_id": 18,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Time",
+     "param_id": 31,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Transients",
+     "param_id": 32,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Tone",
+     "param_id": 35,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Drive",
+     "param_id": 36,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
     }
    ],
    "instances": {
@@ -3957,7 +4078,7 @@
   "DELAY": {
    "block_id": 70,
    "block_id_hex": "0x46",
-   "param_count": 88,
+   "param_count": 89,
    "complete": true,
    "params": [
     {
@@ -5013,6 +5134,18 @@
      "scale": 100.0,
      "page": 0,
      "note": "Cal (6-pt linear %, clamps at stored 1.0). label under Surround Delay(28); SAME PID = generic Depth (map Depth stays null pending its own cal)."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 83,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -5062,7 +5195,7 @@
   "DRIVE": {
    "block_id": 118,
    "block_id_hex": "0x76",
-   "param_count": 41,
+   "param_count": 42,
    "complete": true,
    "params": [
     {
@@ -5473,6 +5606,18 @@
       "On": 1
      },
      "note": "PI Fuzz Tone toggle. Found by checkbox-click + 01 19 GET-diff (p41 1.0->0.0); SET 0/1 flips UIA display Off/On both directions (type 1). Supersedes retired p42 (misattribution). Family 70/71/75/82 assumed same pid."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 39,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -5693,7 +5838,7 @@
   "ENHANCER": {
    "block_id": 122,
    "block_id_hex": "0x7A",
-   "param_count": 5,
+   "param_count": 10,
    "complete": true,
    "params": [
     {
@@ -5731,6 +5876,56 @@
      "scale": 1.0,
      "page": 0,
      "note": "Cal: dB raw, 4-pt exact. spot-verify: GET normalizes over the [-80,20] dB domain (2 dB -> GET 0.82)."
+    },
+    {
+     "name": "Phase Invert",
+     "param_id": 7,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "NONE": 0,
+      "RIGHT": 1,
+      "LEFT": 2,
+      "BOTH": 3
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Pan Left",
+     "param_id": 8,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Pan Right",
+     "param_id": 9,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Balance",
+     "param_id": 10,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 11,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -5744,7 +5939,7 @@
   "FBRETURN": {
    "block_id": 186,
    "block_id_hex": "0xBA",
-   "param_count": 4,
+   "param_count": 5,
    "complete": true,
    "params": [
     {
@@ -5779,6 +5974,14 @@
       "Mute FX Out": 1,
       "Mute Out": 2
      }
+    },
+    {
+     "name": "Bypass",
+     "param_id": 4,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified."
     }
    ],
    "instances": {
@@ -5807,7 +6010,7 @@
   "FILTER": {
    "block_id": 114,
    "block_id_hex": "0x72",
-   "param_count": 31,
+   "param_count": 33,
    "complete": true,
    "params": [
     {
@@ -6104,6 +6307,32 @@
       "On": 1
      },
      "note": "Map-absorption; pid device-verified via find_pid SET-and-watch; enum/scale = follow-up"
+    },
+    {
+     "name": "Bypass",
+     "param_id": 23,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Mode",
+     "param_id": 24,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "LOWPASS": 0,
+      "BANDPASS": 1,
+      "HIGHPASS": 2,
+      "MIX": 3
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -6142,7 +6371,7 @@
   "FLANGER": {
    "block_id": 82,
    "block_id_hex": "0x52",
-   "param_count": 30,
+   "param_count": 31,
    "complete": true,
    "params": [
     {
@@ -6432,6 +6661,18 @@
       "Off": 0,
       "On": 1
      }
+    },
+    {
+     "name": "Bypass",
+     "param_id": 32,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -6483,7 +6724,7 @@
   "FORMANT": {
    "block_id": 98,
    "block_id_hex": "0x62",
-   "param_count": 9,
+   "param_count": 10,
    "complete": true,
    "params": [
     {
@@ -6602,6 +6843,18 @@
       "Mute Out": 2
      },
      "note": "Device sweep."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 11,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -6615,7 +6868,7 @@
   "GATE": {
    "block_id": 146,
    "block_id_hex": "0x92",
-   "param_count": 11,
+   "param_count": 14,
    "complete": true,
    "params": [
     {
@@ -6730,6 +6983,33 @@
       "Peak": 1
      },
      "note": "Display walk: 2-enum, both names device-shown (default Peak); 2+ clamps."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 17,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Knee Type",
+     "param_id": 18,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "HARD": 0,
+      "MED-HARD": 1,
+      "MEDIUM": 2,
+      "MED-SOFT": 3,
+      "SOFT": 4
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -6743,7 +7023,7 @@
   "GRAPHEQ": {
    "block_id": 50,
    "block_id_hex": "0x32",
-   "param_count": 17,
+   "param_count": 18,
    "complete": true,
    "note": "Pid 10 GET mirrors pid 9 exactly (suspect hidden band-11 slot or GET echo); pids 13/14 GET 0.25 with no on-screen control tracking them. CLASSIFIED: pid 13 = REAL hidden 2-state toggle (parked entry 'Hidden Toggle (p13)', GET 0.25/0.75 sentinel, NOT the 0x0A bypass); pids 10/14 = write-deaf phantom-suspects (GET-echo only, entries added). BONUS: band pids 0-9 take RAW dB via 01 09 and GET normalizes over [-12,+12]. Round-trip evidence: all 13 pre-existing params were set BY LABEL through the real resolver and every display matched exactly (bands +/-dB two-decimals, Level '4.5 dB', Balance -30.0, Master Q 1.50). |: pid 13 IDENTIFIED = the on-screen Bypass Mode combo {Thru, Mute} (UIA diff under 5 GEQ Types; Scene-Ignore behavior test negative) -- entry renamed 'Bypass Mode', unparked.",
    "params": [
@@ -6895,6 +7175,18 @@
      "page": null,
      "status": "Phantom-suspect",
      "note": "Device: write-DEAF under BOTH 01 09 and 01 52, all probe values incl. big ints, under 5 different GEQ Types; resting GET 0.25. GET-echo-only phantom suspect (MULTITAP-38-style parked entry; never-delete rule)."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 19,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -7005,7 +7297,7 @@
   "LOOPER": {
    "block_id": 166,
    "block_id_hex": "0xA6",
-   "param_count": 7,
+   "param_count": 13,
    "complete": true,
    "params": [
     {
@@ -7066,6 +7358,59 @@
       "Full": 0,
       "Half": 1
      }
+    },
+    {
+     "name": "Playback Level",
+     "param_id": 0,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Overdub Level",
+     "param_id": 1,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Low Cut",
+     "param_id": 5,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Dry Level",
+     "param_id": 13,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Record 2nd Press",
+     "param_id": 19,
+     "type": "combo",
+     "scale": null,
+     "page": 1,
+     "values": {
+      "OVERDUB": 0,
+      "PLAY": 1,
+      "STOP": 2
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Max. Loop Time",
+     "param_id": 23,
+     "type": "slider",
+     "scale": null,
+     "page": 1,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
     }
    ],
    "instances": {
@@ -7079,7 +7424,7 @@
   "MEGATAP": {
    "block_id": 138,
    "block_id_hex": "0x8A",
-   "param_count": 23,
+   "param_count": 27,
    "complete": true,
    "params": [
     {
@@ -7280,19 +7625,54 @@
      "page": 0
     },
     {
-     "name": "Hidden Time (p11)",
+     "name": "Time Randomize",
      "param_id": 11,
      "type": "slider",
      "scale": null,
      "page": null,
-     "encoding": {
-      "type": "linaffine",
-      "a": 500.0,
-      "b": 0.0
+     "note": "Time-section Randomize (per-tap time variation). Device-verified on FW 32.02 by UI-set with passive MIDI read-back; the control displays in percent. A prior time-domain (ms) interpretation of this pid is superseded. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Shape",
+     "param_id": 5,
+     "type": "combo",
+     "scale": null,
+     "page": 1,
+     "values": {
+      "EXP/LOG": 0,
+      "SIGMOID": 1,
+      "COSINE": 2,
+      "SINE": 3
      },
-     "set_command": "01 52",
-     "status": "Partial",
-     "note": "Device: REAL continuous time param, identity PARKED -- no control under the default type (21 of 22 type layouts unwalked). Stored [0,1] <-> display domain 0-500 ms (linaffine a=500 b=0); default 40 ms (resting GET 0.08). Writes: 01 52 = normalized identity (matches this encoding, hence set_command 01 52); 01 09 interprets the value as RAW SECONDS (0.1 -> stored 0.2 = 100 ms; clamps at >= 0.5 s). NO enum snapping (continuous).: hunt CLOSED -- all 22 type layouts walked (8 pages each, two-point diff 0.1 <-> 0.44 via 01 52, GET-verified every leg), NO visible control anywhere; encoding stands, identity closed-as-internal. Supporting evidence it is real: each type loads its own pid-11 default over the 0-500 ms domain (e.g. types 0/1/5 -> 40 ms, 7/8 -> 325 ms, 15 -> 375 ms, 9/10/20/21 -> 10 ms; full table in the prior notes)."
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Alpha",
+     "param_id": 6,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Amplitude Randomize",
+     "param_id": 30,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Amplitude-section Randomize (per-tap level variation). Device-verified on FW 32.02 by UI-set with passive MIDI read-back. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Kill Dry",
+     "param_id": 33,
+     "type": "switch",
+     "scale": null,
+     "page": null,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -7476,7 +7856,7 @@
   "MULTIBAND": {
    "block_id": 154,
    "block_id_hex": "0x9A",
-   "param_count": 13,
+   "param_count": 29,
    "complete": true,
    "params": [
     {
@@ -7491,7 +7871,8 @@
      "param_id": 2,
      "type": "slider",
      "scale": 1.0,
-     "page": 0
+     "page": 0,
+     "band": "low"
     },
     {
      "name": "Ratio",
@@ -7499,6 +7880,7 @@
      "type": "slider",
      "scale": 1.0,
      "page": 0,
+     "band": "low",
      "note": "GET-ladder: stored IS the ratio multiplier, domain [1,20], log knob taper (ln(v)/ln20 3-pt exact). Panel repaint-dead for external SETs (whole block) -> GET-verified; INFINITE display sentinel at max unverified (COMP precedent). 0x52 no-ops here."
     },
     {
@@ -7506,21 +7888,24 @@
      "param_id": 4,
      "type": "slider",
      "scale": 1000.0,
-     "page": 0
+     "page": 0,
+     "band": "low"
     },
     {
      "name": "Release",
      "param_id": 5,
      "type": "slider",
      "scale": 1000.0,
-     "page": 0
+     "page": 0,
+     "band": "low"
     },
     {
      "name": "Level",
      "param_id": 6,
      "type": "slider",
      "scale": 1.0,
-     "page": 0
+     "page": 0,
+     "band": "low"
     },
     {
      "name": "Detector",
@@ -7532,6 +7917,7 @@
       "RMS": 0,
       "Peak": 1
      },
+     "band": "low",
      "note": "N=2 device-proven by GET ladder (both opcodes); names confirmed via GATE Detector Type 16 (same 2-enum, display-walked RMS/Peak). Panel display-dead."
     },
     {
@@ -7544,6 +7930,7 @@
       "Off": 0,
       "On": 1
      },
+     "band": "low",
      "note": "GET-ladder: binary; panel display-dead."
     },
     {
@@ -7596,13 +7983,171 @@
       "Soft": 1
      },
      "note": "N=2 by GET ladder; Soft device-shown default at GET 1.0. NOT COMP's 5-enum."
+    },
+    {
+     "name": "Mid/High Crossover",
+     "param_id": 1,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Mid Threshold",
+     "param_id": 9,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "band": "mid",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Mid Ratio",
+     "param_id": 10,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "band": "mid",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Mid Attack",
+     "param_id": 11,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "band": "mid",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Mid Release",
+     "param_id": 12,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "band": "mid",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Mid Level",
+     "param_id": 13,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "band": "mid",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Mid Detector",
+     "param_id": 14,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "RMS": 0,
+      "Peak": 1
+     },
+     "band": "mid",
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Mid Mute",
+     "param_id": 15,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "band": "mid",
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "High Threshold",
+     "param_id": 16,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "band": "high",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "High Ratio",
+     "param_id": 17,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "band": "high",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "High Attack",
+     "param_id": 18,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "band": "high",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "High Release",
+     "param_id": 19,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "band": "high",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "High Level",
+     "param_id": 20,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "band": "high",
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "High Detector",
+     "param_id": 21,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "RMS": 0,
+      "Peak": 1
+     },
+     "band": "high",
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "High Mute",
+     "param_id": 22,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "band": "high",
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Level (Master)",
+     "param_id": 24,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 1,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
     }
    ]
   },
   "MULTITAP": {
    "block_id": 74,
    "block_id_hex": "0x4A",
-   "param_count": 55,
+   "param_count": 80,
    "complete": true,
    "params": [
     {
@@ -8647,6 +9192,231 @@
       "63/64": 1.0
      },
      "note": "Device: the missing Tempo partner of the page-5 diffusion-LFO Rate (pid 66) / Depth (pid 67) pair -- the on-screen diffusion Tempo combo. 79-value extended tempo enum (values dict reused from Tempo 1, pid 5): stored NORMALIZED idx/78, GET = idx/78 EXACT (idx 5, 25, 78 verified). Setting it tempo-LOCKS pid 66 (Rate GET jumped 0.512 -> 0.741 when tempo idx 40 was set; released at idx 0 'None'). Writes: 01 52 normalized (snaps to the idx grid; matches this values dict) -- flagged set_command 01 52 so the enum coerces correctly; 01 09 ALSO writes, taking raw float(idx) (NOT 0x52-only, unlike Tempo 1-4). Map page 4 = the walk's page-5 diffusion bank (map pages sit at walk-1, per the stamp on pids 66/67)."
+    },
+    {
+     "name": "Diffusion Time",
+     "param_id": 39,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Attenuation",
+     "param_id": 57,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Motor Speed",
+     "param_id": 58,
+     "type": "slider",
+     "scale": null,
+     "page": 1,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Low Cut",
+     "param_id": 61,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "High Cut",
+     "param_id": 62,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Type",
+     "param_id": 68,
+     "type": "combo",
+     "scale": null,
+     "page": null,
+     "values": {
+      "SINE": 0,
+      "TRIANGLE": 1,
+      "SQUARE": 2,
+      "SAW UP": 3,
+      "SAW DOWN": 4,
+      "RANDOM": 5,
+      "LOG": 6,
+      "EXP": 7,
+      "TRAPEZOID": 8,
+      "ASTABLE": 9
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Phase",
+     "param_id": 70,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Attack Time",
+     "param_id": 72,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Release Time",
+     "param_id": 73,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Comb Time",
+     "param_id": 74,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Comb Depth",
+     "param_id": 75,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Filter Type",
+     "param_id": 76,
+     "type": "switch",
+     "scale": null,
+     "page": 5,
+     "values": {
+      "FEEDBACK": 0,
+      "FEEDFORWARD": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Ring Mod Frequency",
+     "param_id": 85,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Ring Mod Mix",
+     "param_id": 86,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Input Select",
+     "param_id": 103,
+     "type": "combo",
+     "scale": null,
+     "page": null,
+     "values": {
+      "L+R": 0,
+      "LEFT": 1,
+      "RIGHT": 2
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Chorus Rate",
+     "param_id": 104,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Chorus Depth",
+     "param_id": 105,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Frequency",
+     "param_id": 107,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Q",
+     "param_id": 108,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Gain",
+     "param_id": 109,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Kill Dry",
+     "param_id": 115,
+     "type": "switch",
+     "scale": null,
+     "page": null,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Feedback 1->2",
+     "param_id": 116,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Feedback 2->3",
+     "param_id": 117,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Feedback 3->4",
+     "param_id": 118,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Feedback 4->1",
+     "param_id": 119,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
     }
    ],
    "instances": {
@@ -8661,7 +9431,7 @@
   "MUX": {
    "block_id": 191,
    "block_id_hex": "0xBF",
-   "param_count": 4,
+   "param_count": 5,
    "complete": true,
    "params": [
     {
@@ -8715,6 +9485,18 @@
      "scale": 100.0,
      "page": 0,
      "note": "Cal: bipolar x100, 4-pt exact."
+    },
+    {
+     "name": "Channel A",
+     "param_id": 6,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ]
   },
@@ -8897,7 +9679,7 @@
   "PEQ": {
    "block_id": 54,
    "block_id_hex": "0x36",
-   "param_count": 23,
+   "param_count": 28,
    "complete": true,
    "params": [
     {
@@ -9098,13 +9880,73 @@
       "Mute": 1
      },
      "note": "Device sweep (2+ clamp to Mute)."
+    },
+    {
+     "name": "Solo 1",
+     "param_id": 25,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Solo 2",
+     "param_id": 26,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Solo 3",
+     "param_id": 27,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Solo 4",
+     "param_id": 28,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Solo 5",
+     "param_id": 29,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
     }
    ]
   },
   "PHASER": {
    "block_id": 90,
    "block_id_hex": "0x5A",
-   "param_count": 31,
+   "param_count": 32,
    "complete": true,
    "params": [
     {
@@ -9266,7 +10108,8 @@
      "param_id": 27,
      "type": "slider",
      "scale": 1.0,
-     "page": 1
+     "page": 1,
+     "status": "name-suspect"
     },
     {
      "name": "Mode",
@@ -9378,6 +10221,18 @@
      "scale": 1.0,
      "page": 0,
      "note": "Device-verified: Filter Q raw 0.1-2+, display=stored (Barber Pole t7)"
+    },
+    {
+     "name": "Bypass",
+     "param_id": 31,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -9415,7 +10270,7 @@
   "PITCH": {
    "block_id": 110,
    "block_id_hex": "0x6E",
-   "param_count": 68,
+   "param_count": 95,
    "complete": true,
    "note": "Quad Diatonic Delay (type 13) fully mapped for all settable params. Deferred: Key/Scale/#Notes/Note 2-4 are a bulk scale-table class (not individually settable); pitch-shift sliders (Shift 1-4, Master Pitch, Step 1-16 Shift, Whammy Control, Capo Shift/Detune, Custom Shifter Scale) + Detector Source/Pitch Quantize + the 14 other type families' unique params remain for a future batch. Method: combos only refresh via SET when auto-navigated from the page before their home page. Time 1-4 (chromatic types) = same param_ids as Delay 1-4 (27-30).",
    "params": [
@@ -9854,15 +10709,12 @@
      }
     },
     {
-     "name": "Run",
+     "name": "Arp Tempo",
      "param_id": 76,
-     "type": "switch",
+     "type": "combo",
      "scale": null,
      "page": 0,
-     "values": {
-      "Off": 0,
-      "On": 1
-     }
+     "note": "Arpeggiator tempo-division selector (78 entries; enum not transcribed here - read it from firmware metadata). BUG-25 correction: pid 76 was previously mislabeled 'Run'. Run is pid 75."
     },
     {
      "name": "Step 1 Shift",
@@ -9991,6 +10843,296 @@
      "scale": 1.0,
      "page": 1,
      "note": "Arpeggiator (type 10) raw semitone shift; display=stored (0->0,7->7,12->12,24->24). Device-verified."
+    },
+    {
+     "name": "Mode",
+     "param_id": 1,
+     "type": "combo",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "UP 1 OCT": 0,
+      "DOWN 1 OCT": 1,
+      "UP 2 OCT": 2,
+      "DOWN 2 OCT": 3,
+      "UP|DN 1 OCT": 4,
+      "UP|DN 2 OCT": 5
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Master Pitch",
+     "param_id": 2,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Control",
+     "param_id": 3,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Key",
+     "param_id": 8,
+     "type": "combo",
+     "scale": null,
+     "page": null,
+     "values": {
+      "A ": 0,
+      "Bb": 1,
+      "B ": 2,
+      "C ": 3,
+      "Db": 4,
+      "D ": 5,
+      "Eb": 6,
+      "E ": 7,
+      "F ": 8,
+      "Gb": 9,
+      "G ": 10,
+      "Ab": 11
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Scale",
+     "param_id": 9,
+     "type": "combo",
+     "scale": null,
+     "page": null,
+     "values": {
+      "IONIAN MAJ": 0,
+      "DORIAN": 1,
+      "PHRYGIAN": 2,
+      "LYDIAN": 3,
+      "MIXOLYDIAN": 4,
+      "AEOLIAN MIN": 5,
+      "LOCRIAN": 6,
+      "MEL. MINOR": 7,
+      "HARM. MINOR": 8,
+      "DIMINISHED": 9,
+      "WHOLE TONE": 10,
+      "DOM. SEVEN": 11,
+      "DIM. WHOLE": 12,
+      "PENTA. MAJ": 13,
+      "PENTA. MIN": 14,
+      "BLUES": 15,
+      "CHROMATIC": 16,
+      "CUSTOM": 17
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Pitch Quantize",
+     "param_id": 10,
+     "type": "switch",
+     "scale": null,
+     "page": 1,
+     "values": {
+      "SMOOTH": 0,
+      "STEPPED": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Shift 1",
+     "param_id": 15,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Shift 2",
+     "param_id": 16,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Shift 3",
+     "param_id": 17,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Shift 4",
+     "param_id": 18,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Pitch Tracking",
+     "param_id": 35,
+     "type": "switch",
+     "scale": null,
+     "page": null,
+     "values": {
+      "NOTES": 0,
+      "CHORDS": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI toggle confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Crossfade Time",
+     "param_id": 45,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Time 1",
+     "param_id": 47,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Time 2",
+     "param_id": 48,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Feedback Type",
+     "param_id": 55,
+     "type": "combo",
+     "scale": null,
+     "page": null,
+     "values": {
+      "DUAL": 0,
+      "BOTH": 1,
+      "PING-PONG": 2
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Direction",
+     "param_id": 56,
+     "type": "switch",
+     "scale": null,
+     "page": 1,
+     "values": {
+      "FORWARD": 0,
+      "REVERSE": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Scale 1",
+     "param_id": 71,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Scale 2",
+     "param_id": 72,
+     "type": "slider",
+     "scale": null,
+     "page": null,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Steps",
+     "param_id": 73,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Repeats",
+     "param_id": 74,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Run",
+     "param_id": 75,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Arpeggiator Run switch (Off/On). BUG-25 correction: Run is pid 75, device-verified on FW 32.02 by toggling Run in the editor and reading it back over MIDI. It was published at pid 76 in the initial release; pid 76 is actually Arp Tempo."
+    },
+    {
+     "name": "Amplitude Alpha",
+     "param_id": 94,
+     "type": "slider",
+     "scale": null,
+     "page": 2,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Pan Alpha",
+     "param_id": 96,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Detector Source",
+     "param_id": 99,
+     "type": "combo",
+     "scale": null,
+     "page": 1,
+     "values": {
+      "BLOCK IN": 0,
+      "INPUT 1": 1,
+      "INPUT 2": 2,
+      "INPUT 3": 3,
+      "INPUT 4": 4
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Feedback Mode",
+     "param_id": 103,
+     "type": "switch",
+     "scale": null,
+     "page": 1,
+     "values": {
+      "INDIVIDUAL": 0,
+      "SUMMED": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+    },
+    {
+     "name": "Diffusion",
+     "param_id": 109,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Diffusion Time",
+     "param_id": 110,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
     }
    ],
    "type_selector": {
@@ -10027,7 +11169,7 @@
   "PLEX": {
    "block_id": 178,
    "block_id_hex": "0xB2",
-   "param_count": 83,
+   "param_count": 87,
    "complete": true,
    "note": "Device: model selector pid 0 (deliberately NOT a map param) -- SET float(2.0) lands on Plex Shift (Pitch/Direction behaved as Plex Shift throughout the round-trips), but GET pid 0 returned 0.5 = idx/4: the INTERNAL model enum has 5 entries, not the 3 the UI shows.",
    "params": [
@@ -11271,6 +12413,42 @@
       "Reverse": 1
      },
      "note": "Device: NEW pid via find_pid/GET-diff, display walk verified: 2-enum, idx >= 1 all show Reverse (clamp). The on-screen Direction combo under Plex Shift (type 2), delay page. device round-trip (resolver label SET -> 01 19 GET): 'Reverse' (string) -> GET 1.0, 'Forward' -> GET 0.0 -- plain 0/1 family, NOT the 0.25/0.75 sentinel family. PASS."
+    },
+    {
+     "name": "Granule Length",
+     "param_id": 59,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Reverb Size",
+     "param_id": 79,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Shimmer Intensity",
+     "param_id": 86,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Kill Dry",
+     "param_id": 94,
+     "type": "switch",
+     "scale": null,
+     "page": null,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -11454,7 +12632,7 @@
   "REVERB": {
    "block_id": 66,
    "block_id_hex": "0x42",
-   "param_count": 69,
+   "param_count": 70,
    "complete": true,
    "params": [
     {
@@ -11854,13 +13032,12 @@
      "page": 3
     },
     {
-     "name": "Mix",
+     "name": "Pitch Mix",
      "param_id": 51,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 4,
-     "status": "Phantom-suspect",
-     "note": "Probe: independent storage slot (SET 0.33/0.77 sticks, GET confirms; real Mix=13/Feedback=62 unaffected) but NO visible control under Room type and zero label-index refs. Suspected firmware-internal/vestigial; excluded from settable counts."
+     "note": "Wet mix of the pitch/shimmer engine (percent, scale x100). Functional only on the pitch-capable (Sfx) reverb types; on other types a write is accepted and read back but dropped on preset reload. Distinct from the reverb Mix (pid 13)."
     },
     {
      "name": "Voice 1 Shift",
@@ -11879,13 +13056,12 @@
      "note": "Cal: pitch shift semitones stored direct, integer display, +/-12 verified exact"
     },
     {
-     "name": "Feedback",
+     "name": "Pitch Feedback",
      "param_id": 54,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 4,
-     "status": "Phantom-suspect",
-     "note": "Probe: independent storage slot (SET 0.33/0.77 sticks, GET confirms; real Mix=13/Feedback=62 unaffected) but NO visible control under Room type and zero label-index refs. Suspected firmware-internal/vestigial; excluded from settable counts."
+     "note": "Feedback/regeneration of the pitch/shimmer engine (percent, scale x100). Functional only on the pitch-capable (Sfx) reverb types. Keep low to avoid instability. Distinct from the echo Feedback (pid 62)."
     },
     {
      "name": "Direction",
@@ -12046,6 +13222,18 @@
      "scale": 200.0,
      "page": 0,
      "note": "Cal (Medium Plate, linear 0-200 cm, clamps at stored 1.0). ACTIVE only under Plate/Echo-Plate types (pid0 ids 9,10,11,27,28,40,63,71,72)."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 60,
+     "type": "switch",
+     "scale": null,
+     "page": null,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -12145,7 +13333,7 @@
   "RINGMOD": {
    "block_id": 150,
    "block_id_hex": "0x96",
-   "param_count": 8,
+   "param_count": 9,
    "complete": true,
    "params": [
     {
@@ -12216,6 +13404,18 @@
       "Bass": 1
      },
      "note": "Display walk: 2-enum (wiki's 'Off' option refuted; 2+ clamps to Bass)."
+    },
+    {
+     "name": "Pitch Tracking",
+     "param_id": 2,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
     }
    ],
    "instances": {
@@ -12229,7 +13429,7 @@
   "ROTARY": {
    "block_id": 86,
    "block_id_hex": "0x56",
-   "param_count": 18,
+   "param_count": 19,
    "complete": true,
    "params": [
     {
@@ -12380,6 +13580,18 @@
       "Right": 2
      },
      "note": "Display walk: 3-enum, 3+ clamps."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 20,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -13796,7 +15008,7 @@
   "SYNTH": {
    "block_id": 130,
    "block_id_hex": "0x82",
-   "param_count": 39,
+   "param_count": 40,
    "complete": true,
    "params": [
     {
@@ -14148,6 +15360,18 @@
       "Off": 0,
       "On": 1
      }
+    },
+    {
+     "name": "Bypass",
+     "param_id": 40,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -14176,7 +15400,7 @@
   "TENTAP": {
    "block_id": 158,
    "block_id_hex": "0x9E",
-   "param_count": 18,
+   "param_count": 35,
    "complete": true,
    "params": [
     {
@@ -14386,6 +15610,146 @@
      "scale": 1.0,
      "page": 0,
      "note": "NEW pid via find_pid (CLEAN hit: probe 1000 -> display 1000.0 Hz). Hz raw, display floor 20 Hz. The on-screen 'Low Cut' the map's pid 0 'Feedback' was suspected (and disproved) to be."
+    },
+    {
+     "name": "Time 1",
+     "param_id": 17,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Time 2",
+     "param_id": 18,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Time 3",
+     "param_id": 19,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Time 4",
+     "param_id": 20,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Time 5",
+     "param_id": 21,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Time 6",
+     "param_id": 22,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 1",
+     "param_id": 27,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 2",
+     "param_id": 28,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 3",
+     "param_id": 29,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 4",
+     "param_id": 30,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 5",
+     "param_id": 31,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 6",
+     "param_id": 32,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 7",
+     "param_id": 33,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 8",
+     "param_id": 34,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 9",
+     "param_id": 35,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Level 10",
+     "param_id": 36,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Bypass",
+     "param_id": 47,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -14399,7 +15763,7 @@
   "TONEMATCH": {
    "block_id": 170,
    "block_id_hex": "0xAA",
-   "param_count": 11,
+   "param_count": 14,
    "complete": true,
    "params": [
     {
@@ -14521,6 +15885,42 @@
       "Off-Line": 1
      },
      "note": "Device sweep."
+    },
+    {
+     "name": "Start Reference",
+     "param_id": 2,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Start Local",
+     "param_id": 3,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "Off": 0,
+      "On": 1
+     },
+     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+    },
+    {
+     "name": "Bank",
+     "param_id": 18,
+     "type": "switch",
+     "scale": null,
+     "page": 3,
+     "values": {
+      "USER 1": 0,
+      "USER 2": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "instances": {
@@ -14534,7 +15934,7 @@
   "TREMOLO": {
    "block_id": 106,
    "block_id_hex": "0x6A",
-   "param_count": 17,
+   "param_count": 18,
    "complete": true,
    "params": [
     {
@@ -14693,6 +16093,18 @@
      "scale": 100.0,
      "page": 0,
      "note": "Device-verified: Pan Center 0-100 (Panner t1)"
+    },
+    {
+     "name": "Bypass",
+     "param_id": 19,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {
@@ -15057,196 +16469,196 @@
      "note": "Display = raw stored 0-1, 3-decimal display (default 1.000); 01 19 GET uses a NONLINEAR taper (stored 0.15 GETs 0.088) -- GET is change-detection only here, display/stored is the spec. 01 09 writes work; display-verified 0.15/0.85/0.35 on bands 1/7/24 (pids 19/25/42) after block reselect. These are the page-0 on-screen '1'-'24' band sliders; what the bank MEANS acoustically (level vs Q) is still unlabeled on-screen, so the names stay '1'..'24'."
     },
     {
-     "name": "1",
+     "name": "Level 1",
      "param_id": 43,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "2",
+     "name": "Level 2",
      "param_id": 44,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "3",
+     "name": "Level 3",
      "param_id": 45,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "4",
+     "name": "Level 4",
      "param_id": 46,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "5",
+     "name": "Level 5",
      "param_id": 47,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "6",
+     "name": "Level 6",
      "param_id": 48,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "7",
+     "name": "Level 7",
      "param_id": 49,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "8",
+     "name": "Level 8",
      "param_id": 50,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "9",
+     "name": "Level 9",
      "param_id": 51,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "10",
+     "name": "Level 10",
      "param_id": 52,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "11",
+     "name": "Level 11",
      "param_id": 53,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "12",
+     "name": "Level 12",
      "param_id": 54,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "13",
+     "name": "Level 13",
      "param_id": 55,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "14",
+     "name": "Level 14",
      "param_id": 56,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "15",
+     "name": "Level 15",
      "param_id": 57,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "16",
+     "name": "Level 16",
      "param_id": 58,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "17",
+     "name": "Level 17",
      "param_id": 59,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "18",
+     "name": "Level 18",
      "param_id": 60,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "19",
+     "name": "Level 19",
      "param_id": 61,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "20",
+     "name": "Level 20",
      "param_id": 62,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "21",
+     "name": "Level 21",
      "param_id": 63,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "22",
+     "name": "Level 22",
      "param_id": 64,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "23",
+     "name": "Level 23",
      "param_id": 65,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     },
     {
-     "name": "24",
+     "name": "Level 24",
      "param_id": 66,
      "type": "slider",
      "scale": 100.0,
      "page": 2,
-     "note": "Band level, display = stored*100 (0..100 unitless). Device-verified on bands 1/8/24 (pids 43/50/66), stride-copied to the rest (uniform 24-slider bank)."
+     "note": "Vocoder synthesis-band level; display = stored x 100."
     }
    ],
    "instances": {
@@ -15260,7 +16672,7 @@
   "VOLPAN": {
    "block_id": 102,
    "block_id_hex": "0x66",
-   "param_count": 8,
+   "param_count": 12,
    "complete": true,
    "params": [
     {
@@ -15340,13 +16752,45 @@
       "Right Only": 2
      },
      "note": "Display walk: 3-enum, 3+ clamps."
+    },
+    {
+     "name": "Threshold",
+     "param_id": 10,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Attack",
+     "param_id": 11,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Release",
+     "param_id": 12,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Hysteresis",
+     "param_id": 13,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
     }
    ]
   },
   "WAH": {
    "block_id": 94,
    "block_id_hex": "0x5E",
-   "param_count": 22,
+   "param_count": 23,
    "complete": true,
    "params": [
     {
@@ -15529,6 +16973,18 @@
       "On": 1
      },
      "note": "Map-absorption; pid device-verified via find_pid SET-and-watch; enum/scale = follow-up"
+    },
+    {
+     "name": "Bypass",
+     "param_id": 24,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
     }
    ],
    "type_selector": {

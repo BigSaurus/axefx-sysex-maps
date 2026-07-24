@@ -350,6 +350,336 @@
    "taper": "log",
    "confidence": "device-verified",
    "source": "DEVICE: IIC++ pid47 SET 9.5 -> norm 0.98886 == log10(9.5/0.1)/2 EXACT; label 'Overdrive' aliases here (display_label_index)"
+  },
+  {
+   "family": "Comp",
+   "param": "attack time",
+   "min": 0.1,
+   "max": 100,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Device read-back: log law over [0.1, 100] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Comp",
+   "param": "release time",
+   "min": 2,
+   "max": 2000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Device read-back: log law over [2, 2000] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "time",
+   "min": 0,
+   "max": 16000,
+   "units": "ms",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [0, 16000] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "time l",
+   "min": 0,
+   "max": 16000,
+   "units": "ms",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [0, 16000] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "time r",
+   "min": 0,
+   "max": 16000,
+   "units": "ms",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [0, 16000] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "feedback",
+   "min": -100,
+   "max": 100,
+   "units": "%",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "feedback l>l",
+   "min": -100,
+   "max": 100,
+   "units": "%",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "feedback r>r",
+   "min": -100,
+   "max": 100,
+   "units": "%",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "feedback l>r",
+   "min": -100,
+   "max": 100,
+   "units": "%",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "feedback r>l",
+   "min": -100,
+   "max": 100,
+   "units": "%",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Delay",
+   "param": "high cut frequency",
+   "min": 200,
+   "max": 20000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Device read-back: log law over [200, 20000] Hz (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Amp",
+   "param": "high cut",
+   "min": 200,
+   "max": 20000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Device read-back: log law over [200, 20000] Hz (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Phaser",
+   "param": "tone",
+   "min": -10,
+   "max": 10,
+   "units": "(bipolar, 0 = centre)",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "Device read-back: linear law over [-10, 10] (bipolar, 0 = centre) (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Megatap",
+   "param": "attack time",
+   "min": 10,
+   "max": 10000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Device read-back: log law over [10, 10000] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "Megatap",
+   "param": "release time",
+   "min": 1,
+   "max": 1000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Device read-back: log law over [1, 1000] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "MultiComp",
+   "param": "crossover",
+   "min": 50,
+   "max": 5000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: log law over [50, 5000] Hz. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "mid/high crossover",
+   "min": 100,
+   "max": 10000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: log law over [100, 10000] Hz. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "threshold",
+   "min": -60,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: linear law over [-60, 20] dB. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "ratio",
+   "min": 1,
+   "max": 20,
+   "units": ":1",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: log law over [1, 20] :1. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "level",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: linear law over [-20, 20] dB. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "mid threshold",
+   "min": -60,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: linear law over [-60, 20] dB. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "mid ratio",
+   "min": 1,
+   "max": 20,
+   "units": ":1",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: log law over [1, 20] :1. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "mid level",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: linear law over [-20, 20] dB. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "high threshold",
+   "min": -60,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: linear law over [-60, 20] dB. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "high ratio",
+   "min": 1,
+   "max": 20,
+   "units": ":1",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: log law over [1, 20] :1. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "high level",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: linear law over [-20, 20] dB. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "level (master)",
+   "min": -80,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "From firmware effect-definition metadata: linear law over [-80, 20] dB. Not yet device-verified."
+  },
+  {
+   "family": "MultiComp",
+   "param": "attack",
+   "min": 1,
+   "max": 100,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Device read-back: log law over [1, 100] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "MultiComp",
+   "param": "mid attack",
+   "min": 1,
+   "max": 100,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified (single live anchor + cache twin)",
+   "source": "Device read-back: log law over [1, 100] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "MultiComp",
+   "param": "high attack",
+   "min": 1,
+   "max": 100,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified (single live anchor + cache twin)",
+   "source": "Device read-back: log law over [1, 100] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "MultiComp",
+   "param": "release",
+   "min": 10,
+   "max": 1000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "Device read-back: log law over [10, 1000] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "MultiComp",
+   "param": "mid release",
+   "min": 10,
+   "max": 1000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified (single live anchor + cache twin)",
+   "source": "Device read-back: log law over [10, 1000] ms (set values confirmed by passive MIDI read)."
+  },
+  {
+   "family": "MultiComp",
+   "param": "high release",
+   "min": 10,
+   "max": 1000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified (single live anchor + cache twin)",
+   "source": "Device read-back: log law over [10, 1000] ms (set values confirmed by passive MIDI read)."
   }
  ]
 }

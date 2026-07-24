@@ -27,7 +27,7 @@ or automation here. Use it to build your own tools.
 ### `maps/`
 | File | What it is |
 |---|---|
-| `axefx_sysex_map.json` | **The master map.** All 45 blocks, ~1,600 named parameters, each with its param ID, value scale, type, and page. Includes a `protocol` header and embedded enums (331 amp models, DynaCab speakers/mics). This one file lets you address any parameter. |
+| `axefx_sysex_map.json` | **The master map.** All 45 blocks, ~1,790 named parameters, each with its param ID, value scale, type, and page. Includes a `protocol` header and embedded enums (331 amp models, DynaCab speakers/mics). This one file lets you address any parameter. See [CHANGELOG.md](CHANGELOG.md) for what changed between releases. |
 | `device_relationships.json` | Real gear → Axe-Fx model. 331 amps + 87 drives, each with the real amp/pedal it's based on and search terms (e.g. "plexi", "bassman", "tube screamer"). |
 | `cab_device_relationships.json` | The same, for cabs: DynaCab speakers/mics + legacy IR cabs → real-world gear. |
 | `display_label_index.json` | The knob names shown in the editor mapped to the underlying generic parameter (e.g. a Pro Co RAT's printed "Volume" → the generic "Level" param), per model. |
