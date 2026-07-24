@@ -19,8 +19,8 @@ editor while reading the block back over MIDI):
 
 - **`Run` is param ID 75** — a plain Off/On switch.
 - **Param ID 76 is `Arp Tempo`** — a 78-entry tempo-division selector (e.g. `1/32 DOT`),
-  not a switch. (The full enum is not transcribed in the map; read it from firmware if
-  you need the exact ordering.)
+  not a switch. The full 78-entry enum is transcribed in the map (`values`, index order
+  as the firmware presents it: `1/64 TRIP` = 0 … `1/32 DOT` = 5 …).
 
 **Impact:** anyone using the old mapping who toggled `Run` was actually writing the
 Arpeggiator tempo-division selector at pid 76, not the Run switch. Update any code that
