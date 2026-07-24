@@ -10714,7 +10714,7 @@
      "type": "combo",
      "scale": null,
      "page": 0,
-     "note": "Arpeggiator tempo-division selector (78 entries; enum not transcribed here - read it from firmware metadata). BUG-25 correction: pid 76 was previously mislabeled 'Run'. Run is pid 75.",
+     "note": "Arpeggiator tempo-division selector; full 78-entry enum in `values` (firmware order: '1/64 TRIP' = 0 ... '1/32 DOT' = 5 ...). Correction from the initial release: pid 76 was previously mislabeled 'Run' \u2014 Run is pid 75.",
      "values": {
       "1/64 TRIP": 0,
       "1/64": 1,
@@ -11153,7 +11153,7 @@
       "Off": 0,
       "On": 1
      },
-     "note": "Arpeggiator Run switch (Off/On). BUG-25 correction: Run is pid 75, device-verified on FW 32.02 by toggling Run in the editor and reading it back over MIDI. It was published at pid 76 in the initial release; pid 76 is actually Arp Tempo."
+     "note": "Arpeggiator Run switch (Off/On). Correction from the initial release, device-verified on FW 32.02 by toggling Run in the editor and reading it back over MIDI: Run is pid 75 (it was published at pid 76; pid 76 is actually Arp Tempo)."
     },
     {
      "name": "Amplitude Alpha",
