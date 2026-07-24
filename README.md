@@ -11,6 +11,31 @@ or automation here. Use it to build your own tools.
 > trademarks of Fractal Audio Systems. Firmware differs between versions — treat **32.02** as the
 > baseline and re-verify anything critical on your own unit before relying on it.
 
+## Updates / what's new → [CHANGELOG.md](CHANGELOG.md)
+
+This is an **actively developed** reverse-engineering effort — new parameters get decoded,
+renamed, and corrected between releases (including at least one **breaking** param-ID fix so far).
+**[CHANGELOG.md](CHANGELOG.md) is the source of truth for what is actually released.** Read it
+before building against the maps, and read it again when you pull an update.
+
+## Current coverage (this release)
+
+Numbers are counted from the shipped JSON, not estimated:
+
+- **45 blocks**, **1,788 named parameters** in the master map.
+- **331 amp models** and **87 drive models**, each linked to the real-world gear it's based on.
+- DynaCab speakers/mics and per-block type/model selectors, as enums.
+
+Honest caveat on completeness: every parameter here carries its **param ID, display label, type,
+and page**, and selectors carry their **enum**. The **value encoding (display↔wire scale) is
+derived for many but not all** parameters — where it isn't, the entry is addressable but you must
+re-derive the scaling before writing continuous values (see [How the maps were made](#how-the-maps-were-made)
+and the `note` fields in the JSON). Coverage is also **firmware-specific**: this is FW 32.02.
+
+> Development runs ahead of what's published — the working map is larger than this release at any
+> given moment. Only what is in these files (and in [CHANGELOG.md](CHANGELOG.md)) is released.
+> Don't infer coverage from progress notes elsewhere; trust the shipped data and the changelog.
+
 ## Start here
 
 1. **[SAFETY.md](SAFETY.md)** — read this first. Which commands write flash, which requests can
@@ -27,11 +52,11 @@ or automation here. Use it to build your own tools.
 ### `maps/`
 | File | What it is |
 |---|---|
-| `axefx_sysex_map.json` | **The master map.** All 45 blocks, ~1,790 named parameters, each with its param ID, value scale, type, and page. Includes a `protocol` header and embedded enums (331 amp models, DynaCab speakers/mics). This one file lets you address any parameter. See [CHANGELOG.md](CHANGELOG.md) for what changed between releases. |
+| `axefx_sysex_map.json` | **The master map.** All 45 blocks, 1,788 named parameters, each with its param ID, display label, type, and page (and, where derived, its value scale). Includes a `protocol` header and embedded enums. This one file lets you address any parameter. See [CHANGELOG.md](CHANGELOG.md) for what changed between releases. |
 | `device_relationships.json` | Real gear → Axe-Fx model. 331 amps + 87 drives, each with the real amp/pedal it's based on and search terms (e.g. "plexi", "bassman", "tube screamer"). |
 | `cab_device_relationships.json` | The same, for cabs: DynaCab speakers/mics + legacy IR cabs → real-world gear. |
 | `display_label_index.json` | The knob names shown in the editor mapped to the underlying generic parameter (e.g. a Pro Co RAT's printed "Volume" → the generic "Level" param), per model. |
-| `param_word_laws.json` | Display-value → wire-word encoding laws for parameters whose value isn't a simple scale (dB levels, log tapers, linear time ranges). Pair with the master map's param IDs. |
+| `param_word_laws.json` | Display-value → wire-word encoding laws for parameters whose value isn't a simple scale (dB levels, log tapers, linear time ranges). Pair with the master map's param IDs. This file grows as more encodings are derived. |
 
 ### `enums/`
 | File | What it is |
@@ -42,16 +67,27 @@ or automation here. Use it to build your own tools.
 
 ## How the maps were made
 
-The parameter data was captured two ways, cross-checked against each other:
+Everything here was worked out on real hardware (FW 32.02) and cross-checked between independent
+methods. No single source is trusted alone; entries carry `note` fields recording how they were
+confirmed, and which are still inferred rather than write-verified.
 
-1. **A MIDI sniffer on the Axe-Edit ⇄ hardware link** — watching the real SysEx traffic the
-   editor exchanges with the unit.
-2. **A parameter walker** — stepping through every block, model, and parameter in Axe-Edit one at a
-   time and recording which SysEx address changed and how each value was encoded, then confirming
-   the unit's own readback matched.
+- **SET write-verification.** Set a distinctive value (or toggle a switch) via the parameter SET
+  command and read the block back over MIDI to confirm which param ID actually moved and how the
+  value was encoded. This is the strongest evidence and is what promotes an entry from "named" to
+  "verified."
+- **Full-device census cross-checks.** Whole-block dumps and status readbacks enumerated over the
+  device, cross-referenced so param IDs and block membership agree across passes.
+- **Axe-Edit UI label capture.** The knob/label names the editor displays, captured via the
+  accessibility layer and correlated to the underlying generic parameters — this is where the
+  human-readable names and the display-label index come from.
+- **Passive traffic sniffing (newest).** Listening to the real SysEx the Axe-Edit editor exchanges
+  with the unit and decoding parameter IDs directly from that traffic — no writes to the device.
+  This method is how the most recent additions were identified.
 
-Everything here was verified on real hardware (FW 32.02). Notes in the JSON flag which entries were
-live-verified vs. inferred.
+**On value encodings:** deriving the display↔wire scaling is a separate step from identifying a
+parameter. Many entries are addressable (ID, label, type, page, enum) before their scale is worked
+out; those are flagged, and derived encodings live in `param_word_laws.json`. Don't write a
+continuous value against an entry whose scale you haven't confirmed.
 
 ## License
 
