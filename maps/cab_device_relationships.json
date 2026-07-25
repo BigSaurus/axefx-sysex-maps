@@ -4,17 +4,17 @@
   "built": "2026-06-24",
   "scope": "Cabinets/speakers only. Three sub-types: dynacab_speakers, dynacab_mics, legacy_ir_cabs.",
   "sources": {
-   "dynacab_speakers": "Dynacab_speakers.json (param_id 85, int selector values captured live) + axefx-wiki Cab_models_list.txt 'DynaCabs' section (real-gear decode, lines 2611-2655)",
-   "dynacab_mics": "Dynacab_mics.json (param_id 89, int selector values captured live) + axefx-wiki Cab_block.txt 'Legacy parameters' / mic notes",
-   "legacy_ir_cabs": "Axefx-wiki Cab_models_list.txt 'Legacy Bank' + 'AX8' list (F001-F189) + FullRes IRs 190-199. NAMES are offline-confirmed; the SysEx SELECTOR PAIR (Bank value + IR-number param) is NOT yet captured -- see _blocked_on_hardware."
+   "dynacab_speakers": "the block map (param_id 85, int selector values captured live) + axefx-wiki Cab_models_list.txt 'DynaCabs' section (real-gear decode, lines 2611-2655)",
+   "dynacab_mics": "the block map (param_id 89, int selector values captured live) + axefx-wiki Cab_block.txt 'Legacy parameters' / mic notes",
+   "legacy_ir_cabs": "axefx-wiki Cab_models_list.txt 'Legacy Bank' + 'AX8' list (F001-F189) + FullRes IRs 190-199. NAMES are offline-confirmed; the SysEx SELECTOR PAIR (Bank value + IR-number param) is NOT yet captured -- see _blocked_on_hardware."
   },
   "set_via": {
    "dynacab_speakers": "CAB block (0x3E) param 31 'Type' = 1 (Dyna-Cab) FIRST, then param 85 'Speaker' = int selector_value (per CAB1; cabs 2-4 use parallel param ids). Value is the raw int, NOT a float-encoded model id.",
    "dynacab_mics": "CAB block (0x3E) param 89 'Mic' = int selector_value (Condenser=0, Ribbon=1, Dynamic 1=2, Dynamic 2=3). Position/Distance are separate continuous params (93-96 / 97-100).",
    "legacy_ir_cabs": "CAB block (0x3E) param 31 'Type' = 0 (Legacy) FIRST, then select Bank=Legacy + IR number = legacy_index. EXACT param ids for Bank-select-to-Legacy and IR-number-set are UNCONFIRMED offline -- see _blocked_on_hardware."
   },
-  "confidence_legend": "Confirmed = on-device value list captured live (selector id is real). inferred = real-gear decode is my reading of Fractal's parody/abbreviated name (+ wiki notes where cited); the selector id itself may still be confirmed even when the gear decode is inferred.",
-  "_blocked_on_hardware": "See. Summary: (1) legacy_ir_cabs selector pair (Bank->Legacy enum value + IR-number param id/scale) needs a USB MIDI capture capture while the user selects a Legacy cab in Axe-Edit. (2) dynacab mic POSITION continuous range labels (none needed for selection). Both are OPTIONAL refinements; names + dynacab selectors are complete."
+  "confidence_legend": "confirmed = on-device value list captured live (selector id is real). inferred = real-gear decode is my reading of Fractal's parody/abbreviated name (+ wiki notes where cited); the selector id itself may still be confirmed even when the gear decode is inferred.",
+  "_blocked_on_hardware": "Summary: (1) legacy_ir_cabs selector pair (Bank->Legacy enum value + IR-number param id/scale) needs a USBPcap capture while the operator selects a Legacy cab in Axe-Edit. (2) dynacab mic POSITION continuous range labels (none needed for selection). Both are OPTIONAL refinements; names + dynacab selectors are complete."
  },
  "dynacab_speakers": [
   {
@@ -942,7 +942,7 @@
    "block": "CAB",
    "mic_category": "dynamic",
    "real_device": "Shure SM7B",
-   "note": "Corrected: p.7-8 (FAS Cab block guide) names the DynaCab mic set Soyuz 023 / Royer 121 / SM57 / SM7B \u2014 Dynamic 2 = SM7B (earlier MD421-class guess retired).",
+   "note": "Corrected 2026-07-13: the FAS Cab block guide (FAS Cab block guide) names the DynaCab mic set Soyuz 023 / Royer 121 / SM57 / SM7B \u2014 Dynamic 2 = SM7B (earlier MD421-class guess retired).",
    "search_terms": [
     "dynamic",
     "sm7b",

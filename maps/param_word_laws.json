@@ -1,5 +1,5 @@
 {
- "_readme": "Display-value -> body wire-word laws for parameters whose display value is NOT a simple scale (map scale==1). word = round_half_up(normalized * 65534). Tapers: linear = (v-min)/(max-min); log = log10(v/min)/log10(max/min); int-raw = the word IS the raw integer value. 'confidence' reflects how firmly each range is established; treat 'unknown'/'documented' as needing your own verification and 'device-verified' as confirmed against hardware anchors (FW 32.02). Use with axefx_sysex_map.json for the param ids and set opcodes.",
+ "_readme": "Display-value -> body wire-word laws for raw-display params (map scale==1, no encoding). word = round_half_up(normalized*65534). taper: linear = (v-min)/(max-min); log = log10(v/min)/log10(max/min); int-raw = word IS the raw integer value (stepped kind 0x10; negatives refused pending device verify). confidence 'unknown' entries are refused by the builder. Ranges sourced 2026-07-16 from Axe-Edit's firmware-authoritative effectDefinitions_10_32p2.cache (FW 32.02, decoded via a cross-reference source Tools/an internal tool; layout validated against 3 device-proven map encodings) + repo device anchors;. Family names = preset_body_decode grid families.",
  "laws": [
   {
    "family": "Amp",
@@ -9,7 +9,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Oracle captures: -15dB->42597, -11->45218, -20->39320 exact; cache effect10 pid21 [-80,20]; 0dB@0.799997 anchor"
+   "source": "oracle captures: -15dB->42597, -11->45218, -20->39320 exact; cache effect10 pid21 [-80,20]; 0dB@0.799997 anchor"
   },
   {
    "family": "Comp",
@@ -19,7 +19,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "Firmware parameter table effect7 pid0 kind 0x161 [-60,20]; dB kinds linear (MEGATAP Threshold device-proven)"
+   "source": "cross-reference cache effect7 pid0 kind 0x161 [-60,20]; dB kinds linear (MEGATAP Threshold device-proven)"
   },
   {
    "family": "Comp",
@@ -29,7 +29,7 @@
    "units": ":1",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "DEVICE: 4:1 -> word 30326 (log predicts 30327, 1 LSB); cache effect7 pid1 [1,20]; displays INFINITE at max"
+   "source": "DEVICE 2026-07-16: 4:1 -> word 30326 (log predicts 30327, 1 LSB); cache effect7 pid1 [1,20]; displays INFINITE at max"
   },
   {
    "family": "Comp",
@@ -39,7 +39,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "Cache effect7 pid4 kind 0x132 [-20,20]; (dB+20)/40 device-proven on GLOBAL PEQ gains"
+   "source": "cache effect7 pid4 kind 0x132 [-20,20]; (dB+20)/40 device-proven on GLOBAL PEQ gains"
   },
   {
    "family": "Comp",
@@ -49,307 +49,7 @@
    "units": "Hz",
    "taper": "log",
    "confidence": "documented",
-   "source": "Cache effect7 pid33 kind 0x242 [100,10000]; logfreq family device-proven (COMP pid8 sweep)"
-  },
-  {
-   "family": "Gate",
-   "param": "threshold",
-   "min": -100,
-   "max": 0,
-   "units": "dB",
-   "taper": "linear",
-   "confidence": "device-verified",
-   "source": "DEVICE: -45dB -> word 36044 == (dB+100)/100 exact; cache effect35 pid0 [-100,0]"
-  },
-  {
-   "family": "Reverb",
-   "param": "time",
-   "min": 0.1,
-   "max": 100,
-   "units": "s",
-   "taper": "linear",
-   "confidence": "device-verified",
-   "source": "DEVICE: 3.0s->word 1902, 10.0s->6494 == linear (v-0.1)/99.9 EXACT (log hypothesis refuted); range cache effect12 pid1 [0.1,100]"
-  },
-  {
-   "family": "Reverb",
-   "param": "early level",
-   "min": -40,
-   "max": 10,
-   "units": "dB",
-   "taper": "linear",
-   "confidence": "documented",
-   "source": "Cache effect12 pid7 kind 0x162 [-40,10]; conflicts store [-80,20] \u2014 firmware cache preferred"
-  },
-  {
-   "family": "Reverb",
-   "param": "pitch high cut",
-   "min": 200,
-   "max": 20000,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect12 pid64 kind 0x242 [200,20000]"
-  },
-  {
-   "family": "Reverb",
-   "param": "voice 1 shift",
-   "min": -24,
-   "max": 24,
-   "units": "semitones",
-   "taper": "int-raw",
-   "confidence": "documented",
-   "source": "Cache effect12 pid52 kind 0x10 step1 [-24,24]; live raw semitones verified +/-12; negative body-word storage unverified (builder refuses negatives)"
-  },
-  {
-   "family": "Chorus",
-   "param": "rate",
-   "min": 0.1,
-   "max": 10,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "device-verified",
-   "source": "DEVICE: 1.5Hz -> word 38537 (log law predicts 38540, 3 LSB); cache effect16 pid2 [0.1,10]; Tempo!=NONE overrides"
-  },
-  {
-   "family": "Flanger",
-   "param": "rate",
-   "min": 0.05,
-   "max": 10,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect17 pid1 kind 0x243 [0.05,10]"
-  },
-  {
-   "family": "Drive",
-   "param": "bit reduce",
-   "min": 0,
-   "max": 24,
-   "units": "bits",
-   "taper": "int-raw",
-   "confidence": "documented",
-   "source": "Cache effect25 pid16 kind 0x10 [0,24]; integer raw device-verified s14 wide-sweep"
-  },
-  {
-   "family": "Drive",
-   "param": "mid frequency",
-   "min": 200,
-   "max": 2000,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect25 pid14 kind 0x241 [200,2000] 1-decade; conflicts store 20-20000 \u2014 firmware cache preferred"
-  },
-  {
-   "family": "Megatap",
-   "param": "number of taps",
-   "min": 1,
-   "max": 128,
-   "units": "taps",
-   "taper": "int-raw",
-   "confidence": "documented",
-   "source": "Cache effect33 pid3 kind 0x10 [1,128]; device note; raw 1/16/32 exact"
-  },
-  {
-   "family": "Megatap",
-   "param": "threshold",
-   "min": -100,
-   "max": 0,
-   "units": "dB",
-   "taper": "linear",
-   "confidence": "device-verified",
-   "source": "Map device-proven -20->0.8, -40->0.6, -60->0.4; OFF sentinel at -100"
-  },
-  {
-   "family": "PEQ",
-   "param": "frequency 1",
-   "min": 20,
-   "max": 2000,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect9 pid0 kind 0x242; band ranges DIFFER per band"
-  },
-  {
-   "family": "PEQ",
-   "param": "frequency 2",
-   "min": 100,
-   "max": 10000,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect9 pid1; Freq3 1000Hz->GET 0.5 device anchor fits [100,10000] log exact"
-  },
-  {
-   "family": "PEQ",
-   "param": "frequency 3",
-   "min": 100,
-   "max": 10000,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "device-verified",
-   "source": "_s25_findings: display 1000 Hz -> GET 0.5 exact"
-  },
-  {
-   "family": "PEQ",
-   "param": "frequency 4",
-   "min": 100,
-   "max": 10000,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect9 pid3"
-  },
-  {
-   "family": "PEQ",
-   "param": "frequency 5",
-   "min": 200,
-   "max": 20000,
-   "units": "Hz",
-   "taper": "log",
-   "confidence": "device-verified",
-   "source": "Stored 0.60205 -> 3200 Hz exact on [200,20000] log"
-  },
-  {
-   "family": "PEQ",
-   "param": "gain 1",
-   "min": -20,
-   "max": 20,
-   "units": "dB",
-   "taper": "linear",
-   "confidence": "documented",
-   "source": "Cache effect9 pids10-14 kind 0x132 [-20,20] (Cygnus+); (dB+20)/40 device-proven on GLOBAL PEQ"
-  },
-  {
-   "family": "PEQ",
-   "param": "gain 2",
-   "min": -20,
-   "max": 20,
-   "units": "dB",
-   "taper": "linear",
-   "confidence": "documented",
-   "source": "Cache effect9 pids10-14"
-  },
-  {
-   "family": "PEQ",
-   "param": "gain 3",
-   "min": -20,
-   "max": 20,
-   "units": "dB",
-   "taper": "linear",
-   "confidence": "documented",
-   "source": "Cache effect9 pids10-14"
-  },
-  {
-   "family": "PEQ",
-   "param": "gain 4",
-   "min": -20,
-   "max": 20,
-   "units": "dB",
-   "taper": "linear",
-   "confidence": "documented",
-   "source": "Cache effect9 pids10-14"
-  },
-  {
-   "family": "PEQ",
-   "param": "gain 5",
-   "min": -20,
-   "max": 20,
-   "units": "dB",
-   "taper": "linear",
-   "confidence": "documented",
-   "source": "Cache effect9 pids10-14"
-  },
-  {
-   "family": "PEQ",
-   "param": "q1",
-   "min": 0.1,
-   "max": 10,
-   "units": "Q",
-   "taper": "log",
-   "confidence": "device-verified",
-   "source": "Log 0.1-10, Q 0.707 -> 0.42471 exact"
-  },
-  {
-   "family": "PEQ",
-   "param": "q2",
-   "min": 0.1,
-   "max": 10,
-   "units": "Q",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect9 pids5-9 kind 0x43"
-  },
-  {
-   "family": "PEQ",
-   "param": "q3",
-   "min": 0.1,
-   "max": 10,
-   "units": "Q",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect9 pids5-9 kind 0x43"
-  },
-  {
-   "family": "PEQ",
-   "param": "q4",
-   "min": 0.1,
-   "max": 10,
-   "units": "Q",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect9 pids5-9 kind 0x43"
-  },
-  {
-   "family": "PEQ",
-   "param": "q5",
-   "min": 0.1,
-   "max": 10,
-   "units": "Q",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "Cache effect9 pids5-9 kind 0x43"
-  },
-  {
-   "family": "Gate",
-   "param": "hold time",
-   "min": 1,
-   "max": 1000,
-   "units": "ms",
-   "taper": "log",
-   "confidence": "device-verified",
-   "source": "DEVICE: two exact anchors 50ms->0.56632, 100ms->0.66666 == log10(ms/1)/3; pid 2 identity proven by SET 0.05s -> display '50.00 ms'"
-  },
-  {
-   "family": "Gate",
-   "param": "release time",
-   "min": 1,
-   "max": 1000,
-   "units": "ms",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "One device anchor 100ms->0.66666 fits log [1,1000]; same kind family as Hold"
-  },
-  {
-   "family": "Gate",
-   "param": "attack time",
-   "min": 1,
-   "max": 100,
-   "units": "ms",
-   "taper": "log",
-   "confidence": "documented",
-   "source": "One device anchor 10ms->0.50000 fits log [1,100]"
-  },
-  {
-   "family": "Amp",
-   "param": "input trim",
-   "min": 0.1,
-   "max": 10,
-   "units": "X (displays 0-10 'Overdrive' on dual-gain amps)",
-   "taper": "log",
-   "confidence": "device-verified",
-   "source": "DEVICE: IIC++ pid47 SET 9.5 -> norm 0.98886 == log10(9.5/0.1)/2 EXACT; label 'Overdrive' aliases here (display_label_index)"
+   "source": "cache effect7 pid33 kind 0x242 [100,10000]; logfreq family device-proven (COMP pid8 sweep)"
   },
   {
    "family": "Comp",
@@ -359,7 +59,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "Device read-back: log law over [0.1, 100] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-22 (chon-clean optical comp capture, FW 32.05): 14 ms -> norm 0.7154 (word 46881) == log10(ms/0.1)/log10(100/0.1) EXACT; byte-identical to blobs/captures/chon-clean-optical-20260722.syx COMP pid 2. Map scale for pid 2 = 1000 (SET-seconds), body domain is log-ms \u2014 same SET-domain != body-domain trap as Gate attack/release. Before this law the builder fell through to the generic 0..scale rule and wrote LINEAR norm 0.014 (word 917) for a 14 ms spec."
   },
   {
    "family": "Comp",
@@ -369,7 +69,307 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "Device read-back: log law over [2, 2000] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-22 (chon-clean optical comp capture, FW 32.05): 220 ms -> norm 0.6805 (word 44594) == log10(ms/2)/log10(2000/2) EXACT; byte-identical to blobs/captures/chon-clean-optical-20260722.syx COMP pid 3. Map scale for pid 3 = 1000 (SET-seconds), body domain is log-ms. Before this law the builder wrote LINEAR norm 0.22 (word 14417) for a 220 ms spec."
+  },
+  {
+   "family": "Gate",
+   "param": "threshold",
+   "min": -100,
+   "max": 0,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "DEVICE 2026-07-16: -45dB -> word 36044 == (dB+100)/100 exact; cache effect35 pid0 [-100,0]"
+  },
+  {
+   "family": "Reverb",
+   "param": "time",
+   "min": 0.1,
+   "max": 100,
+   "units": "s",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "DEVICE 2026-07-16: 3.0s->word 1902, 10.0s->6494 == linear (v-0.1)/99.9 EXACT (log hypothesis refuted); range cache effect12 pid1 [0.1,100]"
+  },
+  {
+   "family": "Reverb",
+   "param": "early level",
+   "min": -40,
+   "max": 10,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "cache effect12 pid7 kind 0x162 [-40,10]; conflicts a cross-reference source store [-80,20] \u2014 firmware cache preferred"
+  },
+  {
+   "family": "Reverb",
+   "param": "pitch high cut",
+   "min": 200,
+   "max": 20000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect12 pid64 kind 0x242 [200,20000]"
+  },
+  {
+   "family": "Reverb",
+   "param": "voice 1 shift",
+   "min": -24,
+   "max": 24,
+   "units": "semitones",
+   "taper": "int-raw",
+   "confidence": "documented",
+   "source": "cache effect12 pid52 kind 0x10 step1 [-24,24]; live raw semitones verified +/-12; negative body-word storage unverified (builder refuses negatives)"
+  },
+  {
+   "family": "Chorus",
+   "param": "rate",
+   "min": 0.1,
+   "max": 10,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "DEVICE 2026-07-16: 1.5Hz -> word 38537 (log law predicts 38540, 3 LSB); cache effect16 pid2 [0.1,10]; Tempo!=NONE overrides"
+  },
+  {
+   "family": "Flanger",
+   "param": "rate",
+   "min": 0.05,
+   "max": 10,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect17 pid1 kind 0x243 [0.05,10]"
+  },
+  {
+   "family": "Drive",
+   "param": "bit reduce",
+   "min": 0,
+   "max": 24,
+   "units": "bits",
+   "taper": "int-raw",
+   "confidence": "documented",
+   "source": "cache effect25 pid16 kind 0x10 [0,24]; integer raw device-verified s14 wide-sweep"
+  },
+  {
+   "family": "Drive",
+   "param": "mid frequency",
+   "min": 200,
+   "max": 2000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect25 pid14 kind 0x241 [200,2000] 1-decade; conflicts store 20-20000 \u2014 firmware cache preferred"
+  },
+  {
+   "family": "Megatap",
+   "param": "number of taps",
+   "min": 1,
+   "max": 128,
+   "units": "taps",
+   "taper": "int-raw",
+   "confidence": "documented",
+   "source": "cache effect33 pid3 kind 0x10 [1,128]; device note; raw 1/16/32 exact"
+  },
+  {
+   "family": "Megatap",
+   "param": "threshold",
+   "min": -100,
+   "max": 0,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "device-verified",
+   "source": "map device-proven -20->0.8, -40->0.6, -60->0.4; OFF sentinel at -100"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 1",
+   "min": 20,
+   "max": 2000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect9 pid0 kind 0x242; band ranges DIFFER per band"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 2",
+   "min": 100,
+   "max": 10000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect9 pid1; Freq3 1000Hz->GET 0.5 device anchor fits [100,10000] log exact"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 3",
+   "min": 100,
+   "max": 10000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "the census log: display 1000 Hz -> GET 0.5 exact"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 4",
+   "min": 100,
+   "max": 10000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect9 pid3"
+  },
+  {
+   "family": "PEQ",
+   "param": "frequency 5",
+   "min": 200,
+   "max": 20000,
+   "units": "Hz",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "the census log: stored 0.60205 -> 3200 Hz exact on [200,20000] log"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 1",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "cache effect9 pids10-14 kind 0x132 [-20,20] (Cygnus+); (dB+20)/40 device-proven on GLOBAL PEQ"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 2",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "cache effect9 pids10-14"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 3",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "cache effect9 pids10-14"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 4",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "cache effect9 pids10-14"
+  },
+  {
+   "family": "PEQ",
+   "param": "gain 5",
+   "min": -20,
+   "max": 20,
+   "units": "dB",
+   "taper": "linear",
+   "confidence": "documented",
+   "source": "cache effect9 pids10-14"
+  },
+  {
+   "family": "PEQ",
+   "param": "q1",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "overnight 2026-07-05: log 0.1-10, Q 0.707 -> 0.42471 exact"
+  },
+  {
+   "family": "PEQ",
+   "param": "q2",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect9 pids5-9 kind 0x43"
+  },
+  {
+   "family": "PEQ",
+   "param": "q3",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect9 pids5-9 kind 0x43"
+  },
+  {
+   "family": "PEQ",
+   "param": "q4",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect9 pids5-9 kind 0x43"
+  },
+  {
+   "family": "PEQ",
+   "param": "q5",
+   "min": 0.1,
+   "max": 10,
+   "units": "Q",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "cache effect9 pids5-9 kind 0x43"
+  },
+  {
+   "family": "Gate",
+   "param": "hold time",
+   "min": 1,
+   "max": 1000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "DEVICE 2026-07-16: two exact anchors 50ms->0.56632, 100ms->0.66666 == log10(ms/1)/3; pid 2 identity proven by SET 0.05s -> display '50.00 ms'"
+  },
+  {
+   "family": "Gate",
+   "param": "release time",
+   "min": 1,
+   "max": 1000,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "one device anchor 100ms->0.66666 fits log [1,1000]; same kind family as Hold"
+  },
+  {
+   "family": "Gate",
+   "param": "attack time",
+   "min": 1,
+   "max": 100,
+   "units": "ms",
+   "taper": "log",
+   "confidence": "documented",
+   "source": "one device anchor 10ms->0.50000 fits log [1,100]"
+  },
+  {
+   "family": "Amp",
+   "param": "input trim",
+   "min": 0.1,
+   "max": 10,
+   "units": "x (displays 0-10 'Overdrive' on dual-gain amps)",
+   "taper": "log",
+   "confidence": "device-verified",
+   "source": "DEVICE 2026-07-16: IIC++ pid47 SET 9.5 -> norm 0.98886 == log10(9.5/0.1)/2 EXACT; label 'Overdrive' aliases here (display_label_index)"
   },
   {
    "family": "Delay",
@@ -379,7 +379,7 @@
    "units": "ms",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [0, 16000] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-17 (FW 32.02) 01 10 reads: 7200 ms -> norm 0.449995 == ms/16000 EXACT (7200/0.45); 450 ms -> ~0.028, 500 ms -> ~0.031. Full-scale 16000 ms, LINEAR. Generic Time / Time L = DELAY pid 2 (map scale 1000 = SET-seconds; the SET-float domain is NOT the body domain, so the law carries the true body range). NOTE: does NOT apply to DELAY pid 72 'Time' (short-range, 10.000 ms @ norm 0.5 \u2014 different taper); the name 'Time' resolves to pid 2 first so pid 72 is unreached by the builder."
   },
   {
    "family": "Delay",
@@ -389,7 +389,7 @@
    "units": "ms",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [0, 16000] ms (set values confirmed by passive MIDI read)."
+   "source": "Alias label for DELAY pid 2 (Time L, stereo/Dual types). Same linear ms/16000 law as generic Time; see 'time' entry for device anchors."
   },
   {
    "family": "Delay",
@@ -399,7 +399,7 @@
    "units": "ms",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [0, 16000] ms (set values confirmed by passive MIDI read)."
+   "source": "DELAY pid 26 (Time R, stereo/Dual types); map scale 1000 = SET-seconds. Same linear body law as Time L: DEVICE 2026-07-17 500 ms -> norm 0.031190 (== ms/16000). Full-scale 16000 ms."
   },
   {
    "family": "Delay",
@@ -409,7 +409,7 @@
    "units": "%",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-17 (FW 32.02): per-tap delay Feedback is BIPOLAR -100..+100% (norm 0.5 = 0%), NOT the generic percent slider. Anchors: +5% -> norm 0.525 (word 34405); -90% -> norm 0.05 (word 3277). law norm = (disp+100)/200. Generic 'Feedback' resolves to DELAY pid 4 (Feedback L>L). Master Feedback (pid 28), Stack/Hold Feedback (pid 84/85) have a DIFFERENT range (100% @ norm 0.5) and are intentionally NOT listed here."
   },
   {
    "family": "Delay",
@@ -419,7 +419,7 @@
    "units": "%",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+   "source": "DELAY pid 4, bipolar -100..+100% (norm 0.5 = 0%). See 'feedback' entry for device anchors (+5% -> 0.525, -90% -> 0.05)."
   },
   {
    "family": "Delay",
@@ -429,7 +429,7 @@
    "units": "%",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+   "source": "DELAY pid 6, bipolar -100..+100% (norm 0.5 = 0%). Same law as Feedback L>L (per-tap feedback family)."
   },
   {
    "family": "Delay",
@@ -439,7 +439,7 @@
    "units": "%",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+   "source": "DELAY pid 30 (cross-feedback), bipolar -100..+100% (norm 0.5 = 0%). Same law as Feedback L>L (per-tap feedback family)."
   },
   {
    "family": "Delay",
@@ -449,7 +449,7 @@
    "units": "%",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [-100, 100] % (set values confirmed by passive MIDI read)."
+   "source": "DELAY pid 31 (cross-feedback), bipolar -100..+100% (norm 0.5 = 0%). Same law as Feedback L>L (per-tap feedback family)."
   },
   {
    "family": "Delay",
@@ -459,7 +459,7 @@
    "units": "Hz",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "Device read-back: log law over [200, 20000] Hz (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-18 (FW 32.02) 01 10 read: 6000 Hz -> norm 0.738563 == log10(6000/200)/log10(20000/200) EXACT (<1 LSB). DELAY pid 11 High Cut Frequency; range cache effect13 pid11 [200,20000] (kind 0x240 logfreq family). Second in-file anchor 3200 Hz -> 0.60205 also exact on this [200,20000] log law. 'High Cut Freq'/'High Cut Frequency' both resolve to pid 11 (canonical real name 'High Cut Frequency')."
   },
   {
    "family": "Amp",
@@ -469,7 +469,7 @@
    "units": "Hz",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "Device read-back: log law over [200, 20000] Hz (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-19 (FW 32.02) EAR-SWEEP SESSION, amp Class-A 30W TB. TWO exact anchors via 01 10: 500 Hz -> norm 0.198965 and 20000 Hz -> norm 1.0. Solving gives fmin=200, fmax=20000 log: log10(500/200)/log10(100) = 0.19897 EXACT. AMP1 pid 83 (Input EQ page 'High Cut'). *** DIRECTION SETTLED BY EAR the same session: raising the number is BRIGHTER (it is a cutoff FREQUENCY, not an amount of cut). Owner A/B'd 500 Hz vs 20000 Hz on a 60 s live switch: 'boom there it is'. This LIFTS the prior interim law 'never set Hi Cut on a Vox/Orange/Matchless model from a spec' for pid 83. *** NOTE the separate AMP pid 7 'High Cut Frequency' (Preamp page) is a DIFFERENT control with a DIFFERENT range -- it read 18300 Hz at norm 0.83020, which does NOT fit [200,20000] log; it still has no law and must be harvested separately."
   },
   {
    "family": "Phaser",
@@ -479,7 +479,7 @@
    "units": "(bipolar, 0 = centre)",
    "taper": "linear",
    "confidence": "device-verified",
-   "source": "Device read-back: linear law over [-10, 10] (bipolar, 0 = centre) (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-19 (FW 32.02) EAR-SWEEP SESSION. PHASER pid 19. THREE exact 01 10 anchors: -10.00 -> norm 0.0, 5.00 -> norm 0.749992, 10.00 -> norm 1.0. Solves to LINEAR (disp+10)/20 exact. *** THE CONTROL IS BIPOLAR -10..+10, NOT 0..10 *** -- display 0 is the CENTRE of travel, not the bottom. A prior sweep that ran 0->10 covered only the upper half and contributed to a false null. NOTE the map's SET scale for this pid is 31.6228, which is NOT the body normalization; set_parameter still lands correct display values, but the blob/body domain is the linear bipolar law above (same SET-domain != body-domain trap as Delay Time and Megatap Attack). *** DIRECTION SETTLED BY EAR the same session, and it is NOT a lowpass: it moves the RESONANT PEAK FREQUENCY. Owner, sweeping -10 -> +10 at Feedback 70%: at minimum 'honky, bassy, weirdly thumpy, a ton of resonance'; rising it opens 'like someone making an O sound with a small opening of their lips, the O gets bigger and brighter until it becomes a very bright A'; at maximum 'super super bright and jangly, almost ear piercing'. Monotonic, up = brighter, no inversion. *** DEPENDENCY: Tone acts on the resonance, so it is INAUDIBLE at Feedback 0 and dramatic at Feedback 70 -- do not judge or set it without feedback present."
   },
   {
    "family": "Megatap",
@@ -489,7 +489,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "Device read-back: log law over [10, 10000] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-19 (FW 32.02) 01 10 read: norm 0.400006 -> display '158.49 ms' == 10*1000^0.4 EXACT (log10(ms/10)/log10(10000/10)). MEGATAP pid 15; range cache effect33 pid15 [10,10000] kindCode 1091 -- same log-ms family as GATE attack/release/hold. CAUGHT BY DEVICE READ-BACK: map scale 1000 = SET-seconds, and the SET-float domain is NOT the body domain, so without this law the generic 0..scale rule wrote norm 0.4 for a 400 ms spec and the device read 158.49 ms. Offline verify PASSED on that wrong value (self-consistent, not ground truth) -- only the post-load read caught it."
   },
   {
    "family": "Megatap",
@@ -499,7 +499,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "Device read-back: log law over [1, 1000] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-19 (FW 32.02) 01 10 read: norm 0.015 -> display '1.109 ms' == 1*1000^0.015 EXACT. MEGATAP pid 16; range cache effect33 pid16 [1,1000] kindCode 1091 (log-ms family, same as GATE release). Without this law the generic 0..scale rule wrote norm 0.015 for a 15 ms spec -> device read 1.109 ms (bottom of range)."
   },
   {
    "family": "MultiComp",
@@ -509,7 +509,7 @@
    "units": "Hz",
    "taper": "log",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: log law over [50, 5000] Hz. Not yet device-verified."
+   "source": "cache effect37 pid0 kind 0x0241 [50,5000] log-Hz (effectDefinitions_10_32p2.cache (FW 32.02)); same 0x24x log-freq family as device-proven PEQ/Delay/Amp frequencies; BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -519,7 +519,7 @@
    "units": "Hz",
    "taper": "log",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: log law over [100, 10000] Hz. Not yet device-verified."
+   "source": "cache effect37 pid1 kind 0x0240 [100,10000] log-Hz (effectDefinitions_10_32p2.cache (FW 32.02)); upper twin of low crossover pid0 (kind differs only in decimals nibble); BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -529,7 +529,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: linear law over [-60, 20] dB. Not yet device-verified."
+   "source": "cache effect37 pid2 kind 0x0161 [-60,20] linear-dB (effectDefinitions_10_32p2.cache (FW 32.02)); identical law to Comp threshold (cache effect7 pid0); BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -539,7 +539,7 @@
    "units": ":1",
    "taper": "log",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: log law over [1, 20] :1. Not yet device-verified."
+   "source": "cache effect37 pid3 kind 0x0043 [1,20] log (effectDefinitions_10_32p2.cache (FW 32.02)); identical kind/range to the DEVICE-VERIFIED Comp ratio law; BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -549,7 +549,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: linear law over [-20, 20] dB. Not yet device-verified."
+   "source": "cache effect37 pid6 kind 0x0162 [-20,20] linear-dB (effectDefinitions_10_32p2.cache (FW 32.02)); low-band make-up gain; BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -559,7 +559,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: linear law over [-60, 20] dB. Not yet device-verified."
+   "source": "cache effect37 pid9, twin of low-band Threshold pid2 (kind 0x0161 [-60,20] byte-identical in cache); BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -569,7 +569,7 @@
    "units": ":1",
    "taper": "log",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: log law over [1, 20] :1. Not yet device-verified."
+   "source": "cache effect37 pid10, twin of low-band Ratio pid3 (kind 0x0043 [1,20] byte-identical in cache); BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -579,7 +579,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: linear law over [-20, 20] dB. Not yet device-verified."
+   "source": "cache effect37 pid13, twin of low-band Level pid6 (kind 0x0162 [-20,20] byte-identical in cache); BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -589,7 +589,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: linear law over [-60, 20] dB. Not yet device-verified."
+   "source": "cache effect37 pid16, twin of low-band Threshold pid2 (kind 0x0161 [-60,20] byte-identical in cache); BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -599,7 +599,7 @@
    "units": ":1",
    "taper": "log",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: log law over [1, 20] :1. Not yet device-verified."
+   "source": "cache effect37 pid17, twin of low-band Ratio pid3 (kind 0x0043 [1,20] byte-identical in cache); BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -609,7 +609,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: linear law over [-20, 20] dB. Not yet device-verified."
+   "source": "cache effect37 pid20, twin of low-band Level pid6 (kind 0x0162 [-20,20] byte-identical in cache); BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -619,7 +619,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "From firmware effect-definition metadata: linear law over [-80, 20] dB. Not yet device-verified."
+   "source": "cache effect37 pid24 kind 0x0181 [-80,20] linear-dB (effectDefinitions_10_32p2.cache (FW 32.02)); NOT the band Level law (0x0162 [-20,20]) -- master output level, same 0x0181 [-80,20] family as the device-verified Amp level; BUG-12 leftover 2026-07-22; NOT device-verified"
   },
   {
    "family": "MultiComp",
@@ -629,7 +629,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "Device read-back: log law over [1, 100] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-22 (live probe, block 154 pid 4): 10.000 ms @ norm 0.5 EXACT and 20.000 ms @ norm 0.6505173 == log10(20)/2 (<1 LSB) -> log [1,100] ms; SET path proven (display ms / scale 1000, read-back verified)"
   },
   {
    "family": "MultiComp",
@@ -639,7 +639,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified (single live anchor + cache twin)",
-   "source": "Device read-back: log law over [1, 100] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-22 (live probe, block 154 pid 11): 10.000 ms @ norm 0.5 EXACT and 20.000 ms @ norm 0.6505173 == log10(20)/2 (<1 LSB) -> log [1,100] ms; SET path proven (display ms / scale 1000, read-back verified); live anchor read at norm 0.5 on this pid + cache twin byte-identical to the low band"
   },
   {
    "family": "MultiComp",
@@ -649,7 +649,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified (single live anchor + cache twin)",
-   "source": "Device read-back: log law over [1, 100] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-22 (live probe, block 154 pid 18): 10.000 ms @ norm 0.5 EXACT and 20.000 ms @ norm 0.6505173 == log10(20)/2 (<1 LSB) -> log [1,100] ms; SET path proven (display ms / scale 1000, read-back verified); live anchor read at norm 0.5 on this pid + cache twin byte-identical to the low band"
   },
   {
    "family": "MultiComp",
@@ -659,7 +659,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified",
-   "source": "Device read-back: log law over [10, 1000] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-22 (live probe, block 154 pid 5): 100.00 ms @ norm 0.5 EXACT and 200.00 ms @ norm 0.6505173 == log10(20)/2 (<1 LSB) -> log [10,1000] ms; SET path proven (display ms / scale 1000, read-back verified)"
   },
   {
    "family": "MultiComp",
@@ -669,7 +669,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified (single live anchor + cache twin)",
-   "source": "Device read-back: log law over [10, 1000] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-22 (live probe, block 154 pid 12): 100.00 ms @ norm 0.5 EXACT and 200.00 ms @ norm 0.6505173 == log10(20)/2 (<1 LSB) -> log [10,1000] ms; SET path proven (display ms / scale 1000, read-back verified); live anchor read at norm 0.5 on this pid + cache twin byte-identical to the low band"
   },
   {
    "family": "MultiComp",
@@ -679,7 +679,7 @@
    "units": "ms",
    "taper": "log",
    "confidence": "device-verified (single live anchor + cache twin)",
-   "source": "Device read-back: log law over [10, 1000] ms (set values confirmed by passive MIDI read)."
+   "source": "DEVICE 2026-07-22 (live probe, block 154 pid 19): 100.00 ms @ norm 0.5 EXACT and 200.00 ms @ norm 0.6505173 == log10(20)/2 (<1 LSB) -> log [10,1000] ms; SET path proven (display ms / scale 1000, read-back verified); live anchor read at norm 0.5 on this pid + cache twin byte-identical to the low band"
   }
  ]
 }

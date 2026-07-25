@@ -31,7 +31,7 @@ what moved and which firmware it was verified against.
 
 Numbers are counted from the shipped JSON, not estimated:
 
-- **45 blocks**, **1,788 named parameters** in the master map.
+- **46 blocks**, **1,921 named parameters** in the master map.
 - **331 amp models** and **87 drive models**, each linked to the real-world gear it's based on.
 - DynaCab speakers/mics and per-block type/model selectors, as enums.
 
@@ -61,7 +61,7 @@ and the `note` fields in the JSON). Coverage is also **firmware-specific**: this
 ### `maps/`
 | File | What it is |
 |---|---|
-| `axefx_sysex_map.json` | **The master map.** All 45 blocks, 1,788 named parameters, each with its param ID, display label, type, and page (and, where derived, its value scale). Includes a `protocol` header and embedded enums. This one file lets you address any parameter. See [CHANGELOG.md](CHANGELOG.md) for what changed between releases. |
+| `axefx_sysex_map.json` | **The master map.** All 46 blocks, 1,921 named parameters, each with its param ID, display label, type, and page (and, where derived, its value scale). Includes a `protocol` header and embedded enums. This one file lets you address any parameter. See [CHANGELOG.md](CHANGELOG.md) for what changed between releases. |
 | `device_relationships.json` | Real gear → Axe-Fx model. 331 amps + 87 drives, each with the real amp/pedal it's based on and search terms (e.g. "plexi", "bassman", "tube screamer"). |
 | `cab_device_relationships.json` | The same, for cabs: DynaCab speakers/mics + legacy IR cabs → real-world gear. |
 | `display_label_index.json` | The knob names shown in the editor mapped to the underlying generic parameter (e.g. a Pro Co RAT's printed "Volume" → the generic "Level" param), per model. |

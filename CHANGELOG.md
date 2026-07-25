@@ -4,6 +4,67 @@ All notable changes to the Axe-Fx III SysEx & parameter maps. Everything here wa
 captured and verified on **firmware 32.02**. Param IDs, model IDs, and value scales are
 specific to that firmware; re-verify on your own unit before relying on anything critical.
 
+## 2026-07-24
+
+A device-settings and coverage pass that adds **133 newly mapped parameters** to the master
+map (**1,788 → 1,921 named parameters**) and introduces the map's **first system/FC-layout
+block**, taking coverage from **45 to 46 blocks**. Still firmware **32.02**, and the map stays
+firmware-tracked — re-verify on your own unit before relying on anything critical.
+
+### New block — FC Layout (46th block)
+
+- **FCLAYOUT** — a system/config block (Axe-Edit's "FC Edit" surface) that describes the FC
+  foot-controller switch layout; it is **not** a grid effect (not placeable or bypassable). This
+  release seeds it with the switch-1 **Tap Category** and **Hold Category** selectors; the full
+  per-switch grid is not yet enumerated, so the block is marked `complete: false`.
+
+### System / global setup parameters (GLOBAL, +66)
+
+The GLOBAL block gained the device's **Setup**-menu settings that live outside the edit buffer
+(persistent, autosaved — read the current value before you write, there is no reload-to-revert):
+
+- **Tuner** — Reference Pitch and related tuner-page settings.
+- **MIDI / general** — MIDI clock send/receive, "Ignore Redundant PC", and related options.
+- **External controllers** — the real **External Control 1–12 source** assignments (pids
+  1302–1313). This **supersedes and falsifies** the earlier mapping that placed external-control
+  sources at pids 80–87: those eight entries are **kept but renamed and marked falsified**, with
+  their true identity now listed as unknown. Update any code that addressed pids 80–87.
+- **Bypass-CC assignments** — the per-block **MIDI Bypass CC** table (39 entries), i.e. which
+  MIDI CC toggles each block's bypass.
+
+### Per-block "Bypass State" reflection parameter (27 blocks)
+
+Most effect blocks gained a read-only **`Bypass State`** entry that mirrors the block's
+engaged/bypassed state (function `0x0A`). It is a **reflection of block enable, not proven
+independently settable**, and is distinct from a block's own `Bypass` / `Bypass Mode` selector.
+Treat it as read-only until proven otherwise.
+
+### More block parameters, including closed type-gated entries
+
+Additional parameters across roughly fifteen blocks, several of them previously type-gated
+entries now resolved: **MULTITAP +13**, **CAB +7** (per-type `Level`/`Pan`/`Low Cut`/`High Cut`/
+`Smoothing` instances), **TENTAP +6**, **COMP / GATE / PLEX / RESONATOR / IRPLAYER +3** each,
+plus one or two each in AMP1, ENHANCER, MEGATAP, PITCH and a dozen other blocks.
+
+### Honest caveats
+
+- **Value encodings are often derived, not write-verified.** Many new entries had their
+  display↔wire scale **inferred** (e.g. from sibling parameters) rather than confirmed by a
+  round-trip write; those say so in their `note`. **39 new entries still carry an unresolved
+  scale** (`scale: null`) — addressable, but derive the scaling yourself before writing
+  continuous values.
+- **PITCH `Feedback 1–4` (pids 31–34) are under re-verification.** These labels may be a
+  routing-matrix mislabel rather than true per-voice feedback; treat them with caution pending
+  the next confirmation pass.
+- Coverage remains **FW 32.02-specific** — param IDs and scales can move between firmware.
+
+### How this release was verified
+
+New and corrected entries were identified on real hardware (FW 32.02) and cross-checked between
+independent methods. Where an entry was set and read back over MIDI it is marked write-verified
+in its `note`; entries that are named/identified but not yet write-confirmed are flagged as such.
+Value encodings that have been worked out live in `param_word_laws.json`.
+
 ## 2026-07-23
 
 A parameter-coverage pass that adds **145 newly mapped parameters** to the master map

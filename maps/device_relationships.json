@@ -2,9 +2,9 @@
  "_meta": {
   "purpose": "Real-gear <-> Axe-Fx on-device model relationships for natural-language targeting.",
   "built": "2026-06-24",
-  "amp_source": "Amp_model_ids.json + axefx-wiki Amp_models_list.txt (auto-parsed 'based on')",
-  "drive_source": "Axefx_sysex_map DRIVE.type_selector + curated DRIVE_ALIASES",
-  "usage": "'princeton' -> matching {block, device_name, model_id}",
+  "amp_source": "amp_model_ids.json + axefx-wiki Amp_models_list.txt (auto-parsed 'based on')",
+  "drive_source": "axefx_sysex_map DRIVE.type_selector + curated DRIVE_ALIASES",
+  "usage": "an internal tool 'princeton' -> matching {block, device_name, model_id}",
   "set_via": "AMP model = AMP param 0 = float(model_id); DRIVE type = DRIVE param 0 = float(model_id)"
  },
  "amps": [

@@ -4,7 +4,8 @@
   "firmware": "32.02",
   "captured": "2026-06-21",
   "source": "Reverse-engineered: USB MIDI capture capture of Axe-Edit III traffic + accessibility-driven parameter sweeps. ids are firmware-internal enums.",
-  "warning": "Param ids, model ids, and scales are specific to FW 32.02; a firmware update could renumber them. Re-capture to verify on other firmware."
+  "warning": "Param ids, model ids, and scales are specific to FW 32.02; a firmware update could renumber them. Re-capture to verify on other firmware.",
+  "updated": "2026-07-24"
  },
  "protocol": {
   "set_param": "F0 00 01 74 10 01 09 00 <blk_lo blk_hi> <pid_lo pid_hi> <v0 v1 v2 v3 v4> 00 00 00 00 <cks> F7",
@@ -29,8 +30,8 @@
   "AMP1": {
    "block_id": 58,
    "block_id_hex": "0x3A",
-   "param_count": 105,
-   "complete": true,
+   "param_count": 107,
+   "complete": false,
    "params": [
     {
      "name": "Gain",
@@ -1037,6 +1038,23 @@
       "On": 1
      },
      "note": "GET-diff: Output EQ page enable; display label is 'Off / On' (resolves via label index). 0000 default On. SET/GET round-trip OK."
+    },
+    {
+     "name": "High Cut (p133)",
+     "param_id": 133,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale null -- unresolved (unitless '10.00'; AMP1 High Cut siblings are Hz/scale 1.0 but this render looks 0-10 style--ambiguous). Captured under type-context 'Matchbox D-30'. Name suffixed '(p133)': distinct instance of the block's master 'High Cut', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 28,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "model_selector": {
@@ -1388,8 +1406,8 @@
   "CAB": {
    "block_id": 62,
    "block_id_hex": "0x3E",
-   "param_count": 66,
-   "complete": true,
+   "param_count": 73,
+   "complete": false,
    "params": [
     {
      "name": "Bank",
@@ -2842,9 +2860,72 @@
      "name": "Length",
      "param_id": 72,
      "type": "combo",
+     "scale": 1.0,
+     "page": 0,
+     "note": "2026-07-24 SET write-verified (01 09): sent 4.0 -> device read '256' (was '256'); index<->label confirmed. values dict AUTHORED from device probe: idx0=MAX, idx2=512, idx3=256, idx4 clamps to 256 (range 0-3).",
+     "values": {
+      "MAX": 0,
+      "1024": 1,
+      "512": 2,
+      "256": 3
+     }
+    },
+    {
+     "name": "High Cut (p68)",
+     "param_id": 68,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (Hz; matches CAB High Cut siblings pid 39/66 raw-Hz SET). Captured under type-context '01: 1x8 5F1 Tweed'. Name suffixed '(p68)': distinct instance of the block's master 'High Cut', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Level (p10)",
+     "param_id": 10,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB; verified-dB SET convention). Captured under type-context '01: 1x8 5F1 Tweed'. Name suffixed '(p10)': distinct instance of the block's master 'Level', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Low Cut (p64)",
+     "param_id": 64,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (Hz; matches CAB Low Cut sibling pid 38 raw-Hz SET). Captured under type-context '01: 1x8 5F1 Tweed'. Name suffixed '(p64)': distinct instance of the block's master 'Low Cut', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Pan (p14)",
+     "param_id": 14,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (bipolar percent Pan; normalized wire 0.789 = (57.9/100+1)/2, and CAB Pan siblings pid 12/15 = 100). Captured under type-context '01: 1x8 5F1 Tweed'. Name suffixed '(p14)': distinct instance of the block's master 'Pan', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Smoothing (p103)",
+     "param_id": 103,
+     "type": "slider",
+     "scale": 10.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 10 (0-10 knob; sibling CAB Smoothing pid 48 = 10; wire 1.0 -> 10.00). Captured under type-context '01: 1x8 5F1 Tweed'. Name suffixed '(p103)': distinct instance of the block's master 'Smoothing', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Level (p28)",
+     "param_id": 28,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB; 20 dB = max of -80..20 domain, wire 1.0 corroborates). Captured under type-context '01: 1x8 5F1 Tweed'. Name suffixed '(p28)': distinct instance of the block's master 'Level', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 32,
+     "type": "switch",
      "scale": null,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "dynacab": {
@@ -3283,8 +3364,8 @@
   "CHORUS": {
    "block_id": 78,
    "block_id_hex": "0x4E",
-   "param_count": 26,
-   "complete": true,
+   "param_count": 27,
+   "complete": false,
    "params": [
     {
      "name": "Number of Voices",
@@ -3576,13 +3657,22 @@
      "name": "Bypass",
      "param_id": 28,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 15,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "type_selector": {
@@ -3621,8 +3711,8 @@
   "COMP": {
    "block_id": 46,
    "block_id_hex": "0x2E",
-   "param_count": 29,
-   "complete": true,
+   "param_count": 32,
+   "complete": false,
    "params": [
     {
      "name": "Threshold",
@@ -3832,13 +3922,13 @@
      "name": "Auto Makeup",
      "param_id": 6,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 0.0 -> device read 'OFF' (was 'ON'); index<->label confirmed. two-way verified: pass1 held ON, pass2 sent 0 -> OFF (toggle moves both directions)."
     },
     {
      "name": "Type",
@@ -3873,61 +3963,86 @@
      "name": "Compression",
      "param_id": 13,
      "type": "slider",
-     "scale": null,
+     "scale": 10.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 10.0): sent 0.42000000000000004 -> device read '4.20' (was '5.00')."
     },
     {
      "name": "Auto Att/Rel",
      "param_id": 16,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 0.0 -> device read 'OFF' (was 'ON'); index<->label confirmed. two-way verified: pass1 held ON, pass2 sent 0 -> OFF (toggle moves both directions)."
     },
     {
      "name": "Dynamics",
      "param_id": 18,
      "type": "slider",
-     "scale": null,
+     "scale": 10.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 10.0): sent -0.16 -> device read '-1.60' (was '0.00')."
     },
     {
      "name": "Time",
      "param_id": 31,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 0.018196999999999998 -> device read '18.196 ms' (was '10.000 ms'). ms-as-seconds; '18.196' vs expected '18.197' = equal within float rounding."
     },
     {
      "name": "Transients",
      "param_id": 32,
      "type": "slider",
-     "scale": null,
+     "scale": 10.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 10.0): sent -0.16 -> device read '-1.60' (was '0.00')."
     },
     {
      "name": "Tone",
      "param_id": 35,
      "type": "slider",
-     "scale": null,
+     "scale": 10.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 10.0): sent 0.42000000000000004 -> device read '4.20' (was '0.00')."
     },
     {
      "name": "Drive",
      "param_id": 36,
      "type": "slider",
-     "scale": null,
+     "scale": 10.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 10.0): sent 0.42000000000000004 -> device read '4.20' (was '5.00')."
+    },
+    {
+     "name": "Ratio (p30)",
+     "param_id": 30,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale null -- unresolved (maxed sample wire 1.0 can't tell raw-ratio scale 1.0 (sibling pid 1) from 0-10). Captured under type-context 'Compander'. Name suffixed '(p30)': distinct instance of the block's master 'Ratio', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Threshold (p27)",
+     "param_id": 27,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB; sibling COMP Threshold pid 0 = 1.0). Captured under type-context 'Dynamics Processor'. Name suffixed '(p27)': distinct instance of the block's master 'Threshold', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 9,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -4078,8 +4193,8 @@
   "DELAY": {
    "block_id": 70,
    "block_id_hex": "0x46",
-   "param_count": 89,
-   "complete": true,
+   "param_count": 90,
+   "complete": false,
    "params": [
     {
      "name": "Time",
@@ -5139,13 +5254,22 @@
      "name": "Bypass",
      "param_id": 83,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 22,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "type_selector": {
@@ -5611,13 +5735,13 @@
      "name": "Bypass",
      "param_id": 39,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     }
    ],
    "type_selector": {
@@ -5725,8 +5849,8 @@
   "DYNADIST": {
    "block_id": 202,
    "block_id_hex": "0xCA",
-   "param_count": 11,
-   "complete": true,
+   "param_count": 12,
+   "complete": false,
    "params": [
     {
      "name": "Filter Type",
@@ -5832,14 +5956,23 @@
       "Stereo": 1
      },
      "note": "Display walk: 2-enum, 2+ clamps."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 11,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ]
   },
   "ENHANCER": {
    "block_id": 122,
    "block_id_hex": "0x7A",
-   "param_count": 10,
-   "complete": true,
+   "param_count": 12,
+   "complete": false,
    "params": [
     {
      "name": "Width",
@@ -5881,7 +6014,7 @@
      "name": "Phase Invert",
      "param_id": 7,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "NONE": 0,
@@ -5889,43 +6022,65 @@
       "LEFT": 2,
       "BOTH": 3
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'LEFT' (was 'NONE'); index<->label confirmed."
     },
     {
      "name": "Pan Left",
      "param_id": 8,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24: re-verified on the correct block ('s pass-2 write hit DELAY via a stale block-id; corrected). scale 100 re-confirmed (bipolar percent)."
     },
     {
      "name": "Pan Right",
      "param_id": 9,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24: device SET write-verified (bipolar percent, scale 100; under Stereoizer, type pid6=2): sent -0.16 -> '-16.0 %' (was '100.0')."
     },
     {
      "name": "Balance",
      "param_id": 10,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24: device SET write-verified (bipolar percent, scale 100; under Stereoizer, type pid6=2): sent -0.16 -> '-16.0 %' (was '0.0')."
     },
     {
      "name": "Bypass",
      "param_id": 11,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 5,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
+    },
+    {
+     "name": "Type",
+     "param_id": 6,
+     "type": "combo",
+     "scale": 1.0,
+     "page": 0,
+     "values": {
+      "Modern": 0,
+      "Classic": 1,
+      "Stereoizer": 2
+     },
+     "note": "2026-07-24: device SET write-verified (Type enum walk: 0 Modern / 1 Classic / 2 Stereoizer)."
     }
    ],
    "instances": {
@@ -5979,9 +6134,13 @@
      "name": "Bypass",
      "param_id": 4,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed. values dict AUTHORED {OFF:0, ON:1} (block cache had no enum list, BUG-20).",
+     "values": {
+      "OFF": 0,
+      "ON": 1
+     }
     }
    ],
    "instances": {
@@ -6010,8 +6169,8 @@
   "FILTER": {
    "block_id": 114,
    "block_id_hex": "0x72",
-   "param_count": 33,
-   "complete": true,
+   "param_count": 34,
+   "complete": false,
    "params": [
     {
      "name": "Frequency",
@@ -6312,19 +6471,19 @@
      "name": "Bypass",
      "param_id": 23,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Mode",
      "param_id": 24,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "LOWPASS": 0,
@@ -6332,7 +6491,16 @@
       "HIGHPASS": 2,
       "MIX": 3
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'HIGHPASS' (was 'LOWPASS'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 8,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "type_selector": {
@@ -6666,13 +6834,13 @@
      "name": "Bypass",
      "param_id": 32,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     }
    ],
    "type_selector": {
@@ -6724,7 +6892,7 @@
   "FORMANT": {
    "block_id": 98,
    "block_id_hex": "0x62",
-   "param_count": 10,
+   "param_count": 11,
    "complete": true,
    "params": [
     {
@@ -6848,13 +7016,22 @@
      "name": "Bypass",
      "param_id": 11,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 8,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -6868,8 +7045,8 @@
   "GATE": {
    "block_id": 146,
    "block_id_hex": "0x92",
-   "param_count": 14,
-   "complete": true,
+   "param_count": 17,
+   "complete": false,
    "params": [
     {
      "name": "Threshold",
@@ -6988,19 +7165,19 @@
      "name": "Bypass",
      "param_id": 17,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Knee Type",
      "param_id": 18,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "HARD": 0,
@@ -7009,7 +7186,38 @@
       "MED-SOFT": 3,
       "SOFT": 4
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24: device SET write-verified (Knee Type walk under Modern Gate; values HARD/MED-HARD/MEDIUM/MED-SOFT/SOFT confirmed, sent 2 -> 'MEDIUM')."
+    },
+    {
+     "name": "Attenuation",
+     "param_id": 15,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB Attenuation). Captured under type-context 'Modern Gate'."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 12,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
+    },
+    {
+     "name": "Type",
+     "param_id": 14,
+     "type": "combo",
+     "scale": 1.0,
+     "page": 0,
+     "values": {
+      "Classic Expander": 0,
+      "Classic Gate": 1,
+      "Modern Gate": 2,
+      "Modern Expander": 3
+     },
+     "note": "2026-07-24: device SET write-verified (Type enum walk: 0 Classic Expander / 1 Classic Gate / 2 Modern Gate / 3 Modern Expander)."
     }
    ],
    "instances": {
@@ -7180,13 +7388,13 @@
      "name": "Bypass",
      "param_id": 19,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     }
    ],
    "instances": {
@@ -7297,8 +7505,8 @@
   "LOOPER": {
    "block_id": 166,
    "block_id_hex": "0xA6",
-   "param_count": 13,
-   "complete": true,
+   "param_count": 14,
+   "complete": false,
    "params": [
     {
      "name": "Balance",
@@ -7363,54 +7571,63 @@
      "name": "Playback Level",
      "param_id": 0,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -34.8 -> device read '-34.80 dB' (was '0.00 dB')."
     },
     {
      "name": "Overdub Level",
      "param_id": 1,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -34.8 -> device read '-34.80 dB' (was '0.00 dB')."
     },
     {
      "name": "Low Cut",
      "param_id": 5,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 138.37 -> device read '138.37 Hz' (was '20.00 Hz')."
     },
     {
      "name": "Dry Level",
      "param_id": 13,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -34.8 -> device read '-34.80 dB' (was '0.00 dB')."
     },
     {
      "name": "Record 2nd Press",
      "param_id": 19,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": 1,
      "values": {
       "OVERDUB": 0,
       "PLAY": 1,
       "STOP": 2
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'STOP' (was 'OVERDUB'); index<->label confirmed."
     },
     {
      "name": "Max. Loop Time",
      "param_id": 23,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 1,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 101.0 -> device read '101.0 sec' (was 'MAX'). seconds; device read '101.0 sec' (the ' sec' suffix broke only the string compare -- value is exact). scale 1 (seconds)."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 4,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -7424,8 +7641,8 @@
   "MEGATAP": {
    "block_id": 138,
    "block_id_hex": "0x8A",
-   "param_count": 27,
-   "complete": true,
+   "param_count": 29,
+   "complete": false,
    "params": [
     {
      "name": "Input Gain",
@@ -7628,15 +7845,15 @@
      "name": "Time Randomize",
      "param_id": 11,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": null,
-     "note": "Time-section Randomize (per-tap time variation). Device-verified on FW 32.02 by UI-set with passive MIDI read-back; the control displays in percent. A prior time-domain (ms) interpretation of this pid is superseded. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 52, scale 100.0): sent 0.42 -> device read '42.0 %' (was '8.0 %'). alt-SET 01 52 /100 CONFIRMED (percent) -- the /'linaffine a=500 / 0-500 ms' reading is WITHDRAWN as the encoding (that SUSPECT flag is cleared). Curious pass-1 alt observation: 01 09 with 0.42 doubled to '84.0 %%' (a x2 domain) -- recorded, not mapped."
     },
     {
      "name": "Shape",
      "param_id": 5,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": 1,
      "values": {
       "EXP/LOG": 0,
@@ -7644,35 +7861,52 @@
       "COSINE": 2,
       "SINE": 3
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'COSINE' (was 'EXP/LOG'); index<->label confirmed."
     },
     {
      "name": "Alpha",
      "param_id": 6,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '50.0 %')."
     },
     {
      "name": "Amplitude Randomize",
      "param_id": 30,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Amplitude-section Randomize (per-tap level variation). Device-verified on FW 32.02 by UI-set with passive MIDI read-back. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 52, scale 100.0): sent 0.42 -> device read '42.0 %' (was '84.0 %'). alt-SET class: responds only to 01 52 (pass-2); 01 09 doubled the value. percent /100."
     },
     {
      "name": "Kill Dry",
      "param_id": 33,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Mix (p12)",
+     "param_id": 12,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (percent; sibling MEGATAP Mix pid 17 = 100). Captured under type-context 'Reverb Pre-Swell'. Name suffixed '(p12)': distinct instance of the block's master 'Mix', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 22,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -7688,7 +7922,7 @@
    "block_id": 126,
    "block_id_hex": "0x7E",
    "param_count": 21,
-   "complete": true,
+   "complete": false,
    "params": [
     {
      "name": "Row 1 Gain",
@@ -7856,8 +8090,8 @@
   "MULTIBAND": {
    "block_id": 154,
    "block_id_hex": "0x9A",
-   "param_count": 29,
-   "complete": true,
+   "param_count": 30,
+   "complete": false,
    "params": [
     {
      "name": "Crossover",
@@ -8141,14 +8375,23 @@
      "scale": 1.0,
      "page": 1,
      "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 27,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ]
   },
   "MULTITAP": {
    "block_id": 74,
    "block_id_hex": "0x4A",
-   "param_count": 80,
-   "complete": true,
+   "param_count": 93,
+   "complete": false,
    "params": [
     {
      "name": "Algorithm",
@@ -9197,47 +9440,47 @@
      "name": "Diffusion Time",
      "param_id": 39,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '40.0 %')."
     },
     {
      "name": "Attenuation",
      "param_id": 57,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 33.6 -> device read '33.6 dB' (was '0.0 dB')."
     },
     {
      "name": "Motor Speed",
      "param_id": 58,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 1,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 0.895 -> device read '0.895' (was '0.500'). pass-2 corrected /1 (pass-1 /10 undershot)."
     },
     {
      "name": "Low Cut",
      "param_id": 61,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 138.4 -> device read '138.4 Hz' (was '20.0 Hz')."
     },
     {
      "name": "High Cut",
      "param_id": 62,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 1384.0 -> device read '1384 Hz' (was '20000 Hz')."
     },
     {
      "name": "Type",
      "param_id": 68,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "SINE": 0,
@@ -9251,172 +9494,278 @@
       "TRAPEZOID": 8,
       "ASTABLE": 9
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'SQUARE' (was 'SINE'); index<->label confirmed."
     },
     {
      "name": "Phase",
      "param_id": 70,
      "type": "slider",
-     "scale": null,
+     "scale": 57.2957795,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 57.2957795): sent 0.42 -> device read '24.1 deg' (was '180.0 deg'). RADIANS on the wire: display deg = value x 180/pi; pass-2 sent 0.42 -> '24.1 deg' (0.42 rad = 24.06 deg). scale = 180/pi = 57.2957795 (SET = degrees / 57.2957795). device-verified."
     },
     {
      "name": "Attack Time",
      "param_id": 72,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 0.18197 -> device read '181.96 ms' (was '299.99 ms'). ms-as-seconds; '181.96' vs expected '181.97' = equal within rounding."
     },
     {
      "name": "Release Time",
      "param_id": 73,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 0.018196999999999998 -> device read '18.196 ms' (was '10.000 ms'). ms-as-seconds; '18.196' vs expected '18.197' = equal within rounding."
     },
     {
      "name": "Comb Time",
      "param_id": 74,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '100.0 %')."
     },
     {
      "name": "Comb Depth",
      "param_id": 75,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent -0.16 -> device read '-16.0 %' (was '0.0 %')."
     },
     {
      "name": "Filter Type",
      "param_id": 76,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 5,
      "values": {
       "FEEDBACK": 0,
       "FEEDFORWARD": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'FEEDFORWARD' (was 'FEEDBACK'); index<->label confirmed."
     },
     {
      "name": "Ring Mod Frequency",
      "param_id": 85,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.84 -> device read '84.0 %' (was '100.0 %')."
     },
     {
      "name": "Ring Mod Mix",
      "param_id": 86,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '0.0 %')."
     },
     {
      "name": "Input Select",
      "param_id": 103,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "L+R": 0,
       "LEFT": 1,
       "RIGHT": 2
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'RIGHT' (was 'L+R'); index<->label confirmed."
     },
     {
      "name": "Chorus Rate",
      "param_id": 104,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.426 -> device read '42.6 %' (was '100.0 %')."
     },
     {
      "name": "Chorus Depth",
      "param_id": 105,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '100.0 %')."
     },
     {
      "name": "Frequency",
      "param_id": 107,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 692.0 -> device read '692 Hz' (was '500 Hz')."
     },
     {
      "name": "Q",
      "param_id": 108,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 0.182 -> device read '0.182' (was '0.018'). pass-2 corrected /1 (pass-1 /10 undershot)."
     },
     {
      "name": "Gain",
      "param_id": 109,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -1.92 -> device read '-1.92 dB' (was '0.00 dB')."
     },
     {
      "name": "Kill Dry",
      "param_id": 115,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Feedback 1->2",
      "param_id": 116,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent -0.16 -> device read '-16.0 %' (was '0.0 %')."
     },
     {
      "name": "Feedback 2->3",
      "param_id": 117,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent -0.16 -> device read '-16.0 %' (was '0.0 %')."
     },
     {
      "name": "Feedback 3->4",
      "param_id": 118,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent -0.16 -> device read '-16.0 %' (was '0.0 %')."
     },
     {
      "name": "Feedback 4->1",
      "param_id": 119,
      "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent -0.16 -> device read '-16.0 %' (was '0.0 %')."
+    },
+    {
+     "name": "Depth (p99)",
+     "param_id": 99,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (percent Depth; wire 0.293 = 29.3/100; sibling Depth pid 67 = 100). Captured under type-context 'Quad-Tap Delay'. Name suffixed '(p99)': distinct instance of the block's master 'Depth', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Rate (p95)",
+     "param_id": 95,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (Hz Rate; sibling MULTITAP Rate pid 66 / LFO Rate pid 21-22 = 1.0). Captured under type-context 'Quad-Tap Delay'. Name suffixed '(p95)': distinct instance of the block's master 'Rate', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Drive",
+     "param_id": 65,
+     "type": "slider",
+     "scale": 10.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 10 (0-10 Drive knob, alt-SET 01 52; 0-10-knob convention; maxed sample--not write-verified). Captured under type-context 'Quad-Tap Delay'.",
+     "set_command": "01 52"
+    },
+    {
+     "name": "LFO Depth (p113)",
+     "param_id": 113,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (percent LFO Depth; sibling LFO Depth pid 48 = 100). Captured under type-context 'Quad-Tap Delay'. Name suffixed '(p113)': distinct instance of the block's master 'LFO Depth', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "LFO Rate (p112)",
+     "param_id": 112,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (Hz LFO Rate; sibling LFO 1/2 Rate pid 21-22 = 1.0). Captured under type-context 'Quad-Tap Delay'. Name suffixed '(p112)': distinct instance of the block's master 'LFO Rate', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Threshold",
+     "param_id": 71,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB Threshold). Captured under type-context 'Quad-Tap Delay'."
+    },
+    {
+     "name": "Level (p42)",
+     "param_id": 42,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (percent Level; wire 0.713 = 71.3/100; sibling Level 1-4 pid 9-12 = 100). Captured under type-context 'Quad-Tap Delay'. Name suffixed '(p42)': distinct instance of the block's master 'Level', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Feedback (p81)",
+     "param_id": 81,
+     "type": "slider",
      "scale": null,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale null -- unresolved (display 29.3% but normalized wire 0.6465 does NOT corroborate /100; join/scale suspect though sibling Feedback=100). Captured under type-context 'Rhythmic Bands'. Name suffixed '(p81)': distinct instance of the block's master 'Feedback', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Time (p77)",
+     "param_id": 77,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1000 (ms; sibling MULTITAP Attack/Release Time = 1000). Captured under type-context 'Rhythmic Bands'. Name suffixed '(p77)': distinct instance of the block's master 'Time', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Frequency (p87)",
+     "param_id": 87,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (Hz Frequency; wire 0.01465 = 29.298/2000 corroborates raw-Hz SET; sibling Frequency pid 107/49-52 = 1.0). Captured under type-context 'Rhythmic Bands'. Name suffixed '(p87)': distinct instance of the block's master 'Frequency', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Mix (p91)",
+     "param_id": 91,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (percent Mix; wire 0.833 = 83.3/100; sibling Mix pid 31 = 100). Captured under type-context 'Rhythmic Bands'. Name suffixed '(p91)': distinct instance of the block's master 'Mix', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Feedback (p63)",
+     "param_id": 63,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (percent Feedback; wire 0.137 = 13.7/100; sibling Feedback pid 46/13-16 = 100). Captured under type-context 'Rhythmic Bands'. Name suffixed '(p63)': distinct instance of the block's master 'Feedback', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 37,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -9432,7 +9781,7 @@
    "block_id": 191,
    "block_id_hex": "0xBF",
    "param_count": 5,
-   "complete": true,
+   "complete": false,
    "params": [
     {
      "name": "Input Select",
@@ -9490,13 +9839,13 @@
      "name": "Channel A",
      "param_id": 6,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     }
    ]
   },
@@ -9679,8 +10028,8 @@
   "PEQ": {
    "block_id": 54,
    "block_id_hex": "0x36",
-   "param_count": 28,
-   "complete": true,
+   "param_count": 29,
+   "complete": false,
    "params": [
     {
      "name": "Frequency 1",
@@ -9885,69 +10234,78 @@
      "name": "Solo 1",
      "param_id": 25,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Solo 2",
      "param_id": 26,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Solo 3",
      "param_id": 27,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Solo 4",
      "param_id": 28,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Solo 5",
      "param_id": 29,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 24,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ]
   },
   "PHASER": {
    "block_id": 90,
    "block_id_hex": "0x5A",
-   "param_count": 32,
-   "complete": true,
+   "param_count": 33,
+   "complete": false,
    "params": [
     {
      "name": "Rate",
@@ -10226,13 +10584,22 @@
      "name": "Bypass",
      "param_id": 31,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 16,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "type_selector": {
@@ -10270,8 +10637,8 @@
   "PITCH": {
    "block_id": 110,
    "block_id_hex": "0x6E",
-   "param_count": 95,
-   "complete": true,
+   "param_count": 97,
+   "complete": false,
    "note": "Quad Diatonic Delay (type 13) fully mapped for all settable params. Deferred: Key/Scale/#Notes/Note 2-4 are a bulk scale-table class (not individually settable); pitch-shift sliders (Shift 1-4, Master Pitch, Step 1-16 Shift, Whammy Control, Capo Shift/Detune, Custom Shifter Scale) + Detector Source/Pitch Quantize + the 14 other type families' unique params remain for a future batch. Method: combos only refresh via SET when auto-navigated from the page before their home page. Time 1-4 (chromatic types) = same param_ids as Delay 1-4 (27-30).",
    "params": [
     {
@@ -10712,88 +11079,88 @@
      "name": "Arp Tempo",
      "param_id": 76,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Arpeggiator tempo-division selector; full 78-entry enum in `values` (firmware order: '1/64 TRIP' = 0 ... '1/32 DOT' = 5 ...). Correction from the initial release: pid 76 was previously mislabeled 'Run' \u2014 Run is pid 75.",
+     "note": "2026-07-24 SET write-verified (01 09): sent 3.0 -> device read '1/64 DOT' (was '1/64'); index<->label confirmed. OFF-BY-ONE SET path: pass-2 sent 3 -> '1/64 DOT' (old dict index 2). values dict SHIFTED +1 so each label now maps to the WIRE value the device needs (label at old index N -> wire N+1); scale 1. Decode-by-raw-index no longer matches this dict -- SET path is the verified one.",
      "values": {
-      "1/64 TRIP": 0,
-      "1/64": 1,
-      "1/64 DOT": 2,
-      "1/32 TRIP": 3,
-      "1/32": 4,
-      "1/32 DOT": 5,
-      "1/16 TRIP": 6,
-      "1/16": 7,
-      "1/16 DOT": 8,
-      "1/8 TRIP": 9,
-      "1/8": 10,
-      "1/8 DOT": 11,
-      "1/4 TRIP": 12,
-      "1/4": 13,
-      "1/4 DOT": 14,
-      "1/2 TRIP": 15,
-      "1/2": 16,
-      "1/2 DOT": 17,
-      "1 TRIP": 18,
-      "1": 19,
-      "1 DOT": 20,
-      "2": 21,
-      "3": 22,
-      "4": 23,
-      "4/3": 24,
-      "5/4": 25,
-      "5/64": 26,
-      "7/64": 27,
-      "9/64": 28,
-      "10/64 (5/32)": 29,
-      "11/64": 30,
-      "13/64": 31,
-      "14/64 (7/32)": 32,
-      "15/64": 33,
-      "17/64": 34,
-      "18/64 (9/32)": 35,
-      "19/64": 36,
-      "20/64 (5/16)": 37,
-      "21/64": 38,
-      "22/64 (11/32)": 39,
-      "23/64": 40,
-      "25/64": 41,
-      "26/64 (13/32)": 42,
-      "27/64": 43,
-      "28/64 (7/16)": 44,
-      "29/64": 45,
-      "30/64 (15/32)": 46,
-      "31/64": 47,
-      "33/64": 48,
-      "34/64 (17/32)": 49,
-      "35/64": 50,
-      "36/64 (9/16)": 51,
-      "37/64": 52,
-      "38/64 (19/32)": 53,
-      "39/64": 54,
-      "40/64 (5/8)": 55,
-      "41/64": 56,
-      "42/64 (21/32)": 57,
-      "43/64": 58,
-      "44/64 (11/16)": 59,
-      "45/64": 60,
-      "46/64 (23/32)": 61,
-      "47/64": 62,
-      "49/64": 63,
-      "50/64 (25/32)": 64,
-      "51/64": 65,
-      "52/64 (13/16)": 66,
-      "53/64": 67,
-      "54/64 (27/32)": 68,
-      "55/64": 69,
-      "56/64 (7/8)": 70,
-      "57/64": 71,
-      "58/64 (29/32)": 72,
-      "59/64": 73,
-      "60/64 (15/16)": 74,
-      "61/64": 75,
-      "62/64 (31/32)": 76,
-      "63/64": 77
+      "1/64 TRIP": 1,
+      "1/64": 2,
+      "1/64 DOT": 3,
+      "1/32 TRIP": 4,
+      "1/32": 5,
+      "1/32 DOT": 6,
+      "1/16 TRIP": 7,
+      "1/16": 8,
+      "1/16 DOT": 9,
+      "1/8 TRIP": 10,
+      "1/8": 11,
+      "1/8 DOT": 12,
+      "1/4 TRIP": 13,
+      "1/4": 14,
+      "1/4 DOT": 15,
+      "1/2 TRIP": 16,
+      "1/2": 17,
+      "1/2 DOT": 18,
+      "1 TRIP": 19,
+      "1": 20,
+      "1 DOT": 21,
+      "2": 22,
+      "3": 23,
+      "4": 24,
+      "4/3": 25,
+      "5/4": 26,
+      "5/64": 27,
+      "7/64": 28,
+      "9/64": 29,
+      "10/64 (5/32)": 30,
+      "11/64": 31,
+      "13/64": 32,
+      "14/64 (7/32)": 33,
+      "15/64": 34,
+      "17/64": 35,
+      "18/64 (9/32)": 36,
+      "19/64": 37,
+      "20/64 (5/16)": 38,
+      "21/64": 39,
+      "22/64 (11/32)": 40,
+      "23/64": 41,
+      "25/64": 42,
+      "26/64 (13/32)": 43,
+      "27/64": 44,
+      "28/64 (7/16)": 45,
+      "29/64": 46,
+      "30/64 (15/32)": 47,
+      "31/64": 48,
+      "33/64": 49,
+      "34/64 (17/32)": 50,
+      "35/64": 51,
+      "36/64 (9/16)": 52,
+      "37/64": 53,
+      "38/64 (19/32)": 54,
+      "39/64": 55,
+      "40/64 (5/8)": 56,
+      "41/64": 57,
+      "42/64 (21/32)": 58,
+      "43/64": 59,
+      "44/64 (11/16)": 60,
+      "45/64": 61,
+      "46/64 (23/32)": 62,
+      "47/64": 63,
+      "49/64": 64,
+      "50/64 (25/32)": 65,
+      "51/64": 66,
+      "52/64 (13/16)": 67,
+      "53/64": 68,
+      "54/64 (27/32)": 69,
+      "55/64": 70,
+      "56/64 (7/8)": 71,
+      "57/64": 72,
+      "58/64 (29/32)": 73,
+      "59/64": 74,
+      "60/64 (15/16)": 75,
+      "61/64": 76,
+      "62/64 (31/32)": 77,
+      "63/64": 78
      }
     },
     {
@@ -10928,7 +11295,7 @@
      "name": "Mode",
      "param_id": 1,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "UP 1 OCT": 0,
@@ -10938,29 +11305,29 @@
       "UP|DN 1 OCT": 4,
       "UP|DN 2 OCT": 5
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'UP 2 OCT' (was 'UP 1 OCT'); index<->label confirmed."
     },
     {
      "name": "Master Pitch",
      "param_id": 2,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent -0.16 -> device read '-16.0 %' (was '100.0 %')."
     },
     {
      "name": "Control",
      "param_id": 3,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '100.0 %')."
     },
     {
      "name": "Key",
      "param_id": 8,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "A ": 0,
@@ -10976,13 +11343,13 @@
       "G ": 10,
       "Ab": 11
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'B' (was 'A'); index<->label confirmed."
     },
     {
      "name": "Scale",
      "param_id": 9,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "IONIAN MAJ": 0,
@@ -11004,178 +11371,178 @@
       "CHROMATIC": 16,
       "CUSTOM": 17
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'PHRYGIAN' (was 'IONIAN MAJ'); index<->label confirmed."
     },
     {
      "name": "Pitch Quantize",
      "param_id": 10,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 1,
      "values": {
       "SMOOTH": 0,
       "STEPPED": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'STEPPED' (was 'SMOOTH'); index<->label confirmed."
     },
     {
      "name": "Shift 1",
      "param_id": 15,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -4.0 -> device read '-4' (was '0')."
     },
     {
      "name": "Shift 2",
      "param_id": 16,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -4.0 -> device read '-4' (was '0')."
     },
     {
      "name": "Shift 3",
      "param_id": 17,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -4.0 -> device read '-4' (was '0')."
     },
     {
      "name": "Shift 4",
      "param_id": 18,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -4.0 -> device read '-4' (was '0')."
     },
     {
      "name": "Pitch Tracking",
      "param_id": 35,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "NOTES": 0,
       "CHORDS": 1
      },
-     "note": "Device-verified on FW 32.02 (UI toggle confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 52): sent 1.0 -> device read 'CHORDS' (was 'NOTES'); index<->label confirmed. alt-SET class: responds only to 01 52 (pass-2); 01 09 no-op'd."
     },
     {
      "name": "Crossfade Time",
      "param_id": 45,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '100.0 %')."
     },
     {
      "name": "Time 1",
      "param_id": 47,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 0.8406 -> device read '840.6 ms' (was '500.0 ms')."
     },
     {
      "name": "Time 2",
      "param_id": 48,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 0.8406 -> device read '840.6 ms' (was '500.0 ms')."
     },
     {
      "name": "Feedback Type",
      "param_id": 55,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "DUAL": 0,
       "BOTH": 1,
       "PING-PONG": 2
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'PING-PONG' (was 'DUAL'); index<->label confirmed."
     },
     {
      "name": "Direction",
      "param_id": 56,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 1,
      "values": {
       "FORWARD": 0,
       "REVERSE": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'REVERSE' (was 'REVERSE'); index<->label confirmed. two-way verified: 0=FORWARD, 1=REVERSE (pass1 held REVERSE, pass2 sent 0 -> FORWARD)."
     },
     {
      "name": "Scale 1",
      "param_id": 71,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 12.0 -> device read '13' (was '14'). OFF-BY-ONE DISPLAY: device display = wire value + 1 (pass-2 sent 12 -> shows '13'). scale 1; the +1 is cosmetic display only, wire value is stored raw."
     },
     {
      "name": "Scale 2",
      "param_id": 72,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 12.0 -> device read '13' (was '14'). OFF-BY-ONE DISPLAY: device display = wire value + 1 (pass-2 sent 12 -> shows '13'). scale 1; the +1 is cosmetic display only, wire value is stored raw."
     },
     {
      "name": "Steps",
      "param_id": 73,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 8.0 -> device read '8' (was '4')."
     },
     {
      "name": "Repeats",
      "param_id": 74,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 14.0 -> device read '14' (was 'INFINITE')."
     },
     {
      "name": "Run",
      "param_id": 75,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Arpeggiator Run switch (Off/On). Correction from the initial release, device-verified on FW 32.02 by toggling Run in the editor and reading it back over MIDI: Run is pid 75 (it was published at pid 76; pid 76 is actually Arp Tempo)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 0.0 -> device read 'OFF' (was 'ON'); index<->label confirmed. two-way verified: pass1 held ON, pass2 sent 0 -> OFF."
     },
     {
      "name": "Amplitude Alpha",
      "param_id": 94,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 2,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '10.0 %')."
     },
     {
      "name": "Pan Alpha",
      "param_id": 96,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '50.0 %')."
     },
     {
      "name": "Detector Source",
      "param_id": 99,
      "type": "combo",
-     "scale": null,
+     "scale": 1.0,
      "page": 1,
      "values": {
       "BLOCK IN": 0,
@@ -11184,35 +11551,52 @@
       "INPUT 3": 3,
       "INPUT 4": 4
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 2.0 -> device read 'INPUT 2' (was 'BLOCK IN'); index<->label confirmed."
     },
     {
      "name": "Feedback Mode",
      "param_id": 103,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 1,
      "values": {
       "INDIVIDUAL": 0,
       "SUMMED": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'SUMMED' (was 'INDIVIDUAL'); index<->label confirmed."
     },
     {
      "name": "Diffusion",
      "param_id": 109,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '0.0 %')."
     },
     {
      "name": "Diffusion Time",
      "param_id": 110,
      "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.42 -> device read '42.0 %' (was '50.0 %')."
+    },
+    {
+     "name": "Trigger Threshold",
+     "param_id": 113,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB Trigger Threshold). Captured under type-context 'Arpeggiator'."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 44,
+     "type": "switch",
      "scale": null,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "type_selector": {
@@ -11249,8 +11633,8 @@
   "PLEX": {
    "block_id": 178,
    "block_id_hex": "0xB2",
-   "param_count": 87,
-   "complete": true,
+   "param_count": 90,
+   "complete": false,
    "note": "Device: model selector pid 0 (deliberately NOT a map param) -- SET float(2.0) lands on Plex Shift (Pitch/Direction behaved as Plex Shift throughout the round-trips), but GET pid 0 returned 0.5 = idx/4: the INTERNAL model enum has 5 entries, not the 3 the UI shows.",
    "params": [
     {
@@ -12498,37 +12882,62 @@
      "name": "Granule Length",
      "param_id": 59,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 0.023899999999999998 -> device read '23.900 ms' (was '50.000 ms'). ms-as-seconds; low-conf prep but matched+moved on device."
     },
     {
      "name": "Reverb Size",
      "param_id": 79,
      "type": "slider",
-     "scale": null,
+     "scale": 100.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 100.0): sent 0.426 -> device read '42.6 %' (was '50.0 %')."
     },
     {
      "name": "Shimmer Intensity",
      "param_id": 86,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (pass-3, on the CORRECT block id 178 -- earlier pass-2 accidentally probed MUX 191): sent '0' -> '7' exact => divisor 1 (scale 1.0). Supersedes the parked scale:null entry from the earlier fold."
     },
     {
      "name": "Kill Dry",
      "param_id": 94,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Level (p74)",
+     "param_id": 74,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB Level). Captured under type-context 'Plex Delay'. Name suffixed '(p74)': distinct instance of the block's master 'Level', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Time (p66)",
+     "param_id": 66,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (percent Time; wire 0.481 = 48.1/100; sibling PLEX Time pid 51 = 100). Captured under type-context 'Plex Verb'. Name suffixed '(p66)': distinct instance of the block's master 'Time', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 78,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -12542,8 +12951,8 @@
   "RESONATOR": {
    "block_id": 162,
    "block_id_hex": "0xA2",
-   "param_count": 17,
-   "complete": true,
+   "param_count": 20,
+   "complete": false,
    "params": [
     {
      "name": "Frequency",
@@ -12690,6 +13099,31 @@
       "Augmented": 8
      },
      "note": "Chordal-type only (requires type_selector pid0=1 Chordal). Device-verified (pid found via SET-and-watch; enum index-swept, clamps at 8). Closes /."
+    },
+    {
+     "name": "Level (p34)",
+     "param_id": 34,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB Level). Captured under type-context 'Manual'. Name suffixed '(p34)': distinct instance of the block's master 'Level', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Frequency (p3)",
+     "param_id": 3,
+     "type": "slider",
+     "scale": null,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale null -- unresolved (unitless '50.00', normalized wire 0.0 contradicts raw-Hz scale 1.0; sibling Frequency=1.0 unconfirmed). Captured under type-context 'Chordal'. Name suffixed '(p3)': distinct instance of the block's master 'Frequency', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 38,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "type_selector": {
@@ -12712,8 +13146,8 @@
   "REVERB": {
    "block_id": 66,
    "block_id_hex": "0x42",
-   "param_count": 70,
-   "complete": true,
+   "param_count": 71,
+   "complete": false,
    "params": [
     {
      "name": "Time",
@@ -12939,11 +13373,11 @@
      "name": "Mic Spacing",
      "param_id": 25,
      "type": "slider",
-     "scale": null,
+     "scale": 200.0,
      "page": 1,
-     "status": "Duplicate",
+     "status": "duplicate",
      "duplicate_of": "Pickup Spacing",
-     "note": "Hygiene: same pid specced as 'Pickup Spacing' scale 200 cm (plate family); 'Mic Spacing' = same pid's label on spring/other families"
+     "note": "hygiene: same pid specced as 'Pickup Spacing' scale 200 cm (plate family); 'Mic Spacing' = same pid's label on spring/other families | BUG-18 align 2026-07-22: codec fields aligned with canonical 'Pickup Spacing' (scale null -> 200.0) so a write through either name builds the same frame; duplicate marker kept (resolver still redirects to the canonical name)."
     },
     {
      "name": "Early Diffusion",
@@ -13307,13 +13741,22 @@
      "name": "Bypass",
      "param_id": 60,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": null,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 22,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "type_selector": {
@@ -13413,8 +13856,8 @@
   "RINGMOD": {
    "block_id": 150,
    "block_id_hex": "0x96",
-   "param_count": 9,
-   "complete": true,
+   "param_count": 10,
+   "complete": false,
    "params": [
     {
      "name": "Frequency",
@@ -13489,13 +13932,22 @@
      "name": "Pitch Tracking",
      "param_id": 2,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 9,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -13509,7 +13961,7 @@
   "ROTARY": {
    "block_id": 86,
    "block_id_hex": "0x56",
-   "param_count": 19,
+   "param_count": 20,
    "complete": true,
    "params": [
     {
@@ -13665,13 +14117,22 @@
      "name": "Bypass",
      "param_id": 20,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 11,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -13686,7 +14147,7 @@
    "block_id": 174,
    "block_id_hex": "0xAE",
    "param_count": 4,
-   "complete": true,
+   "complete": false,
    "params": [
     {
      "name": "Input Select",
@@ -13744,7 +14205,7 @@
    "block_id": 190,
    "block_id_hex": "0xBE",
    "param_count": 144,
-   "complete": true,
+   "complete": false,
    "note": "01 19 GET is DEAD on this block (always 0.0, even for set params) -- display/UIA is the only read oracle.: the 'CC number / CC value / PC number fields are NOT UIA-visible, USB MIDI capture queued' verdict is OVERTURNED -- the Number/Value fields ARE UIA EditControls that only EXIST when the slot's Type is set to CC/PC (never set a slot to CC), and the panel LIVE-repaints on device-direct SETs. Grids cracked by SET-and-watch, no capture needed: Number (CC#) = pids 128-191, Value (CC value / PC#) = pids 192-255, both 128+(scene-1)*8+(slot-1) / 192+(scene-1)*8+(slot-1). Grid-cell display name is 'MIDI Block' (NOT 'Scene MIDI 1'). Panel header shows a 'One Scene' view mode; the grid displays the ACTIVE scene's rows (scene switch via 0x0C repaints). Block cannot be bypassed; sends only on the MIDI OUT DIN.",
    "params": [
     {
@@ -15445,13 +15906,13 @@
      "name": "Bypass",
      "param_id": 40,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     }
    ],
    "type_selector": {
@@ -15480,8 +15941,8 @@
   "TENTAP": {
    "block_id": 158,
    "block_id_hex": "0x9E",
-   "param_count": 35,
-   "complete": true,
+   "param_count": 41,
+   "complete": false,
    "params": [
     {
      "name": "Feedback",
@@ -15695,141 +16156,190 @@
      "name": "Time 1",
      "param_id": 17,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 4.2 -> device read '4200 ms' (was '500 ms')."
     },
     {
      "name": "Time 2",
      "param_id": 18,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 4.2 -> device read '4200 ms' (was '500 ms')."
     },
     {
      "name": "Time 3",
      "param_id": 19,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 4.2 -> device read '4200 ms' (was '500 ms')."
     },
     {
      "name": "Time 4",
      "param_id": 20,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 4.2 -> device read '4200 ms' (was '500 ms')."
     },
     {
      "name": "Time 5",
      "param_id": 21,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 4.2 -> device read '4200 ms' (was '500 ms')."
     },
     {
      "name": "Time 6",
      "param_id": 22,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 4.2 -> device read '4200 ms' (was '500 ms')."
     },
     {
      "name": "Level 1",
      "param_id": 27,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 2",
      "param_id": 28,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 3",
      "param_id": 29,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 4",
      "param_id": 30,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 5",
      "param_id": 31,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 6",
      "param_id": 32,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 7",
      "param_id": 33,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 8",
      "param_id": 34,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 9",
      "param_id": 35,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Level 10",
      "param_id": 36,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Device-verified on FW 32.02 (UI-set value confirmed by passive MIDI read-back). Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -38.0 -> device read '-38.00 dB' (was '0.00 dB')."
     },
     {
      "name": "Bypass",
      "param_id": 47,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
+    },
+    {
+     "name": "Feedback (p16)",
+     "param_id": 16,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (percent Feedback; wire 0.419 = 41.9/100). Captured under type-context 'Rhythm Tap Delay'. Name suffixed '(p16)': distinct instance of the block's master 'Feedback', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Time 10",
+     "param_id": 26,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1000 (ms; sibling TENTAP Time 1-6 = 1000). Captured under type-context 'Rhythm Tap Delay'."
+    },
+    {
+     "name": "Time 7",
+     "param_id": 23,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1000 (ms; sibling TENTAP Time 1-6 = 1000). Captured under type-context 'Rhythm Tap Delay'."
+    },
+    {
+     "name": "Time 8",
+     "param_id": 24,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1000 (ms; sibling TENTAP Time 1-6 = 1000). Captured under type-context 'Rhythm Tap Delay'."
+    },
+    {
+     "name": "Time 9",
+     "param_id": 25,
+     "type": "slider",
+     "scale": 1000.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1000 (ms; sibling TENTAP Time 1-6 = 1000). Captured under type-context 'Rhythm Tap Delay'."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 45,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -15843,8 +16353,8 @@
   "TONEMATCH": {
    "block_id": 170,
    "block_id_hex": "0xAA",
-   "param_count": 14,
-   "complete": true,
+   "param_count": 15,
+   "complete": false,
    "params": [
     {
      "name": "Amount",
@@ -15970,37 +16480,46 @@
      "name": "Start Reference",
      "param_id": 2,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Start Local",
      "param_id": 3,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "Off": 0,
       "On": 1
      },
-     "note": "Device-verified on FW 32.02 (UI change confirmed by passive MIDI read-back)."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     },
     {
      "name": "Bank",
      "param_id": 18,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 3,
      "values": {
       "USER 1": 0,
       "USER 2": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24: device SET write-verified (Bank USER 1->USER 2 via 01 52 under Off-Line mode; sent 1 -> 'USER 2')."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 8,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -16178,13 +16697,13 @@
      "name": "Bypass",
      "param_id": 19,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     }
    ],
    "type_selector": {
@@ -16212,7 +16731,7 @@
   "VOCODER": {
    "block_id": 134,
    "block_id_hex": "0x86",
-   "param_count": 64,
+   "param_count": 65,
    "complete": true,
    "params": [
     {
@@ -16739,6 +17258,15 @@
      "scale": 100.0,
      "page": 2,
      "note": "Vocoder synthesis-band level; display = stored x 100."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 18,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "instances": {
@@ -16752,8 +17280,8 @@
   "VOLPAN": {
    "block_id": 102,
    "block_id_hex": "0x66",
-   "param_count": 12,
-   "complete": true,
+   "param_count": 13,
+   "complete": false,
    "params": [
     {
      "name": "Volume",
@@ -16837,33 +17365,42 @@
      "name": "Threshold",
      "param_id": 10,
      "type": "slider",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent -46.4 -> device read '-46.4 dB' (was '-50.0 dB')."
     },
     {
      "name": "Attack",
      "param_id": 11,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 0.06918 -> device read '69.182 ms' (was '100.00 ms'). ms-as-seconds; '69.182' vs expected '69.18' = equal within rounding."
     },
     {
      "name": "Release",
      "param_id": 12,
      "type": "slider",
-     "scale": null,
+     "scale": 1000.0,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24 SET write-verified (01 09, scale 1000.0): sent 0.0069180000000000005 -> device read '6.918 ms' (was '10.000 ms'). ms-as-seconds."
     },
     {
      "name": "Hysteresis",
      "param_id": 13,
      "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "2026-07-24 SET write-verified (01 09, scale 1.0): sent 5.0 -> device read '5.0 dB' (was '6.0 dB')."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 3,
+     "type": "switch",
      "scale": null,
      "page": 0,
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Value encoding (scale) not yet derived."
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ]
   },
@@ -17058,13 +17595,13 @@
      "name": "Bypass",
      "param_id": 24,
      "type": "switch",
-     "scale": null,
+     "scale": 1.0,
      "page": 0,
      "values": {
       "OFF": 0,
       "ON": 1
      },
-     "note": "Named from the Axe-Fx III editor UI on FW 32.02; identity not yet write-verified. Enum order captured from firmware metadata."
+     "note": "2026-07-24 SET write-verified (01 09): sent 1.0 -> device read 'ON' (was 'OFF'); index<->label confirmed."
     }
    ],
    "type_selector": {
@@ -17094,8 +17631,8 @@
   "IRPLAYER": {
    "block_id": 195,
    "block_id_hex": "0xC3",
-   "param_count": 16,
-   "complete": true,
+   "param_count": 19,
+   "complete": false,
    "params": [
     {
      "name": "CAB 1 Bank",
@@ -17298,6 +17835,31 @@
       "Parallel": 0,
       "Series": 1
      }
+    },
+    {
+     "name": "Level (p14)",
+     "param_id": 14,
+     "type": "slider",
+     "scale": 1.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 1.0 (plain dB; sibling IRPLAYER Level pid 7 = 1.0). Name suffixed '(p14)': distinct instance of the block's master 'Level', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Pan (p16)",
+     "param_id": 16,
+     "type": "slider",
+     "scale": 100.0,
+     "page": 0,
+     "note": "Device-identified (value encoding derived, not yet write-verified); scale 100 (bipolar percent Pan; wire 0.789 corroborates; sibling IRPLAYER Pan pid 17 = 100). Name suffixed '(p16)': distinct instance of the block's master 'Pan', kept from hijacking the bare-label resolver."
+    },
+    {
+     "name": "Bypass State",
+     "param_id": 10,
+     "type": "switch",
+     "scale": null,
+     "page": 0,
+     "note": "2026-07-24: census ENGAGED/BYPASSED row confirmed to mirror fn 0x0A block bypass state (device-confirmed); read-only reflection of block enable, not proven independently settable. Distinct from this block's Bypass / Bypass Mode selector param(s).",
+     "status": "read-only-"
     }
    ],
    "note": "Block id 0xC3 (195), verified (Axe-Edit Insert frame 01 32 00 43 01). Params mapped via 01 09 direct-MIDI probe + positional UIA readback. Two IR slots (CAB 1 / CAB 2): per-slot Bank, IR Number (1-based index), IR Length. Shared: Filter Slope, Input Select, Level, Balance, Pan, Mix, Mode (Series/Parallel), Bypass Mode. **Low Cut (pid 2) and High Cut (pid 3) are ALT-SET 0x52 params** (01 09 is a no-op) with a nonlinear log-freq encoding -- this proves the 0x52 alt-SET class is NOT limited to 'Drive'. IR Player 2 = 0xC4 (196) inferred. Empty IR Players are invisible to the 0x13 status dump."
@@ -17305,7 +17867,7 @@
   "CONTROL": {
    "block_id": 2,
    "block_id_hex": "0x02",
-   "param_count": 126,
+   "param_count": 127,
    "complete": false,
    "note": "Block id 2 (ID_CONTROL) = the CONTROLLERS system block (not a grid effect block: not placeable or bypassable, no instances). Holds LFO 1/2, ADSR 1/2, Envelope, Sequencer (+32 stages), Manual 1-5, Scene Ctrl 1-4, and Pitch Input Source. DEVICE-PERSISTENT: CONTROL writes persist across preset changes and Axe-Edit close -- treat exactly like the GLOBAL block (autosave-like, no reload-to-revert; read/record before any write). Announce laws: combos/enums announce via an unsolicited 01 09 (value = index/(N-1)); continuous sliders do not emit 01 09 -- they announce via the 01 0C/01 0D family (and 01 0A/01 0B for some, e.g. Quantize/Stages), same field layout as 09. Modifiers: 01 07 is NOT the modifier-slot read (it reads all-zero even with a modifier attached); the real modifier-slot read is fn 0x1F on slot blocks 3-26, and attach/detach use 01 3a / 01 3b -- see ADVANCED_COMMANDS.md. READ-ONLY: pids 171-174 are write-deaf display-mark (X/Y) coordinates. DO-NOT-WRITE hot zone: pids 178-188 are set-all action pids -- never probe-write above pid 174. Tempo: preset tempo = pid 32 (SET = 01 09 raw BPM float), Tempo To Use = pid 33 {Preset, Global}; func 0x14 is GET-only and returns the stale stored preset tempo; the live global tempo is GLOBAL block pid 0.",
    "params": [
@@ -18356,13 +18918,22 @@
      "page": null,
      "status": "Read-only",
      "note": "READ-ONLY -- write-deaf via 01 09 (SET probes are silently ignored, GET unchanged). GET = -1.0; the 171-174 quartet reads 1.0/-1.0/1.0/-1.0 (two X/Y pairs pinned at extremes), consistent with ADSR 2 Y display-mark coordinate (hypothesis) -- derived read-only display state, which explains both the +/-1.0 value and the write-deafness. DO-NOT-WRITE hot zone: pids 178-188 are set-all action pids -- never probe-write above pid 174."
+    },
+    {
+     "name": "ADSR 1 Retrigger",
+     "param_id": 13,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "controllers",
+     "note": "device decode (2026-07-24), both directions verified: CONTROL (id 2) ADSR 1 Retrigger, toggle 0/1. *** WRITES VIA ALT-SET 01 52 (silently no-ops on 01 09) *** -- fills the pid-13 gap between ADSR 1 Mode (12) and ADSR 1 Attack (14). VALUES DICT WITHHELD (label text not captured; 0/1 toggle). AUTOSAVE persistent (CONTROL-block law). NOTE: CONTROL pid 175 (the ADSR-adjacent 0/1) remains UNNAMED -- Retrigger turned out to be 13, not 175.",
+     "set_command": "01 52"
     }
    ]
   },
   "GLOBAL": {
    "block_id": 1,
    "block_id_hex": "0x01",
-   "param_count": 180,
+   "param_count": 246,
    "complete": false,
    "note": "Block id 1 = the GLOBAL SETTINGS block (a SYSTEM block, not a grid effect block: not placeable or bypassable, no instances). AUTOSAVE WARNING: these are persistent device settings, not edit-buffer state -- writes take effect immediately and are autosaved, with no reload-to-revert. The only way to undo a write is to write the old value back, so read and record the current value before changing anything. The block uses the full 14-bit parameter-id space (settings continue well above the visible range); a passive GET (01 19) answers on every pid. The device announces every settings change as an unsolicited 01 09 frame on block 1 (value normalized; enums broadcast as index/(N-1)), so a passive listen plus one front-panel change captures a pid for free. SET semantics: continuous sliders take a plain 01 09 with the raw display value; combos/enums take 01 09 with float(enum index). DO-NOT-SET text regions: pids 8470-12949 (Song names @8470 stride 5, section names @9110) and 14617+ (Setlist names) are 16-bit character-pair text storage -- writing parameter floats there corrupts Songs/Setlists text; never SET them. Notable params: Global Tempo pid 0; Input 1 Gain pid 8367 (log taper, SET by raw display value); External Control 1-8 input-source selectors pids 80-87; six bipolar +/-25 offset knobs pids 9-14; Metronome levels pids 119-121.",
    "params": [
@@ -19879,68 +20450,68 @@
      "note": "Identity not yet confirmed. One of six consecutive bipolar +/-25 offset knobs at pids 9-14 (min -25.0, max 25.0, step 0.05), sitting immediately before the pid-15 Output-1 graphic-EQ bands. Encoding: bipolar +/-25 display, stored = display/50 + 0.5; SET by raw display value and restore proven; default stored 0.5 (display 0). scale is left null on purpose -- do not drive an unidentified persistent setting by display value. AUTOSAVE -- record before writing. See pid 9 note."
     },
     {
-     "name": "External Control 1 Source",
+     "name": "Unknown ex-ExtCtrl1 (p80, falsified)",
      "param_id": 80,
      "type": "slider",
      "scale": null,
      "page": "frontpanel",
-     "note": "External Control 1 input-source assignment (Setup > MIDI/Remote). One of eight identical 162-entry MIDI-source selectors at pids 80-87. Enum (index order): CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). Encoding: integer index 1-162, stored = (round(display)-1)/161, default 128 = NONE (unassigned). SET by raw index; broadcasts on SET; scale null (selector, not scalar). AUTOSAVE persistent setting -- record before writing."
+     "note": "cross-reference CONFIRMED (2026-07-10): identity from a cross-reference source (its id field == SysEx pid; anchored by ids 1/2/3/4/7/39 matching known GLOBAL params). pids 80-87 = eight IDENTICAL 162-entry MIDI-source selectors = the External Control 1-8 input-source assignments (Setup > MIDI/Remote). Enum (index order): CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). This one = External Control 1. Cross-checks the device encoding EXACTLY: integer index 1-162, stored = (round(display)-1)/161, default 128 -> the 128th entry NONE (unassigned) -- which explains the 'sqrt(0.8) taper' red herring (127/161 = 0.78882). SET by raw index + restore device-PROVEN (broadcasts on SET); scale stays null (selector, not scalar). AUTOSAVE persistent setting -- record before writing. Token GLOBAL_EXT_CC_BEGIN..END. Only 8 slots found at 80-87; if the III exposes Ext 9-16 their pids are unlocated. *** FALSIFIED (2026-07-24): this is NOT an External Control source. Live UI showed all 12 externals = None while the census read pid 88 = 'FC 2 SW 3' and pid 90 = 'CC #34', and pids 80-95 showed ZERO movement when external-control assignments were changed (the real External Control 1-12 Source pids are 1302-1313, device decode). The cross-reference identity (cross-reference) is thus contradicted by live device evidence and RETRACTED. Identity of pid 80 now UNKNOWN. Entry kept (not deleted) per map convention; name corrected."
     },
     {
-     "name": "External Control 2 Source",
+     "name": "Unknown ex-ExtCtrl2 (p81, falsified)",
      "param_id": 81,
      "type": "slider",
      "scale": null,
      "page": "frontpanel",
-     "note": "External Control 2 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87; see pid 80 for the full enum and encoding. SET by raw index; scale null (selector). AUTOSAVE -- record before writing."
+     "note": "cross-reference CONFIRMED (2026-07-10): External Control 2 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87 (a cross-reference source). Enum: CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). Cross-checks device encoding EXACTLY (integer index 1-162, stored = (round(display)-1)/161, default 128 = NONE). SET by raw index device-PROVEN ; scale null (selector). AUTOSAVE -- record before writing. See pid 80 note for full derivation. *** FALSIFIED (2026-07-24): this is NOT an External Control source. Live UI showed all 12 externals = None while the census read pid 88 = 'FC 2 SW 3' and pid 90 = 'CC #34', and pids 80-95 showed ZERO movement when external-control assignments were changed (the real External Control 1-12 Source pids are 1302-1313, device decode). The cross-reference identity (cross-reference) is thus contradicted by live device evidence and RETRACTED. Identity of pid 81 now UNKNOWN. Entry kept (not deleted) per map convention; name corrected."
     },
     {
-     "name": "External Control 3 Source",
+     "name": "Unknown ex-ExtCtrl3 (p82, falsified)",
      "param_id": 82,
      "type": "slider",
      "scale": null,
      "page": "frontpanel",
-     "note": "External Control 3 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87; see pid 80 for the full enum and encoding. SET by raw index; scale null (selector). AUTOSAVE -- record before writing."
+     "note": "cross-reference CONFIRMED (2026-07-10): External Control 3 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87 (a cross-reference source). Enum: CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). Cross-checks device encoding EXACTLY (integer index 1-162, stored = (round(display)-1)/161, default 128 = NONE). SET by raw index device-PROVEN ; scale null (selector). AUTOSAVE -- record before writing. See pid 80 note for full derivation. *** FALSIFIED (2026-07-24): this is NOT an External Control source. Live UI showed all 12 externals = None while the census read pid 88 = 'FC 2 SW 3' and pid 90 = 'CC #34', and pids 80-95 showed ZERO movement when external-control assignments were changed (the real External Control 1-12 Source pids are 1302-1313, device decode). The cross-reference identity (cross-reference) is thus contradicted by live device evidence and RETRACTED. Identity of pid 82 now UNKNOWN. Entry kept (not deleted) per map convention; name corrected."
     },
     {
-     "name": "External Control 4 Source",
+     "name": "Unknown ex-ExtCtrl4 (p83, falsified)",
      "param_id": 83,
      "type": "slider",
      "scale": null,
      "page": "frontpanel",
-     "note": "External Control 4 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87; see pid 80 for the full enum and encoding. SET by raw index; scale null (selector). AUTOSAVE -- record before writing."
+     "note": "cross-reference CONFIRMED (2026-07-10): External Control 4 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87 (a cross-reference source). Enum: CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). Cross-checks device encoding EXACTLY (integer index 1-162, stored = (round(display)-1)/161, default 128 = NONE). SET by raw index device-PROVEN ; scale null (selector). AUTOSAVE -- record before writing. See pid 80 note for full derivation. *** FALSIFIED (2026-07-24): this is NOT an External Control source. Live UI showed all 12 externals = None while the census read pid 88 = 'FC 2 SW 3' and pid 90 = 'CC #34', and pids 80-95 showed ZERO movement when external-control assignments were changed (the real External Control 1-12 Source pids are 1302-1313, device decode). The cross-reference identity (cross-reference) is thus contradicted by live device evidence and RETRACTED. Identity of pid 83 now UNKNOWN. Entry kept (not deleted) per map convention; name corrected."
     },
     {
-     "name": "External Control 5 Source",
+     "name": "Unknown ex-ExtCtrl5 (p84, falsified)",
      "param_id": 84,
      "type": "slider",
      "scale": null,
      "page": "frontpanel",
-     "note": "External Control 5 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87; see pid 80 for the full enum and encoding. SET by raw index; scale null (selector). AUTOSAVE -- record before writing."
+     "note": "cross-reference CONFIRMED (2026-07-10): External Control 5 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87 (a cross-reference source). Enum: CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). Cross-checks device encoding EXACTLY (integer index 1-162, stored = (round(display)-1)/161, default 128 = NONE). SET by raw index device-PROVEN ; scale null (selector). AUTOSAVE -- record before writing. See pid 80 note for full derivation. *** FALSIFIED (2026-07-24): this is NOT an External Control source. Live UI showed all 12 externals = None while the census read pid 88 = 'FC 2 SW 3' and pid 90 = 'CC #34', and pids 80-95 showed ZERO movement when external-control assignments were changed (the real External Control 1-12 Source pids are 1302-1313, device decode). The cross-reference identity (cross-reference) is thus contradicted by live device evidence and RETRACTED. Identity of pid 84 now UNKNOWN. Entry kept (not deleted) per map convention; name corrected."
     },
     {
-     "name": "External Control 6 Source",
+     "name": "Unknown ex-ExtCtrl6 (p85, falsified)",
      "param_id": 85,
      "type": "slider",
      "scale": null,
      "page": "frontpanel",
-     "note": "External Control 6 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87; see pid 80 for the full enum and encoding. SET by raw index; scale null (selector). AUTOSAVE -- record before writing."
+     "note": "cross-reference CONFIRMED (2026-07-10): External Control 6 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87 (a cross-reference source). Enum: CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). Cross-checks device encoding EXACTLY (integer index 1-162, stored = (round(display)-1)/161, default 128 = NONE). SET by raw index device-PROVEN ; scale null (selector). AUTOSAVE -- record before writing. See pid 80 note for full derivation. *** FALSIFIED (2026-07-24): this is NOT an External Control source. Live UI showed all 12 externals = None while the census read pid 88 = 'FC 2 SW 3' and pid 90 = 'CC #34', and pids 80-95 showed ZERO movement when external-control assignments were changed (the real External Control 1-12 Source pids are 1302-1313, device decode). The cross-reference identity (cross-reference) is thus contradicted by live device evidence and RETRACTED. Identity of pid 85 now UNKNOWN. Entry kept (not deleted) per map convention; name corrected."
     },
     {
-     "name": "External Control 7 Source",
+     "name": "Unknown ex-ExtCtrl7 (p86, falsified)",
      "param_id": 86,
      "type": "slider",
      "scale": null,
      "page": "frontpanel",
-     "note": "External Control 7 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87; see pid 80 for the full enum and encoding. SET by raw index; scale null (selector). AUTOSAVE -- record before writing."
+     "note": "cross-reference CONFIRMED (2026-07-10): External Control 7 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87 (a cross-reference source). Enum: CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). Cross-checks device encoding EXACTLY (integer index 1-162, stored = (round(display)-1)/161, default 128 = NONE). SET by raw index device-PROVEN ; scale null (selector). AUTOSAVE -- record before writing. See pid 80 note for full derivation. *** FALSIFIED (2026-07-24): this is NOT an External Control source. Live UI showed all 12 externals = None while the census read pid 88 = 'FC 2 SW 3' and pid 90 = 'CC #34', and pids 80-95 showed ZERO movement when external-control assignments were changed (the real External Control 1-12 Source pids are 1302-1313, device decode). The cross-reference identity (cross-reference) is thus contradicted by live device evidence and RETRACTED. Identity of pid 86 now UNKNOWN. Entry kept (not deleted) per map convention; name corrected."
     },
     {
-     "name": "External Control 8 Source",
+     "name": "Unknown ex-ExtCtrl8 (p87, falsified)",
      "param_id": 87,
      "type": "slider",
      "scale": null,
      "page": "frontpanel",
-     "note": "External Control 8 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87; see pid 80 for the full enum and encoding. SET by raw index; scale null (selector). AUTOSAVE -- record before writing."
+     "note": "cross-reference CONFIRMED (2026-07-10): External Control 8 input-source assignment (Setup > MIDI/Remote). One of the eight identical 162-entry MIDI-source selectors at pids 80-87 (a cross-reference source). Enum: CC#1..CC#127 (1-127), NONE (128), PEDAL 1 (129), PEDAL 2 (130), FC1-4 PEDAL1-4 + FC1-4 SW1-4 (131-162). Cross-checks device encoding EXACTLY (integer index 1-162, stored = (round(display)-1)/161, default 128 = NONE). SET by raw index device-PROVEN ; scale null (selector). AUTOSAVE -- record before writing. See pid 80 note for full derivation. *** FALSIFIED (2026-07-24): this is NOT an External Control source. Live UI showed all 12 externals = None while the census read pid 88 = 'FC 2 SW 3' and pid 90 = 'CC #34', and pids 80-95 showed ZERO movement when external-control assignments were changed (the real External Control 1-12 Source pids are 1302-1313, device decode). The cross-reference identity (cross-reference) is thus contradicted by live device evidence and RETRACTED. Identity of pid 87 now UNKNOWN. Entry kept (not deleted) per map convention; name corrected."
     },
     {
      "name": "Metronome Level Output 1",
@@ -19965,6 +20536,534 @@
      "scale": 1.0,
      "page": "controllers",
      "note": "Device: the Controllers view Tempo/Pitch page's Metronome mix-level slider 'USB-Digital' -- announces as GLOBAL (block 1) pid 121 despite living on the Controllers view. dB slider, range -40..+20 dB; GET/broadcast taper = (dB+40)/60 (0.00 dB = 0.666662, +1.00 dB = 0.68334 -> step 1/60). SET = raw display dB via 01 09 PROVEN (restore via SET 0.0 hit 0.666662 first try). AUTOSAVE (GLOBAL) -- these carried walk-1 residue until the fixup; the final 16k-pid gate was clean."
+    },
+    {
+     "name": "Tuner Reference Pitch",
+     "param_id": 5,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "tuner",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > tuner Reference Pitch (calibration), display e.g. '440.0 Hz'. ALSO cross-reference-corroborated (cross-reference id 5 = GLOBAL_TUNINGREF, the earlier cross-reference candidate now DEVICE-confirmed). SET = plain 01 09 raw Hz float. AUTOSAVE persistent setting -- record before writing."
+    },
+    {
+     "name": "Tuner Mute",
+     "param_id": 6,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "tuner",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > tuner Mute selector. UI popup order [Off, Input, Output]. VALUES DICT WITHHELD: wire index order NOT confirmed -- the cross-reference read this as OFF/OUTPUT/INPUT, which CONFLICTS with the popup order; labels recorded in-note only until a per-index device flip pins the mapping. SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Tuner Source",
+     "param_id": 100,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "tuner",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > tuner input Source (INPUT 1-4 / ALL). cross-reference-corroborated. SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Tuner Downtune",
+     "param_id": 133,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "tuner",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > tuner Downtune (None / 1 Semitone / ...). SUPERSEDES the earlier cross-reference 'standalone transpose' guess -- SAME meaning, now located: it is the TUNER Downtune. SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Tuner Display Mode",
+     "param_id": 7500,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "tuner",
+     "note": "device decode (2026-07-24), set+revert verified: tuner Display Mode ('MIXED' / 'All Flats' / ...). SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Tuner Pref (p7501, unnamed)",
+     "param_id": 7501,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "tuner",
+     "note": "device decode (2026-07-24): adjacent tuner-preference setting, observed value text 'YES' (likely an On/Off toggle). Field NAME not yet pinned. SET = 01 09. AUTOSAVE."
+    },
+    {
+     "name": "Tuner Pref (p7502, unnamed)",
+     "param_id": 7502,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "tuner",
+     "note": "device decode (2026-07-24): adjacent tuner-preference setting, observed value text 'Teal' (a colour selector). Field NAME not yet pinned. SET = 01 09. AUTOSAVE."
+    },
+    {
+     "name": "Program Change",
+     "param_id": 69,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > MIDI general 'Program Change' receive enable (On/Off). VALUES DICT WITHHELD (index order not device-confirmed; On/Off semantics in-note). SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Ignore Redundant PC",
+     "param_id": 70,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > MIDI 'Ignore Redundant PC' (On/Off). VALUES DICT WITHHELD (index order not confirmed). SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Send MIDI PC",
+     "param_id": 73,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > MIDI 'Send MIDI PC'. *** WIRE QUIRK (loud): the 'Omni' choice encodes as -1 on the wire, and 'Off' = 0. *** Any coercion MUST allow a negative stored value here. VALUES DICT WITHHELD (full option list -- channels 1-16 etc. -- not enumerated; only Omni=-1 / Off=0 device-pinned). SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Scene Revert",
+     "param_id": 93,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > MIDI 'Scene Revert' (On/Off). VALUES DICT WITHHELD (index order not confirmed). SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Send Realtime Sysex",
+     "param_id": 113,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > MIDI 'Send Realtime Sysex' (On/Off). VALUES DICT WITHHELD. SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Receive MIDI Clock",
+     "param_id": 14651,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24), set+revert verified: Setup > MIDI 'Receive MIDI Clock' ('Midi' / 'Off'). Deep pid (14336+ band). SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Send MIDI Clock",
+     "param_id": 14652,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): pid device-identified (adjacent to Receive MIDI Clock 14651); SEMANTICS PARTIAL -- the UIA value text read empty, so the option set is not yet captured. Presumed 'Send MIDI Clock' On/Off or a port selector. SET = 01 09. AUTOSAVE."
+    },
+    {
+     "name": "Effect Bypass Mode",
+     "param_id": 104,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24), device-flipped BOTH directions: Setup > MIDI 'Eff. Bypass Mode', enum VALUE / TOGGLE (NOT a bypass state). VALUES DICT WITHHELD (which index is VALUE vs TOGGLE not individually pinned -- only that the two states flip). SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "External Control 1 Source",
+     "param_id": 1302,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 1 input-source assignment. SET+REVERT VERIFIED on this row (CC value landed then cleared, text-read proof). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 2 Source",
+     "param_id": 1303,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 2 input-source assignment. CONSISTENT-with-decode (sibling rows 1302/1310/1311/1312 device-verified). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 3 Source",
+     "param_id": 1304,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 3 input-source assignment. CONSISTENT-with-decode (sibling rows 1302/1310/1311/1312 device-verified). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 4 Source",
+     "param_id": 1305,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 4 input-source assignment. CONSISTENT-with-decode (sibling rows 1302/1310/1311/1312 device-verified). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 5 Source",
+     "param_id": 1306,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 5 input-source assignment. CONSISTENT-with-decode (sibling rows 1302/1310/1311/1312 device-verified). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 6 Source",
+     "param_id": 1307,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 6 input-source assignment. CONSISTENT-with-decode (sibling rows 1302/1310/1311/1312 device-verified). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 7 Source",
+     "param_id": 1308,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 7 input-source assignment. CONSISTENT-with-decode (sibling rows 1302/1310/1311/1312 device-verified). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 8 Source",
+     "param_id": 1309,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 8 input-source assignment. CONSISTENT-with-decode (sibling rows 1302/1310/1311/1312 device-verified). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 9 Source",
+     "param_id": 1310,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 9 input-source assignment. SET+REVERT VERIFIED on this row (CC value landed then cleared, text-read proof). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 10 Source",
+     "param_id": 1311,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 10 input-source assignment. SET+REVERT VERIFIED on this row (CC value landed then cleared, text-read proof). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 11 Source",
+     "param_id": 1312,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 11 input-source assignment. SET+REVERT VERIFIED on this row (CC value landed then cleared, text-read proof). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "External Control 12 Source",
+     "param_id": 1313,
+     "type": "slider",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "device decode (2026-07-24): Setup > MIDI/Remote External Control 12 input-source assignment. CONSISTENT-with-decode (sibling rows 1302/1310/1311/1312 device-verified). WIRE LAW: 0-127 = CC #0-127, 128 = None, higher = pedals / FC switches (picker list order: None, Pedal 1, Pedal 2, FC pedals, FC switches -- wire indices for the non-CC tail NOT individually verified). *** SUPERSEDES the map's old 'Ext Ctrl @ 80-87' claim, now FALSIFIED (see pids 80-87). Ext N pid = 1301 + N. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Amp 1",
+     "param_id": 192,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Amp 1. LAW pid = block_id + 134 (here 58 + 134 = 192), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW device-verified (CC#20 set then reverted to NONE). Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Cab 1",
+     "param_id": 196,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Cab 1. LAW pid = block_id + 134 (here 62 + 134 = 196), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW device-verified (CC#22 set then reverted to NONE). Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Chorus 1",
+     "param_id": 212,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Chorus 1. LAW pid = block_id + 134 (here 78 + 134 = 212), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW device-verified (CC#23 set then reverted to NONE). Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Crossover 1",
+     "param_id": 276,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Crossover 1. LAW pid = block_id + 134 (here 142 + 134 = 276), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Delay 1",
+     "param_id": 204,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Delay 1. LAW pid = block_id + 134 (here 70 + 134 = 204), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Drive 1",
+     "param_id": 252,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Drive 1. LAW pid = block_id + 134 (here 118 + 134 = 252), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- DynaDist 1",
+     "param_id": 336,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for DynaDist 1. LAW pid = block_id + 134 (here 202 + 134 = 336), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Enhancer 1",
+     "param_id": 256,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Enhancer 1. LAW pid = block_id + 134 (here 122 + 134 = 256), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- FB Return 1",
+     "param_id": 320,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for FB Return 1. LAW pid = block_id + 134 (here 186 + 134 = 320), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- FB Send 1",
+     "param_id": 316,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for FB Send 1. LAW pid = block_id + 134 (here 182 + 134 = 316), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Filter 1",
+     "param_id": 248,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Filter 1. LAW pid = block_id + 134 (here 114 + 134 = 248), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Flanger 1",
+     "param_id": 216,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Flanger 1. LAW pid = block_id + 134 (here 82 + 134 = 216), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Formant 1",
+     "param_id": 232,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Formant 1. LAW pid = block_id + 134 (here 98 + 134 = 232), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Gate/Expander 1",
+     "param_id": 280,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Gate/Expander 1. LAW pid = block_id + 134 (here 146 + 134 = 280), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Looper 1",
+     "param_id": 300,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Looper 1. LAW pid = block_id + 134 (here 166 + 134 = 300), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Megatap 1",
+     "param_id": 272,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Megatap 1. LAW pid = block_id + 134 (here 138 + 134 = 272), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Mixer 1",
+     "param_id": 260,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Mixer 1. LAW pid = block_id + 134 (here 126 + 134 = 260), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Multiband Comp 1",
+     "param_id": 288,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Multiband Comp 1. LAW pid = block_id + 134 (here 154 + 134 = 288), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Multitap 1",
+     "param_id": 208,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Multitap 1. LAW pid = block_id + 134 (here 74 + 134 = 208), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Multiplexer 1",
+     "param_id": 325,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Multiplexer 1. LAW pid = block_id + 134 (here 191 + 134 = 325), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Phaser 1",
+     "param_id": 224,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Phaser 1. LAW pid = block_id + 134 (here 90 + 134 = 224), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Pitch 1",
+     "param_id": 244,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Pitch 1. LAW pid = block_id + 134 (here 110 + 134 = 244), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Plex Delay 1",
+     "param_id": 312,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Plex Delay 1. LAW pid = block_id + 134 (here 178 + 134 = 312), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Resonator 1",
+     "param_id": 296,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Resonator 1. LAW pid = block_id + 134 (here 162 + 134 = 296), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Reverb 1",
+     "param_id": 200,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Reverb 1. LAW pid = block_id + 134 (here 66 + 134 = 200), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Ring Mod 1",
+     "param_id": 284,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Ring Mod 1. LAW pid = block_id + 134 (here 150 + 134 = 284), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Rotary 1",
+     "param_id": 220,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Rotary 1. LAW pid = block_id + 134 (here 86 + 134 = 220), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- RTA 1",
+     "param_id": 308,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for RTA 1. LAW pid = block_id + 134 (here 174 + 134 = 308), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Synth 1",
+     "param_id": 264,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Synth 1. LAW pid = block_id + 134 (here 130 + 134 = 264), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Ten-Tap Delay 1",
+     "param_id": 292,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Ten-Tap Delay 1. LAW pid = block_id + 134 (here 158 + 134 = 292), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Tone Match 1",
+     "param_id": 304,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Tone Match 1. LAW pid = block_id + 134 (here 170 + 134 = 304), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Tremolo 1",
+     "param_id": 240,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Tremolo 1. LAW pid = block_id + 134 (here 106 + 134 = 240), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Vocoder 1",
+     "param_id": 268,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Vocoder 1. LAW pid = block_id + 134 (here 134 + 134 = 268), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Volume/Pan 1",
+     "param_id": 236,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Volume/Pan 1. LAW pid = block_id + 134 (here 102 + 134 = 236), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW carries a persistent owner assignment in the baseline census: 'CC #1'. Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Wah 1",
+     "param_id": 228,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Wah 1. LAW pid = block_id + 134 (here 94 + 134 = 228), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW carries a persistent owner assignment in the baseline census: 'CC #7'. Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- IR Player 1",
+     "param_id": 329,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for IR Player 1. LAW pid = block_id + 134 (here 195 + 134 = 329), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW = CONSISTENT-with-law (not individually SET-probed; the reserved table row Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Amp 2",
+     "param_id": 193,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Amp 2. LAW pid = block_id + 134 (here 59 + 134 = 193), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW device-verified (CC#21 set then reverted to NONE). Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Wah 2",
+     "param_id": 229,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Wah 2. LAW pid = block_id + 134 (here 95 + 134 = 229), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW carries a persistent owner assignment in the baseline census: 'CC #8'. Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
+    },
+    {
+     "name": "MIDI Bypass CC -- Volume/Pan 2",
+     "param_id": 237,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "midiremote",
+     "note": "(2026-07-24): MIDI Bypass CC assignment for Volume/Pan 2. LAW pid = block_id + 134 (here 103 + 134 = 237), DEVICE-VERIFIED at 4 points: Amp1 58->192, Amp2 59->193, Cab1 62->196, Chorus1 78->212 (each set->censused->reverted, final zero-diff census-A-REVERT.json). WIRE: 0-127 = CC #0-127, 128 = None-family (row census text 'NONE'; exact non-CC tail unverified, same caveat as the External sources). THIS ROW carries a persistent owner assignment in the baseline census: 'CC #2'. Instances 2-4 of each type occupy the next reserved ids (block_id+134+k); only the evidenced ones (Amp 2, Wah 2, Volume/Pan 2) are named here. SET = 01 09 raw index. AUTOSAVE."
     }
    ]
   },
@@ -20600,6 +21699,31 @@
      }
     }
    ]
+  },
+  "FCLAYOUT": {
+   "block_id": 199,
+   "block_id_hex": "0xC7",
+   "param_count": 2,
+   "complete": false,
+   "note": "Device-decoded -- NEW BLOCK id 199 = FC LAYOUT configuration (the Axe-Edit 'FC Edit' window). SYSTEM/config block: not a grid effect (not placeable/bypassable, no instances). Decoded: switch 1 Tap Category @ pid 0 (14-option enum: Unassigned/Bank/Preset/Scene/Effect/...), switch 1 Hold Category @ pid 972 (bank offset 972). Setting Tap/Hold also produced a SIDE-EFFECT write to pid 5602 (observed, unnamed -- likely a derived layout/state field). Set+revert verified (Effect/Scene -> Unassigned, reverted). *** NOT CONTROLSWITCHES (200) -- that block's UI surface is still unfound. Per-switch/per-category pid grid (switches 2-N, other action rows) NOT yet enumerated; complete stays FALSE.",
+   "params": [
+    {
+     "name": "Switch 1 Tap Category",
+     "param_id": 0,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "fclayout",
+     "note": "device decode (2026-07-24), set+revert verified (Effect/Scene -> Unassigned): FC switch Tap-action Category selector, 14-option enum incl. Unassigned / Bank / Preset / Scene / Effect / ... (full label set not transcribed). Per-switch Tap category lives at pid 0 for switch 1; Hold category at pid 972 (bank offset 972). SET = 01 09 float(idx). AUTOSAVE."
+    },
+    {
+     "name": "Switch 1 Hold Category",
+     "param_id": 972,
+     "type": "combo",
+     "scale": 1.0,
+     "page": "fclayout",
+     "note": "device decode (2026-07-24), set+revert verified: FC switch Hold-action Category selector (same 14-option enum as Tap @ pid 0). Bank offset 972 (Hold bank). SET = 01 09 float(idx). AUTOSAVE."
+    }
+   ]
   }
  },
  "_status": {
@@ -20617,6 +21741,7 @@
    "ENHANCER",
    "FBRETURN",
    "FBSEND",
+   "FCLAYOUT",
    "FILTER",
    "FLANGER",
    "FORMANT",
@@ -20652,6 +21777,10 @@
   ],
   "amp_model_ids": 331,
   "effect_blocks_note": "DRIVE/CAB/DELAY/REVERB/GATE are page-1 only; re-run for all pages, output <block>_full.json, switch its format to 'full' here.",
-  "remaining": "All 41 prior block types mapped + IR Player block id found (0xC3, params unmapped). 3 holdouts resolved: IR Player id, Flanger Bass Focus (pid26/0152), DynaCab Position 93-96 + Distance 97-100. Open: IR Player param map; verify whether other firmware-added params use the 01 52 alt-SET; DynaCab Distance exact scale."
+  "remaining": "All 41 prior block types mapped + IR Player block id found (0xC3, params unmapped). 3 holdouts resolved: IR Player id, Flanger Bass Focus (pid26/0152), DynaCab Position 93-96 + Distance 97-100. Open: IR Player param map; verify whether other firmware-added params use the 01 52 alt-SET; DynaCab Distance exact scale.",
+  "block_count": 46,
+  "named_param_count": 1921,
+  "last_updated": "2026-07-24",
+  "firmware": "32.02"
  }
 }
