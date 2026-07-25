@@ -89,9 +89,9 @@ confirmed, and which are still inferred rather than write-verified.
 - **Axe-Edit UI label capture.** The knob/label names the editor displays, captured via the
   accessibility layer and correlated to the underlying generic parameters — this is where the
   human-readable names and the display-label index come from.
-- **Passive traffic sniffing (newest).** Listening to the real SysEx the Axe-Edit editor exchanges
-  with the unit and decoding parameter IDs directly from that traffic — no writes to the device.
-  This method is how the most recent additions were identified.
+- **Additional custom tooling (newest).** Purpose-built tooling that identifies parameter IDs
+  without writing to the device, then cross-checks each one against the methods above. This is how
+  the most recent additions were identified, and what has sped the work up considerably.
 
 **On value encodings:** deriving the display↔wire scaling is a separate step from identifying a
 parameter. Many entries are addressable (ID, label, type, page, enum) before their scale is worked
