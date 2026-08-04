@@ -4,6 +4,50 @@ All notable changes to the Axe-Fx III SysEx & parameter maps. Everything here wa
 captured and verified on **firmware 32.02**. Param IDs, model IDs, and value scales are
 specific to that firmware; re-verify on your own unit before relying on anything critical.
 
+## 2026-08-03
+
+A correctness pass. **66 newly mapped parameters** (**1,921 → 1,987**), still **46 blocks**
+and still firmware **32.02**. The headline is not the new rows — it is **27 corrected names
+and 15 corrected value scales**, several of which fix entries that were previously wrong in
+a way that mattered.
+
+### ⚠ Corrections you should read before writing anything
+
+- **PLEX `pid 90` was named "Detune (Master)". It is not a detune control — it is `Presets`,
+  a 45-entry block-preset SELECTOR.** Writing a value to it does not nudge a detune amount;
+  it loads a block preset, which rewrites the Plex block's other parameters. If you built
+  anything against the previous name, treat that parameter as dangerous and re-check it.
+  Renamed, and its hazard raised accordingly.
+- **DELAY `pid 81`** was "Phase (Digital Mono)"; it is the block's **LFO 4 Phase**. Its value
+  is in **radians on the write path** while the display reads degrees — the two differ by
+  57.29578, so sending the number you see on screen is wrong by a factor of π.
+- **DELAY `pid 48`** loses its "Target" name and becomes `Unidentified (p48)`. The previous
+  name came from a mapping we could not reproduce; an honest unknown beats a confident
+  wrong label. (`pid 82` keeps `Target`, now without its misleading type qualifier.)
+- **GLOBAL `pids 9–12`** are the **Tuner Offset** settings (previously `Unknown (p9…p12)`),
+  each with a scale of 25.
+- **MULTITAP `pid 81`** was `Feedback (p81)`; it is `Comb Gain 1`, scale 100.
+
+### Value scales
+
+15 parameters gained or corrected a `scale`. Two shapes are worth calling out because they
+bite silently:
+
+- Several `%`-range parameters carry a **display range that is not the write divisor**. A
+  control shown as ±200 % can still want the value divided by **100** on the wire. Where we
+  have proven the divisor on the device, the scale in this map is the one to write with.
+- Phase-family parameters are **radians on the wire, degrees on the display** (57.29578).
+
+### Everything else
+
+- **+66 parameters** across the map, and 50 entries had their `status` updated (mostly rows
+  moving from provisional to verified, a few the other way when a witness did not hold up).
+- Notes throughout have been tightened. Nothing was removed from a note except internal
+  bookkeeping.
+
+**Not updated in this release:** `display_label_index.json` is unchanged pending its own
+review pass — the master map, word laws and the two device-relationship files are current.
+
 ## 2026-07-24
 
 A device-settings and coverage pass that adds **133 newly mapped parameters** to the master
