@@ -1,5 +1,5 @@
 {
- "_readme": "Display-value -> body wire-word laws for raw-display params (map scale==1, no encoding). word = round_half_up(normalized*65534). taper: linear = (v-min)/(max-min); log = log10(v/min)/log10(max/min); int-raw = word IS the raw integer value (stepped kind 0x10; negatives refused pending device verify). confidence 'unknown' entries are refused by the builder. Ranges sourced 2026-07-16 from Axe-Edit's firmware-authoritative effectDefinitions_10_32p2.cache (FW 32.02, decoded via AxeBlockEdit Tools/decode_iii_effectdefs.py; layout validated against 3 device-proven map encodings) + repo device anchors; see blob_build_findings.md. Family names = preset_body_decode grid families.",
+ "_readme": "Display-value -> body wire-word laws for raw-display params (map scale==1, no encoding). word = round_half_up(normalized*65534). taper: linear = (v-min)/(max-min); log = log10(v/min)/log10(max/min); int-raw = word IS the raw integer value (stepped kind 0x10; negatives refused pending device verify). confidence 'unknown' entries are refused by the builder. Ranges sourced 2026-07-16 from Axe-Edit's firmware-authoritative effectDefinitions_10_32p2.cache (FW 32.02, decoded via a cross-reference tool; layout validated against 3 device-proven map encodings) + repo device anchors. Family names = preset_body_decode grid families.",
  "laws": [
   {
    "family": "Amp",
@@ -99,7 +99,7 @@
    "units": "dB",
    "taper": "linear",
    "confidence": "documented",
-   "source": "cache effect12 pid7 kind 0x162 [-40,10]; conflicts AxeBlockEdit store [-80,20] \u2014 firmware cache preferred"
+   "source": "cache effect12 pid7 kind 0x162 [-40,10]; conflicts AxeBlockEdit store [-80,20] — firmware cache preferred"
   },
   {
    "family": "Reverb",
@@ -159,7 +159,7 @@
    "units": "Hz",
    "taper": "log",
    "confidence": "documented",
-   "source": "cache effect25 pid14 kind 0x241 [200,2000] 1-decade; conflicts store 20-20000 \u2014 firmware cache preferred"
+   "source": "cache effect25 pid14 kind 0x241 [200,2000] 1-decade; conflicts store 20-20000 — firmware cache preferred"
   },
   {
    "family": "Megatap",
