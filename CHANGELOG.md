@@ -45,8 +45,8 @@ bite silently:
 - Notes throughout have been tightened. Nothing was removed from a note except internal
   bookkeeping.
 
-**Not updated in this release:** `display_label_index.json` is unchanged pending its own
-review pass — the master map, word laws and the two device-relationship files are current.
+`display_label_index.json` is updated too — 45 blocks, 1,101 display-label translations and
+631 per-model entries, unchanged in shape. **Every file in this release is current.**
 
 ## 2026-07-24
 
